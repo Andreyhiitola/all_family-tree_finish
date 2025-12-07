@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Семейное древо</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Семейное древо</h1>
+    <div class="header-controls">
+      <button id="add-person">➕ Добавить</button>
+      <button id="show-data-table">📋 Таблица</button>
+      <button id="import-excel">📥 Excel</button>
+      <button id="export-excel">📤 Excel</button>
+      <button id="export-json">📤 JSON</button>
+      <button id="clear-data">🗑 Очистить</button>
+      <input id="search" placeholder="🔍 Поиск...">
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="tree-section">
+      <div class="tree-container">
+        <svg id="tree-svg" width="1200" height="800"></svg>
+      </div>
+      <div id="auto-save-status">💾 Автосохранение</div>
+    </section>
+
+    <aside class="info-panel">
+      <div class="info-placeholder">👆 Кликните по человеку в дереве</div>
+      <div class="person-details" style="display:none">
+        <h2><span data-field="name"></span> <span data-field="surname"></span></h2>
+        <p>Пол: <span data-field="gender"></span></p>
+        <p>Родился: <span data-field="birthDate"></span></p>
+        <p>Умер: <span data-field="deathDate"></span></p>
+        <p>Место: <span data-field="birthPlace"></span></p>
+        <p>Отчество: <span data-field="middlename"></span></p>
+        <div class="person-actions">
+          <button id="edit-person">✏️ Редактировать</button>
+          <button id="delete-person">🗑 Удалить</button>
+        </div>
+      </div>
+      <div class="stats">
+        <p>👥 Всего: <span id="total-people">0</span></p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- МОДАЛКИ (сокращённые для примера) -->
+  <div id="person-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cancel-form">×</span>
+      <h2 id="modal-title">Новый человек</h2>
+      <form id="person-form">
+        <input type="hidden" id="form-id">
+        <div class="form-row"><label>Имя</label><input id="form-name" required></div>
+        <div class="form-row"><label>Фамилия</label><input id="form-surname" required></div>
+        <div class="form-row"><label>Пол</label><select id="form-gender"><option value="M">М</option><option value="F">Ж</option></select></div>
+        <div class="form-row"><label>Отец</label><select id="form-father"><option>—</option></select></div>
+        <div class="form-row"><label>Мать</label><select id="form-mother"><option>—</option></select></div>
+        <div class="form-row"><label>Супруг</label><select id="form-spouse"><option>—</option></select></div>
+        <button type="submit">💾 Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="data-table-modal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close">×</span>
+      <h2>📋 Таблица</h2>
+      <table id="data-table"><thead><tr><th>ID</th><th>Имя</th><th>Действия</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <!-- ✅ ЛОКАЛЬНЫЕ БИБЛИОТЕКИ -->
+  <script src="d3.v7.min.js"></script>
+  <script src="xlsx.full.min.js"></script>
+  <script src="FileSaver.min.js"></script>
+
+  <!-- ТВОИ ФАЙЛЫ -->
+  <script src="src/core/DataManager.js"></script>
+  <script src="src/core/FamilyTree.js"></script>
+  <script src="src/core/TreeVisualizer.js"></script>
+  <script src="src/utils/importExcel.js"></script>
+  <script src="src/utils/exportExcel.js"></script>
+  <script src="src/utils/exportJson.js"></script>
+  <script src="src/ui/notifications.js"></script>
+  <script src="src/ui/forms.js"></script>
+  <script src="src/ui/table.js"></script>
+  <script src="src/ui/modals.js"></script>
+  <script src="src/ui/app.js"></script>
+</body>
+</html>
