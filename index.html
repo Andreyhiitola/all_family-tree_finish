@@ -14,6 +14,12 @@
       <button id="show-data-table">📋 Таблица</button>
       <button id="import-excel">📥 Excel-import</button>
       <button id="export-excel">📤 Excel-export</button>
+      <label class="btn">
+       📄 Импорт JSON
+  <input type="file" accept=".json" onchange="window.importJsonFile(event)" hidden>
+</label>
+<button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
+
       <button id="clear-data">🗑 Очистить</button>
       <input id="search" placeholder="🔍 Поиск...">
     </div>
@@ -203,6 +209,7 @@
   <script src="d3.v7.min.js"></script>
   <script src="xlsx.full.min.js"></script>
   <script src="FileSaver.min.js"></script>
+<script src="src/utils/dataStorage.js"></script>
 
   <script src="src/core/DataManager.js"></script>
   <script src="src/core/FamilyTree.js"></script>
@@ -214,9 +221,6 @@
   <script src="src/ui/table.js"></script>
   <script src="src/ui/modals.js"></script>
   <script src="src/ui/app.js"></script>
-  <script src="src/utils/dataStorage.js"></script>
-  <script src="src/utils/importExcel.js"></script> 
-  <script src="src/utils/exportExcel.js"></script>
 
 </body>
 </html>
