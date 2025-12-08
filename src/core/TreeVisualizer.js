@@ -54,6 +54,10 @@ class TreeVisualizer {
       .join('circle')
       .attr('r', 28)  // Увеличили радиус под ФИО
       .attr('class', d => `node node-${d.data.gender || 'male'}`)
+      .attr('fill', d => d.data.gender === 'M' ? '#4A90E2' : '#E91E63')  // Синий для М, розовый для Ж
+      .attr('stroke', '#333')
+      .attr('stroke-width', 2)
+
 
     // ✅ ФИО В КРУЖКЕ (2 строки)
     nodeGroups.selectAll('text.name')

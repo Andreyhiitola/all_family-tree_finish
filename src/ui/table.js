@@ -1,22 +1,50 @@
-window.renderPeopleTable = function renderPeopleTable(people) {
-  const table = document.getElementById('data-table')
-  const tbody = table.querySelector('tbody')
-  tbody.innerHTML = ''
-  const byId = new Map(people.map(p => [p.id, p]))
-  const sorted = [...people].sort((a, b) => a.id - b.id)
-  for (const p of sorted) {
-    const tr = document.createElement('tr')
-    const father = p.fatherId ? byId.get(p.fatherId) : null
-    const mother = p.motherId ? byId.get(p.motherId) : null
-    const spouse = p.spouseId ? byId.get(p.spouseId) : null
-    tr.innerHTML = `
-      <td>${p.id}</td><td>${p.name}</td><td>${p.surname}</td><td>${p.middlename||''}</td>
-      <td>${p.gender==='M'?'М':'Ж'}</td><td>${p.birthDate||''}</td><td>${p.deathDate||''}</td>
-      <td>${father?`${father.name} ${father.surname}(${father.id})`:''}</td>
-      <td>${mother?`${mother.name} ${mother.surname}(${mother.id})`:''}</td>
-      <td>${spouse?`${spouse.name} ${spouse.surname}(${spouse.id})`:''}</td>
-      <td><button class="btn-edit" data-id="${p.id}">✏</button><button class="btn-delete" data-id="${p.id}">🗑</button></td>
-    `
-    tbody.appendChild(tr)
+function renderPeopleTable(people) {
+  const tbody = document.querySelector('#data-table tbody')
+  if (!tbody) return
+
+  tbody.innerHTML = '' // Очищаем
+
+  if (people.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4">Нет данных</td></tr>'
+    return
   }
+
+  people.forEach(person => {
+    const row = document.createElement('tr')
+    row.innerHTML = `
+      <td>${person.id}</td>
+      <td>${person.name}</td>
+      <td>${person.surname}</td>
+      <td>
+        <button class="btn-view" data-id="${person.id}">👁 Показать</button>
+        <button class="btn-edit" data-id="${person.id}">✏️ Ред.</button>
+      </td>
+    `
+    tbody.appendChild(row)
+  })
+
+  // Обработчики кнопок
+  tbody.querySelectorAll('.btn-view').forEach(btn => {
+    btn.onclick = () => {
+      const id = parseInt(btn.dataset.id)
+      // Закрываем модалку
+      document.getElementById('data-table-modal').style.display = 'none'
+      // Строим дерево от выбранного человека
+      if (window.appInstance) {
+        window.appInstance.setRootAndRender(id)
+      }
+    }
+  })
+
+  tbody.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.onclick = () => {
+      const id = parseInt(btn.dataset.id)
+      document.getElementById('data-table-modal').style.display = 'none'
+      if (window.appInstance) {
+        window.appInstance.openPersonForm(id)
+      }
+    }
+  })
 }
+
+window.renderPeopleTable = renderPeopleTable

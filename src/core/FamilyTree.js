@@ -5,32 +5,34 @@ class FamilyTreeCore {
 
   setPeople(people) {
     this.people = people || []
-    console.log('🔄 FamilyTree: перестраиваем индексы для', this.people.length, 'человек')
+    console.log('🔄 FamilyTree: индексация', this.people.length, 'человек')
     
-    // Индекс по ID
+    // 1. Индекс всех людей по ID для быстрого поиска
     this.byId = new Map()
     this.people.forEach(p => this.byId.set(p.id, p))
     
-    // ДЕТИ ПО РОДИТЕЛЯМ (исправлено!)
+    // 2. Индекс детей по родителям (Map: parentId -> [child1, child2])
     this.childrenByParentId = new Map()
+
     this.people.forEach(child => {
-      // Проверяем fatherId И motherId
-      if (child.fatherId) {
-        if (!this.childrenByParentId.has(child.fatherId)) {
-          this.childrenByParentId.set(child.fatherId, [])
+      // Собираем всех родителей ребенка (отец + мать), исключая null/0
+      const parentIds = [child.fatherId, child.motherId].filter(pid => pid)
+
+      parentIds.forEach(parentId => {
+        // ВАЖНО: Проверяем, существует ли такой родитель в базе вообще?
+        // Это защищает от "битых" ссылок, когда fatherId=999, а человека 999 нет.
+        if (this.byId.has(parentId)) {
+            if (!this.childrenByParentId.has(parentId)) {
+                this.childrenByParentId.set(parentId, [])
+            }
+            // Добавляем ребенка в список этого родителя
+            // (можно добавить проверку на дубликаты, но обычно не требуется)
+            this.childrenByParentId.get(parentId).push(child)
         }
-        this.childrenByParentId.get(child.fatherId).push(child)
-      }
-      if (child.motherId) {
-        if (!this.childrenByParentId.has(child.motherId)) {
-          this.childrenByParentId.set(child.motherId, [])
-        }
-        this.childrenByParentId.get(child.motherId).push(child)
-      }
+      })
     })
     
-    console.log('👨‍👩‍👧‍👦 Найдено детей по родителям:', this.childrenByParentId.size)
-    console.log('Пример для ID=1:', this.childrenByParentId.get(1) || 'нет детей')
+    console.log('👨‍👩‍👧‍👦 Индекс связей построен. Родителей с детьми:', this.childrenByParentId.size)
   }
 
   getPersonById(id) { 
@@ -38,21 +40,25 @@ class FamilyTreeCore {
   }
 
   getChildrenOf(id) { 
-    const children = this.childrenByParentId.get(id) || []
-    console.log('🔍 Дети ID', id, ':', children.length, 'чел.')
-    return children
+    // Возвращаем массив детей или пустой массив
+    return this.childrenByParentId.get(id) || []
   }
 
   buildDescendantsHierarchy(rootId) {
     const root = this.getPersonById(rootId)
     if (!root) {
-      console.warn('❌ Корень не найден:', rootId)
+      console.warn('❌ Корень не найден в индексе:', rootId)
       return null
     }
     
-    console.log('🌳 Строим дерево от', root.name, root.surname)
-    
-    const buildNode = (person) => {
+    // Рекурсивная функция построения
+    const buildNode = (person, depth) => {
+      // Защита от бесконечной рекурсии (если кто-то указал отца своим сыном)
+      if (depth > 50) {
+          console.error('⚠️ Обнаружен цикл или слишком большая вложенность!', person)
+          return { id: person.id, name: person.name, _error: 'cycle' }
+      }
+
       const node = {
         id: person.id,
         name: person.name,
@@ -62,10 +68,12 @@ class FamilyTreeCore {
       }
 
       const children = this.getChildrenOf(person.id)
-      console.log(`  👶 У ${person.name} ${person.surname} ${children.length} детей`)
       
+      // Сортируем детей по дате рождения (если есть), чтобы дерево было красивее
+      children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
+
       children.forEach(child => {
-        node.children.push(buildNode(child))
+        node.children.push(buildNode(child, depth + 1))
       })
 
       if (node.children.length === 0) {
@@ -74,10 +82,11 @@ class FamilyTreeCore {
       return node
     }
 
-    const tree = buildNode(root)
-    console.log('✅ Дерево построено:', tree)
+    console.log(`🌳 Строим дерево потомков для: ${root.name} ${root.surname} (ID: ${root.id})`)
+    const treeData = buildNode(root, 0)
     
-    return d3.hierarchy(tree, node => node.children || [])
+    // Превращаем в D3 иерархию
+    return d3.hierarchy(treeData, d => d.children || [])
   }
 }
 window.FamilyTreeCore = FamilyTreeCore

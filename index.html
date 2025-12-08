@@ -12,10 +12,11 @@
     <div class="header-controls">
       <button id="add-person">➕ Добавить</button>
       <button id="show-data-table">📋 Таблица</button>
-      <button id="import-excel">📥 Excel</button>
-      <button id="export-excel">📤 Excel</button>
-      <button id="export-json">📤 JSON</button>
+      <button id="import-excel">📥 Excel-import</button>
+      <button id="export-excel">📤 Excel-export</button>
       <button id="clear-data">🗑 Очистить</button>
+      <button id="show-full-tree">🌳 Полное дерево</button>
+
       <input id="search" placeholder="🔍 Поиск...">
     </div>
   </header>
@@ -29,14 +30,13 @@
     </section>
 
     <aside class="info-panel">
-      <div class="info-placeholder">👆 Кликните по человеку в дереве</div>
+      <div class="info-placeholder">👆 Кликните по человеку</div>
       <div class="person-details" style="display:none">
         <h2><span data-field="name"></span> <span data-field="surname"></span></h2>
         <p>Пол: <span data-field="gender"></span></p>
         <p>Родился: <span data-field="birthDate"></span></p>
         <p>Умер: <span data-field="deathDate"></span></p>
         <p>Место: <span data-field="birthPlace"></span></p>
-        <p>Отчество: <span data-field="middlename"></span></p>
         <div class="person-actions">
           <button id="edit-person">✏️ Редактировать</button>
           <button id="delete-person">🗑 Удалить</button>
@@ -48,44 +48,118 @@
     </aside>
   </main>
 
-  <!-- МОДАЛКИ (сокращённые для примера) -->
+  <!-- ✅ ВОТ ЭТОГО НЕ ХВАТАЛО: Модальное окно редактирования -->
   <div id="person-modal" class="modal">
     <div class="modal-content">
-      <span class="close" id="cancel-form">×</span>
-      <h2 id="modal-title">Новый человек</h2>
+      <span class="close" id="cancel-form">&times;</span>
+      <h2 id="modal-title">Персона</h2>
       <form id="person-form">
         <input type="hidden" id="form-id">
-        <div class="form-row"><label>Имя</label><input id="form-name" required></div>
-        <div class="form-row"><label>Фамилия</label><input id="form-surname" required></div>
-        <div class="form-row"><label>Пол</label><select id="form-gender"><option value="M">М</option><option value="F">Ж</option></select></div>
-        <div class="form-row"><label>Отец</label><select id="form-father"><option>—</option></select></div>
-        <div class="form-row"><label>Мать</label><select id="form-mother"><option>—</option></select></div>
-        <div class="form-row"><label>Супруг</label><select id="form-spouse"><option>—</option></select></div>
-        <button type="submit">💾 Сохранить</button>
+        
+        <div class="form-row">
+          <label>Имя:</label>
+          <input type="text" id="form-name" required>
+        </div>
+        <div class="form-row">
+          <label>Фамилия:</label>
+          <input type="text" id="form-surname" required>
+        </div>
+        <div class="form-row">
+          <label>Отчество:</label>
+          <input type="text" id="form-middlename">
+        </div>
+        <div class="form-row">
+          <label>Пол:</label>
+          <select id="form-gender">
+            <option value="M">Мужской</option>
+            <option value="F">Женский</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Дата рождения:</label>
+          <input type="date" id="form-birthDate">
+        </div>
+        <div class="form-row">
+          <label>Дата смерти:</label>
+          <input type="date" id="form-deathDate">
+        </div>
+        <div class="form-row">
+          <label>Место рождения:</label>
+          <input type="text" id="form-birthPlace">
+        </div>
+        
+        <!-- Связи -->
+        <div class="form-row">
+            <label>Отец:</label>
+            <select id="form-father"><option value="">Нет</option></select>
+        </div>
+        <div class="form-row">
+            <label>Мать:</label>
+            <select id="form-mother"><option value="">Нет</option></select>
+        </div>
+        <div class="form-row">
+            <label>Супруг(а):</label>
+            <select id="form-spouse"><option value="">Нет</option></select>
+        </div>
+
+        <!-- Доп поля (чтобы JS не ругался если они есть в коде) -->
+        <input type="hidden" id="form-biography">
+        <input type="hidden" id="form-photo">
+
+        <div class="form-buttons">
+            <button type="submit">Сохранить</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- Модальное окно Таблицы -->
   <div id="data-table-modal" class="modal">
     <div class="modal-content modal-large">
-      <span class="close">×</span>
-      <h2>📋 Таблица</h2>
-      <table id="data-table"><thead><tr><th>ID</th><th>Имя</th><th>Действия</th></tr></thead><tbody></tbody></table>
+        <span class="close">&times;</span>
+        <h2>Таблица данных</h2>
+        <div style="overflow:auto; max-height:400px;">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
   </div>
 
-  <!-- ✅ ЛОКАЛЬНЫЕ БИБЛИОТЕКИ -->
+  <!-- Модальное окно Импорта -->
+  <div id="import-modal" class="modal">
+      <div class="modal-content">
+          <span class="close" id="cancel-import">&times;</span>
+          <h2>Импорт Excel</h2>
+          <input type="file" id="excel-file" accept=".xlsx, .xls">
+      </div>
+  </div>
+
+  <!-- Модальное окно Удаления -->
+  <div id="delete-modal" class="modal">
+      <div class="modal-content">
+          <span class="close" id="cancel-delete">&times;</span>
+          <h2>Подтверждение</h2>
+          <p id="delete-message">Вы уверены?</p>
+          <button id="confirm-delete" style="background:red; color:white;">Удалить</button>
+      </div>
+  </div>
+
+  <!-- Скрипты -->
   <script src="d3.v7.min.js"></script>
   <script src="xlsx.full.min.js"></script>
   <script src="FileSaver.min.js"></script>
 
-  <!-- ТВОИ ФАЙЛЫ -->
   <script src="src/core/DataManager.js"></script>
   <script src="src/core/FamilyTree.js"></script>
   <script src="src/core/TreeVisualizer.js"></script>
   <script src="src/utils/importExcel.js"></script>
   <script src="src/utils/exportExcel.js"></script>
-  <script src="src/utils/exportJson.js"></script>
   <script src="src/ui/notifications.js"></script>
   <script src="src/ui/forms.js"></script>
   <script src="src/ui/table.js"></script>

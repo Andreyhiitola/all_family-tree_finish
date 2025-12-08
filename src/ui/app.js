@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('🚀 Family Tree App v3 starting...')
+  console.log('🚀 Family Tree App starting...')
 
   const dataManager = new window.DataManager()
   await dataManager.init()
-  console.log(`📊 Загружено ${dataManager.getPeople().length} человек`)
-
+  
   const familyTree = new window.FamilyTreeCore(dataManager.getPeople())
-  let currentRootId = dataManager.getPeople()[0]?.id || null
+  let currentRootId = null
+
+  if (dataManager.getPeople().length > 0) {
+    currentRootId = dataManager.getPeople()[0].id
+  }
+
   let selectedPersonId = currentRootId
   let personToDelete = null
 
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     svgSelector: '#tree-svg',
     familyTree,
     onNodeClick: (id) => {
-      console.log('👆 Клик:', id)
+      console.log('👆 Клик по человеку:', id)
       selectedPersonId = id
       currentRootId = id
       treeViz.render(currentRootId)
@@ -23,50 +27,91 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   function refreshAll() {
-    familyTree.setPeople(dataManager.getPeople())
-    if (currentRootId == null && dataManager.getPeople().length > 0) {
-      currentRootId = dataManager.getPeople()[0].id
+    const people = dataManager.getPeople()
+    console.log('🔄 refreshAll: людей в базе:', people.length)
+    
+    familyTree.setPeople(people)
+
+    if (people.length === 0) {
+      console.warn('⚠️ Нет людей — дерево не построить')
+      currentRootId = null
+      return
     }
-    if (currentRootId != null) treeViz.render(currentRootId)
+
+    let rootPerson = people.find(p => p.id === currentRootId)
+    
+    if (!rootPerson) {
+      const roots = people.filter(p => !p.fatherId && !p.motherId)
+      
+      if (roots.length > 0) {
+        rootPerson = roots[0]
+        console.log('🌳 Автоматически выбран корень (без родителей):', rootPerson.name, rootPerson.surname)
+      } else {
+        rootPerson = people[0]
+        console.warn('⚠️ Все люди имеют родителей. Беру первого из списка:', rootPerson.name)
+      }
+      currentRootId = rootPerson.id
+    }
+
+    console.log('🌳 Строю дерево от Root ID:', currentRootId)
+    treeViz.render(currentRootId)
+    updatePersonInfo(currentRootId)
     updateStats()
   }
 
   function updatePersonInfo(id) {
     const person = dataManager.getPeople().find(p => p.id === id)
+    
     const placeholder = document.querySelector('.info-placeholder')
     const details = document.querySelector('.person-details')
 
-    if (!person || !details) {
-      if (placeholder) placeholder.style.display = 'flex'
-      if (details) details.style.display = 'none'
+    if (!placeholder || !details) return
+
+    if (!person) {
+      placeholder.style.display = 'flex'
+      details.style.display = 'none'
       return
     }
 
-    if (placeholder) placeholder.style.display = 'none'
+    placeholder.style.display = 'none'
     details.style.display = 'block'
-    details.querySelector('[data-field="name"]').textContent = person.name || ''
-    details.querySelector('[data-field="surname"]').textContent = person.surname || ''
-    details.querySelector('[data-field="gender"]').textContent = person.gender === 'M' ? 'Мужской' : 'Женский'
-    details.querySelector('[data-field="birthDate"]').textContent = person.birthDate || '-'
-    details.querySelector('[data-field="deathDate"]').textContent = person.deathDate || '-'
-    details.querySelector('[data-field="birthPlace"]').textContent = person.birthPlace || '-'
-    details.querySelector('[data-field="middlename"]').textContent = person.middlename || '-'
-    const bioEl = details.querySelector('[data-field="biography"]')
-    if (bioEl) bioEl.textContent = person.biography || ''
+
+    const setText = (selector, value) => {
+      const el = details.querySelector(selector)
+      if (el) {
+        el.textContent = value || '-'
+      }
+    }
+
+    setText('[data-field="name"]', person.name)
+    setText('[data-field="surname"]', person.surname)
+    setText('[data-field="middlename"]', person.middlename)
+    setText('[data-field="gender"]', person.gender === 'M' ? 'Мужской' : 'Женский')
+    setText('[data-field="birthDate"]', person.birthDate)
+    setText('[data-field="deathDate"]', person.deathDate)
+    setText('[data-field="birthPlace"]', person.birthPlace)
+    setText('[data-field="biography"]', person.biography)
+
+    const btnEdit = document.getElementById('edit-person')
+    const btnDelete = document.getElementById('delete-person')
+
+    if (btnEdit) btnEdit.onclick = () => app.openPersonForm(id)
+    if (btnDelete) btnDelete.onclick = () => app.askDeletePerson(id)
   }
 
   function updateStats() {
     const el = document.getElementById('total-people')
-    if (el) el.textContent = dataManager.getPeople().length
+    if (el) {
+      el.textContent = dataManager.getPeople().length
+    }
   }
 
   const app = {
     openPersonForm(id) {
       const modal = document.getElementById('person-modal')
       if (!modal) return
+
       const title = document.getElementById('modal-title')
-      if (title) title.textContent = id ? 'Редактировать' : 'Добавить'
-      
       const people = dataManager.getPeople()
       const person = id ? people.find(p => p.id === id) : null
 
@@ -74,39 +119,50 @@ document.addEventListener('DOMContentLoaded', async () => {
       const motherSel = document.getElementById('form-mother')
       const spouseSel = document.getElementById('form-spouse')
       
-      if (fatherSel) fatherSel.innerHTML = '<option value="">— отец —</option>'
-      if (motherSel) motherSel.innerHTML = '<option value="">— мать —</option>'
-      if (spouseSel) spouseSel.innerHTML = '<option value="">— супруг —</option>'
+      const updateSelect = (sel, genderFilter) => {
+        if (!sel) return
+        sel.innerHTML = sel.dataset.default || '<option value="">— не указан —</option>'
+        people.forEach(p => {
+          if (person && p.id === person.id) return
+          if (genderFilter && p.gender !== genderFilter) return
+          sel.add(new Option(`${p.name} ${p.surname} (ID: ${p.id})`, p.id))
+        })
+      }
 
-      people.forEach(p => {
-        if (person && p.id === person.id) return
-        const text = `${p.name} ${p.surname} (${p.id})`
-        if (fatherSel && p.gender === 'M') fatherSel.add(new Option(text, p.id))
-        if (motherSel && p.gender === 'F') motherSel.add(new Option(text, p.id))
-        if (spouseSel) spouseSel.add(new Option(text, p.id))
-      })
+      updateSelect(fatherSel, 'M')
+      updateSelect(motherSel, 'F')
+      updateSelect(spouseSel, null)
 
-      window.fillPersonFormFromData(person)
+      if (window.fillPersonFormFromData) {
+        window.fillPersonFormFromData(person)
+      }
+      
+      if (title) title.textContent = person ? `Редактировать: ${person.name}` : 'Добавить человека'
       modal.style.display = 'block'
     },
 
     savePersonFromForm() {
+      if (!window.readPersonFromForm) return
       const person = window.readPersonFromForm()
       dataManager.upsertPerson(person)
+      
       const modal = document.getElementById('person-modal')
       if (modal) modal.style.display = 'none'
-      window.showNotification(person.id ? '✅ Сохранено' : '➕ Добавлено', 'success')
+      
+      if (window.showNotification) window.showNotification(person.id ? 'Сохранено' : 'Добавлено', 'success')
       refreshAll()
     },
 
     askDeletePerson(id) {
       personToDelete = id
       const p = dataManager.getPeople().find(x => x.id === id)
-      const msgEl = document.getElementById('delete-message')
-      if (msgEl && p) {
-        msgEl.innerHTML = `Удалить <b>${p.name} ${p.surname}</b> (ID: ${p.id})?`
-        document.getElementById('delete-modal').style.display = 'block'
+      const msg = document.getElementById('delete-message')
+      const modal = document.getElementById('delete-modal')
+      
+      if (msg && p) {
+        msg.innerHTML = `Удалить <b>${p.name} ${p.surname}</b> (ID: ${p.id})?`
       }
+      if (modal) modal.style.display = 'block'
     },
 
     confirmDeletePerson() {
@@ -115,58 +171,76 @@ document.addEventListener('DOMContentLoaded', async () => {
         const modal = document.getElementById('delete-modal')
         if (modal) modal.style.display = 'none'
         personToDelete = null
-        window.showNotification('🗑 Удалено', 'success')
+        if (window.showNotification) window.showNotification('Удалено', 'success')
         refreshAll()
       }
     },
 
     refreshTable() {
-      window.renderPeopleTable(dataManager.getPeople())
+      if (window.renderPeopleTable) {
+        window.renderPeopleTable(dataManager.getPeople())
+      }
+    },
+
+    setRootAndRender(id) {
+      console.log('🔄 Переключаем корень на ID:', id)
+      currentRootId = id
+      selectedPersonId = id
+      refreshAll()
     }
   }
 
-  // ✅ БЕЗОПАСНАЯ привязка кнопок
-  const addBtn = document.getElementById('add-person')
-  if (addBtn) addBtn.onclick = () => app.openPersonForm(null)
+  window.appInstance = app
 
-  const exportExcelBtn = document.getElementById('export-excel')
-  if (exportExcelBtn) exportExcelBtn.onclick = () => window.exportPeopleToExcel(dataManager.getPeople())
+  if (window.initModals) {
+    window.initModals(app)
+  }
 
-  const tableBtn = document.getElementById('show-data-table')
-  if (tableBtn) tableBtn.onclick = () => { app.refreshTable(); document.getElementById('data-table-modal').style.display = 'block' }
+  const btnAdd = document.getElementById('add-person')
+  if (btnAdd) btnAdd.onclick = () => app.openPersonForm(null)
 
-  const clearBtn = document.getElementById('clear-data')
-  if (clearBtn) clearBtn.onclick = () => {
-    if (confirm('🗑 Очистить ВСЕ данные?')) {
+  const btnShowTable = document.getElementById('show-data-table')
+  if (btnShowTable) {
+    btnShowTable.onclick = () => {
+      app.refreshTable()
+      const modal = document.getElementById('data-table-modal')
+      if (modal) modal.style.display = 'block'
+    }
+  }
+
+  const btnExport = document.getElementById('export-excel')
+  if (btnExport) btnExport.onclick = () => window.exportPeopleToExcel && window.exportPeopleToExcel(dataManager.getPeople())
+
+  const btnClear = document.getElementById('clear-data')
+  if (btnClear) btnClear.onclick = () => {
+    if (confirm('Очистить все данные?')) {
       dataManager.clearAll()
       refreshAll()
-      window.showNotification('Очищено', 'success')
+      if (window.showNotification) window.showNotification('Очищено', 'success')
     }
   }
-
-  // ✅ Excel импорт (БЕЗОБРАЗНО безопасно)
+  
   const excelInput = document.getElementById('excel-file')
   if (excelInput) {
     excelInput.onchange = async (e) => {
       const file = e.target.files[0]
-      if (!file) return
-      try {
-        const people = await window.importExcelToPeople(file)
-        dataManager.setPeople(people)
-        refreshAll()
-        const modal = document.getElementById('import-modal')
-        if (modal) modal.style.display = 'none'
-        window.showNotification(`📥 Импорт: ${people.length}`, 'success')
-      } catch(e) {
-        window.showNotification('❌ Ошибка Excel', 'error')
+      if (file && window.importExcelToPeople) {
+        try {
+          const people = await window.importExcelToPeople(file)
+          dataManager.setPeople(people)
+          refreshAll()
+          document.getElementById('import-modal').style.display = 'none'
+          if (window.showNotification) window.showNotification(`Импорт: ${people.length} человек`, 'success')
+        } catch (e) {
+          console.error(e)
+          if (window.showNotification) window.showNotification('Ошибка Excel', 'error')
+        }
       }
     }
   }
 
-  // Инициализация модалок (если есть)
-  if (window.initModals) window.initModals(app)
-
   dataManager.startAutoSave(10000)
+
   refreshAll()
-  console.log('✅ App полностью готово!')
+  console.log('✅ App fully loaded!')
 })
