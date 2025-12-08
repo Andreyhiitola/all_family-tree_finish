@@ -7,18 +7,34 @@ async function importExcelToPeople(file) {
         const data = new Uint8Array(e.target.result)
         const workbook = XLSX.read(data, { type: 'array' })
         const sheetName = workbook.SheetNames[0]
-        const sheet = workbook.Sheets[sheetName]
-        const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' })
+        const worksheet = workbook.Sheets[sheetName]
+        const jsonData = XLSX.utils.sheet_to_json(worksheet)
 
-        console.log('📥 Excel импорт: строк =', rows.length)
-        console.log('Первая строка (пример):', rows[0])
+        console.log('📥 Импорт Excel: найдено строк:', jsonData.length)
 
-        const people = rows.map(row => {
-          // Приводим ID к числам
-          const toId = (val) => {
-            if (!val) return null
-            const n = parseInt(val, 10)
-            return isNaN(n) || n === 0 ? null : n
+        const toId = (val) => {
+          if (!val) return null
+          const n = parseInt(val, 10)
+          return (isNaN(n) || n === 0) ? null : n
+        }
+
+        const people = jsonData.map(row => {
+          // Определяем пол
+          let gender = 'M'
+          const genderRaw = (row['Пол'] || row['gender'] || '').toString().trim().toUpperCase()
+          if (genderRaw === 'Ж' || genderRaw === 'F' || genderRaw === 'ЖЕНСКИЙ') {
+            gender = 'F'
+          }
+
+          // Обрабатываем галерею (если есть колонка "Галерея" или "photos")
+          let photosArray = []
+          const photosRaw = row['Галерея'] || row['photos'] || ''
+          if (photosRaw) {
+            // Разбиваем по запятой, убираем пробелы
+            photosArray = photosRaw.toString()
+              .split(',')
+              .map(url => url.trim())
+              .filter(url => url.length > 0)
           }
 
           return {
@@ -26,31 +42,35 @@ async function importExcelToPeople(file) {
             name: (row['Имя'] || row['name'] || '').trim(),
             surname: (row['Фамилия'] || row['surname'] || '').trim(),
             middlename: (row['Отчество'] || row['middlename'] || '').trim(),
-            gender: (row['Пол'] || row['gender'] || 'M').toString().toUpperCase() === 'Ж' || 
-                    (row['Пол'] || row['gender'] || '').toString().toUpperCase() === 'F' ? 'F' : 'M',
+            gender: gender,
             
             birthDate: row['Дата рождения'] || row['birthDate'] || '',
             deathDate: row['Дата смерти'] || row['deathDate'] || '',
             birthPlace: row['Место рождения'] || row['birthPlace'] || '',
             biography: row['Биография'] || row['biography'] || '',
-            photo: row['Фото'] || row['photo'] || '',
+            
+            photo: row['Фото'] || row['photo'] || '',  // 👈 Аватар
+            photos: photosArray,  // 👈 Массив фото для галереи
 
             fatherId: toId(row['ID отца'] || row['fatherId']),
             motherId: toId(row['ID матери'] || row['motherId']),
             spouseId: toId(row['ID супруга'] || row['spouseId'])
           }
-        })
+        }).filter(p => p.id && p.id > 0)
 
-        console.log('✅ Обработано:', people.length, 'человек')
-        console.log('Пример обработанного:', people[0])
+        console.log('✅ Импортировано людей:', people.length)
         resolve(people)
-      } catch (err) {
-        console.error('Ошибка парсинга Excel:', err)
-        reject(err)
+      } catch (error) {
+        console.error('❌ Ошибка парсинга Excel:', error)
+        reject(error)
       }
     }
 
-    reader.onerror = reject
+    reader.onerror = (error) => {
+      console.error('❌ Ошибка чтения файла:', error)
+      reject(error)
+    }
+
     reader.readAsArrayBuffer(file)
   })
 }

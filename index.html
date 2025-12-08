@@ -15,8 +15,6 @@
       <button id="import-excel">📥 Excel-import</button>
       <button id="export-excel">📤 Excel-export</button>
       <button id="clear-data">🗑 Очистить</button>
-      <button id="show-full-tree">🌳 Полное дерево</button>
-
       <input id="search" placeholder="🔍 Поиск...">
     </div>
   </header>
@@ -32,23 +30,31 @@
     <aside class="info-panel">
       <div class="info-placeholder">👆 Кликните по человеку</div>
       <div class="person-details" style="display:none">
-        <h2><span data-field="name"></span> <span data-field="surname"></span></h2>
-        <p>Пол: <span data-field="gender"></span></p>
-        <p>Родился: <span data-field="birthDate"></span></p>
-        <p>Умер: <span data-field="deathDate"></span></p>
-        <p>Место: <span data-field="birthPlace"></span></p>
+        <h2>
+            <span data-field="name"></span> 
+            <span data-field="surname"></span>
+        </h2>
+        
+        <p><strong>Пол:</strong> <span data-field="gender"></span></p>
+        <p><strong>Отчество:</strong> <span data-field="middlename"></span></p>
+        <p><strong>Родился:</strong> <span data-field="birthDate"></span></p>
+        <p><strong>Умер:</strong> <span data-field="deathDate"></span></p>
+        <p><strong>Место:</strong> <span data-field="birthPlace"></span></p>
+        <p><strong>Биография:</strong> <span data-field="biography"></span></p>
+
         <div class="person-actions">
           <button id="edit-person">✏️ Редактировать</button>
           <button id="delete-person">🗑 Удалить</button>
         </div>
       </div>
+
       <div class="stats">
         <p>👥 Всего: <span id="total-people">0</span></p>
       </div>
     </aside>
   </main>
 
-  <!-- ✅ ВОТ ЭТОГО НЕ ХВАТАЛО: Модальное окно редактирования -->
+  <!-- Модальное окно редактирования -->
   <div id="person-modal" class="modal">
     <div class="modal-content">
       <span class="close" id="cancel-form">&times;</span>
@@ -102,12 +108,27 @@
             <select id="form-spouse"><option value="">Нет</option></select>
         </div>
 
-        <!-- Доп поля (чтобы JS не ругался если они есть в коде) -->
-        <input type="hidden" id="form-biography">
-        <input type="hidden" id="form-photo">
+        <!-- Фото и биография -->
+        <div class="form-row">
+          <label>URL аватара:</label>
+          <input type="url" id="form-photo" placeholder="https://example.com/photo.jpg или photos/avatars/1.jpg">
+          <small style="color:#666; font-size:11px;">Укажите ссылку на изображение или путь к локальному файлу</small>
+        </div>
+        
+        <div class="form-row">
+          <label>Биография:</label>
+          <textarea id="form-biography" rows="4" placeholder="Расскажите о человеке..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Галерея фото (URLs через запятую):</label>
+          <textarea id="form-photos" rows="2" placeholder="https://example.com/1.jpg, photos/gallery/1-1.jpg, photos/gallery/1-2.jpg"></textarea>
+          <small style="color:#666; font-size:11px;">Введите ссылки на фото через запятую. Можно использовать как внешние URL, так и локальные пути</small>
+        </div>
 
         <div class="form-buttons">
-            <button type="submit">Сохранить</button>
+            <button type="submit">💾 Сохранить</button>
+            <button type="button" id="cancel-form-btn" style="background:#999;">❌ Отмена</button>
         </div>
       </form>
     </div>
@@ -146,8 +167,36 @@
           <span class="close" id="cancel-delete">&times;</span>
           <h2>Подтверждение</h2>
           <p id="delete-message">Вы уверены?</p>
-          <button id="confirm-delete" style="background:red; color:white;">Удалить</button>
+          <button id="confirm-delete" style="background:red; color:white;">🗑 Удалить</button>
       </div>
+  </div>
+
+  <!-- Модальное окно Профиля -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close" id="close-profile">&times;</span>
+      
+      <div class="profile-container">
+        <!-- Левая колонка: Аватар и основная инфо -->
+        <div class="profile-left">
+          <img id="profile-avatar" src="https://via.placeholder.com/200?text=No+Photo" alt="Фото" class="profile-avatar">
+          <h2 id="profile-name">Имя Фамилия</h2>
+          <p id="profile-dates"></p>
+          <p id="profile-place"></p>
+        </div>
+        
+        <!-- Правая колонка: Биография и галерея -->
+        <div class="profile-right">
+          <h3>Биография</h3>
+          <div id="profile-biography" class="profile-bio">Биография не указана.</div>
+          
+          <h3>Галерея фото</h3>
+          <div id="profile-gallery" class="profile-gallery">
+            <p style="color:#999;">Нет дополнительных фото</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Скрипты -->

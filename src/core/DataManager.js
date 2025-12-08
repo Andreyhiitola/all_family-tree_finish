@@ -39,7 +39,8 @@ class DataManager {
         deathDate: p.deathDate || '',
         birthPlace: p.birthPlace || '',
         biography: p.biography || '',
-        photo: p.photo || '',
+        photo: p.photo || '',  // Главное фото (аватар)
+        photos: Array.isArray(p.photos) ? p.photos : [],  // 👈 НОВОЕ: Массив дополнительных фото
         fatherId: toId(p.fatherId),
         motherId: toId(p.motherId),
         spouseId: toId(p.spouseId)

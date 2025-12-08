@@ -187,6 +187,77 @@ document.addEventListener('DOMContentLoaded', async () => {
       currentRootId = id
       selectedPersonId = id
       refreshAll()
+    },
+
+    // 👇 НОВЫЙ МЕТОД: Открывает профиль человека
+    openPersonProfile(id) {
+      const person = dataManager.getPeople().find(p => p.id === id)
+      if (!person) {
+        console.error('❌ Человек не найден:', id)
+        return
+      }
+
+      const modal = document.getElementById('profile-modal')
+      if (!modal) {
+        console.error('❌ Модалка профиля не найдена в HTML!')
+        return
+      }
+
+      console.log('👤 Открываем профиль:', person.name, person.surname)
+
+      // Аватар
+      const avatar = document.getElementById('profile-avatar')
+      if (avatar) {
+        avatar.src = person.photo || 'https://via.placeholder.com/200?text=No+Photo'
+        avatar.alt = `${person.name} ${person.surname}`
+      }
+
+      // ФИО
+      const nameEl = document.getElementById('profile-name')
+      if (nameEl) {
+        nameEl.textContent = `${person.name} ${person.middlename} ${person.surname}`.trim()
+      }
+
+      // Даты
+      const datesEl = document.getElementById('profile-dates')
+      if (datesEl) {
+        const birth = person.birthDate || '?'
+        const death = person.deathDate ? ` — ${person.deathDate}` : ''
+        datesEl.textContent = `${birth}${death}`
+      }
+
+      // Место
+      const placeEl = document.getElementById('profile-place')
+      if (placeEl) {
+        placeEl.textContent = person.birthPlace || 'Место рождения неизвестно'
+      }
+
+      // Биография
+      const bioEl = document.getElementById('profile-biography')
+      if (bioEl) {
+        bioEl.textContent = person.biography || 'Биография не указана.'
+      }
+
+      // Галерея
+      const galleryEl = document.getElementById('profile-gallery')
+      if (galleryEl) {
+        galleryEl.innerHTML = ''
+        const photos = person.photos || []
+        
+        if (photos.length === 0) {
+          galleryEl.innerHTML = '<p style="color:#999;">Нет дополнительных фото</p>'
+        } else {
+          photos.forEach(photoUrl => {
+            const img = document.createElement('img')
+            img.src = photoUrl
+            img.alt = 'Фото'
+            img.onclick = () => window.open(photoUrl, '_blank')
+            galleryEl.appendChild(img)
+          })
+        }
+      }
+
+      modal.style.display = 'block'
     }
   }
 
