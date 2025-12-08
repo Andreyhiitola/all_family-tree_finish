@@ -1,16 +1,15 @@
 class TreeVisualizer {
-  constructor({svgSelector,familyTree,onNodeClick}) {
+  constructor({svgSelector, familyTree, onNodeClick}) {
     this.familyTree = familyTree
     this.onNodeClick = onNodeClick
     this.svg = d3.select(svgSelector)
     this.width = +this.svg.attr('width') || 1200
     this.height = +this.svg.attr('height') || 800
     
-    this.gRoot = this.svg.append('g').attr('class','tree-root')
-    this.gLinks = this.gRoot.append('g').attr('class','links')
-    this.gNodes = this.gRoot.append('g').attr('class','nodes')
+    this.gRoot = this.svg.append('g').attr('class', 'tree-root')
+    this.gLinks = this.gRoot.append('g').attr('class', 'links')
+    this.gNodes = this.gRoot.append('g').attr('class', 'nodes')
     
-    // Зум
     this.svg.call(d3.zoom()
       .scaleExtent([0.1, 3])
       .on('zoom', e => this.gRoot.attr('transform', e.transform))
@@ -21,9 +20,12 @@ class TreeVisualizer {
     const hierarchy = this.familyTree.buildDescendantsHierarchy(rootId)
     if (!hierarchy) return
     
-    const treeLayout = d3.tree().size([this.height-100, this.width-200])
-    const root = treeLayout(hierarchy)
+    const treeLayout = d3.tree()
+      .size([this.height - 100, this.width - 200])
+      .separation((a, b) => a.parent === b.parent ? 1.2 : 1.5)
     
+    const root = treeLayout(hierarchy)
+
     // ЛИНИИ
     this.gLinks.selectAll('path.link')
       .data(root.links())
@@ -34,63 +36,83 @@ class TreeVisualizer {
         .y(d => d.x)
       )
 
-    // ✅ УЗЛЫ С ФИО В КРУЖКЕ
-    const nodeGroups = this.gNodes.selectAll('g.person-node')
+    // УЗЛЫ (семейные пары)
+    const familyGroups = this.gNodes.selectAll('g.family-node')
       .data(root.descendants(), d => d.data.id)
       .join('g')
-      .attr('class', 'person-node')
+      .attr('class', 'family-node')
       .attr('transform', d => `translate(${d.y},${d.x})`)
-      .on('click', (event, d) => this.onNodeClick?.(d.data.id))
-      .on('mouseenter', function(event, d) {
-        d3.select(this).classed('node-hover', true)
-      })
-      .on('mouseleave', function() {
-        d3.select(this).classed('node-hover', false)
+
+    // Рисуем первого человека (основной)
+    this.drawPerson(familyGroups, -25, d => d.data.person1)
+
+    // Рисуем супруга (если есть)
+    familyGroups.each((d, i, nodes) => {
+      if (d.data.person2) {
+        this.drawPerson(d3.select(nodes[i]), 25, node => node.data.person2)
+        
+        // Линия брака между супругами
+        d3.select(nodes[i])
+          .selectAll('line.marriage-line')
+          .data([d])
+          .join('line')
+          .attr('class', 'marriage-line')
+          .attr('x1', -25)
+          .attr('y1', 0)
+          .attr('x2', 25)
+          .attr('y2', 0)
+          .attr('stroke', '#FF6B6B')
+          .attr('stroke-width', 3)
+      }
+    })
+  }
+
+  drawPerson(container, offsetX, dataAccessor) {
+    const personGroup = container.selectAll(`g.person-${offsetX}`)
+      .data(d => [d])
+      .join('g')
+      .attr('class', `person-${offsetX}`)
+      .attr('transform', `translate(${offsetX}, 0)`)
+      .on('click', (event, d) => {
+        const person = dataAccessor(d)
+        if (person) this.onNodeClick?.(person.id)
       })
 
-    // КРУЖОК
-    nodeGroups.selectAll('circle')
+    personGroup.selectAll('circle')
       .data(d => [d])
       .join('circle')
-      .attr('r', 28)  // Увеличили радиус под ФИО
-      .attr('class', d => `node node-${d.data.gender || 'male'}`)
-      .attr('fill', d => d.data.gender === 'M' ? '#4A90E2' : '#E91E63')  // Синий для М, розовый для Ж
+      .attr('r', 25)
+      .attr('fill', d => {
+        const person = dataAccessor(d)
+        return person.gender === 'M' ? '#4A90E2' : '#E91E63'
+      })
       .attr('stroke', '#333')
       .attr('stroke-width', 2)
+      .style('cursor', 'pointer')
 
-
-    // ✅ ФИО В КРУЖКЕ (2 строки)
-    nodeGroups.selectAll('text.name')
+    personGroup.selectAll('text.name')
       .data(d => [d])
       .join('text')
       .attr('class', 'name')
       .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
-      .attr('y', -4)
+      .attr('y', -3)
+      .style('font-size', '10px')
       .style('font-weight', 'bold')
-      .style('font-size', '11px')
-      .text(d => d.data.name || '')
+      .style('fill', '#FFF')
+      .style('pointer-events', 'none')
+      .text(d => dataAccessor(d)?.name || '')
 
-    nodeGroups.selectAll('text.surname')
+    personGroup.selectAll('text.surname')
       .data(d => [d])
       .join('text')
       .attr('class', 'surname')
       .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
       .attr('y', 6)
-      .style('font-size', '10px')
-      .text(d => d.data.surname || '')
-
-    // ID снизу (маленький)
-    nodeGroups.selectAll('text.id')
-      .data(d => [d])
-      .join('text')
-      .attr('class', 'id')
-      .attr('text-anchor', 'middle')
-      .attr('y', 22)
-      .style('font-size', '8px')
-      .style('fill', '#666')
-      .text(d => `#${d.data.id}`)
+      .style('font-size', '9px')
+      .style('fill', '#FFF')
+      .style('pointer-events', 'none')
+      .text(d => dataAccessor(d)?.surname || '')
   }
 }
+
 window.TreeVisualizer = TreeVisualizer

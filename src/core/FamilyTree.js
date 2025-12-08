@@ -7,26 +7,19 @@ class FamilyTreeCore {
     this.people = people || []
     console.log('🔄 FamilyTree: индексация', this.people.length, 'человек')
     
-    // 1. Индекс всех людей по ID для быстрого поиска
     this.byId = new Map()
     this.people.forEach(p => this.byId.set(p.id, p))
     
-    // 2. Индекс детей по родителям (Map: parentId -> [child1, child2])
     this.childrenByParentId = new Map()
 
     this.people.forEach(child => {
-      // Собираем всех родителей ребенка (отец + мать), исключая null/0
       const parentIds = [child.fatherId, child.motherId].filter(pid => pid)
 
       parentIds.forEach(parentId => {
-        // ВАЖНО: Проверяем, существует ли такой родитель в базе вообще?
-        // Это защищает от "битых" ссылок, когда fatherId=999, а человека 999 нет.
         if (this.byId.has(parentId)) {
             if (!this.childrenByParentId.has(parentId)) {
                 this.childrenByParentId.set(parentId, [])
             }
-            // Добавляем ребенка в список этого родителя
-            // (можно добавить проверку на дубликаты, но обычно не требуется)
             this.childrenByParentId.get(parentId).push(child)
         }
       })
@@ -40,8 +33,23 @@ class FamilyTreeCore {
   }
 
   getChildrenOf(id) { 
-    // Возвращаем массив детей или пустой массив
     return this.childrenByParentId.get(id) || []
+  }
+
+  // Получает детей пары (общих для обоих супругов)
+  getChildrenOfCouple(person1Id, person2Id) {
+    const children1 = this.getChildrenOf(person1Id)
+    const children2 = person2Id ? this.getChildrenOf(person2Id) : []
+    
+    // Объединяем детей (убираем дубликаты)
+    const allChildren = [...children1]
+    children2.forEach(child => {
+      if (!allChildren.find(c => c.id === child.id)) {
+        allChildren.push(child)
+      }
+    })
+    
+    return allChildren
   }
 
   buildDescendantsHierarchy(rootId) {
@@ -50,43 +58,90 @@ class FamilyTreeCore {
       console.warn('❌ Корень не найден в индексе:', rootId)
       return null
     }
-    
-    // Рекурсивная функция построения
-    const buildNode = (person, depth) => {
-      // Защита от бесконечной рекурсии (если кто-то указал отца своим сыном)
-      if (depth > 50) {
-          console.error('⚠️ Обнаружен цикл или слишком большая вложенность!', person)
-          return { id: person.id, name: person.name, _error: 'cycle' }
+
+    console.log(`🌳 Строим семейное дерево от: ${root.name} ${root.surname} (ID: ${root.id})`)
+
+    const processedPeople = new Set()
+
+    // Рекурсивная функция для построения узла с супругом
+    const buildFamilyNode = (person, depth) => {
+      if (depth > 50 || processedPeople.has(person.id)) {
+        return null
       }
 
-      const node = {
-        id: person.id,
-        name: person.name,
-        surname: person.surname,
-        gender: person.gender,
+      processedPeople.add(person.id)
+
+      const spouse = person.spouseId ? this.getPersonById(person.spouseId) : null
+      
+      if (spouse) {
+        processedPeople.add(spouse.id)
+      }
+
+      // Создаем узел семьи
+      const familyNode = {
+        type: 'family',
+        id: `family-${person.id}`,
+        person1: {
+          id: person.id,
+          name: person.name,
+          surname: person.surname,
+          gender: person.gender
+        },
+        person2: spouse ? {
+          id: spouse.id,
+          name: spouse.name,
+          surname: spouse.surname,
+          gender: spouse.gender
+        } : null,
         children: []
       }
 
-      const children = this.getChildrenOf(person.id)
+      // Получаем всех детей пары
+      const children = this.getChildrenOfCouple(person.id, spouse?.id)
       
-      // Сортируем детей по дате рождения (если есть), чтобы дерево было красивее
       children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
 
       children.forEach(child => {
-        node.children.push(buildNode(child, depth + 1))
+        const childNode = buildFamilyNode(child, depth + 1)
+        if (childNode) {
+          familyNode.children.push(childNode)
+        }
       })
 
-      if (node.children.length === 0) {
-        delete node.children
+      if (familyNode.children.length === 0) {
+        delete familyNode.children
       }
-      return node
+
+      return familyNode
     }
 
-    console.log(`🌳 Строим дерево потомков для: ${root.name} ${root.surname} (ID: ${root.id})`)
-    const treeData = buildNode(root, 0)
-    
-    // Превращаем в D3 иерархию
+    const treeData = buildFamilyNode(root, 0)
     return d3.hierarchy(treeData, d => d.children || [])
   }
+
+  getSpousePairs() {
+    const pairs = []
+    const seen = new Set()
+    
+    this.people.forEach(person => {
+      if (person.spouseId && !seen.has(person.id)) {
+        const spouse = this.getPersonById(person.spouseId)
+        
+        if (spouse) {
+          pairs.push({
+            person1: person,
+            person2: spouse
+          })
+          
+          seen.add(person.id)
+          seen.add(spouse.id)
+        }
+      }
+    })
+    
+    console.log('💑 Найдено супружеских пар:', pairs.length)
+    return pairs
+  }
 }
+
 window.FamilyTreeCore = FamilyTreeCore
