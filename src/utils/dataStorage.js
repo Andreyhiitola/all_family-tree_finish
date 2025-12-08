@@ -47,3 +47,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (typeof window.loadPeople === 'function') window.loadPeople();
   if (typeof window.refreshAll === 'function') window.refreshAll();
 });
+
+window.importJsonFile = function(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = JSON.parse(e.target.result);
+    window.saveToLocalStorage(data);
+    if (typeof window.loadPeople === 'function') window.loadPeople();
+    alert(`Импортировано ${data.length} записей`);
+  };
+  reader.readAsText(file);
+};
+
+window.exportJsonFile = function() {
+  const data = window.loadFromLocalStorage() || [];
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `family-tree-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+};
