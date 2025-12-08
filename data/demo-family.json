@@ -1,9 +1,0 @@
-[
-  {"id":1,"name":"Иван","surname":"Иванов","gender":"M","birthDate":"1950-03-15"},
-  {"id":2,"name":"Мария","surname":"Петрова","gender":"F","birthDate":"1952-07-22","spouseId":1},
-  {"id":3,"name":"Пётр","surname":"Иванов","gender":"M","birthDate":"1975-11-10","fatherId":1,"motherId":2},
-  {"id":4,"name":"Анна","surname":"Сидорова","gender":"F","birthDate":"1978-02-14","spouseId":3},
-  {"id":5,"name":"Алексей","surname":"Иванов","gender":"M","birthDate":"2000-05-20","fatherId":3,"motherId":4},
-  {"id":6,"name":"Елена","surname":"Кузнецова","gender":"F","birthDate":"2002-08-03","fatherId":3,"motherId":4},
-  {"id":7,"name":"Михаил","surname":"Иванов","gender":"M","birthDate":"2020-01-12","fatherId":5}
-]

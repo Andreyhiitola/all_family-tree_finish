@@ -14,6 +14,12 @@
       <button id="show-data-table">📋 Таблица</button>
       <button id="import-excel">📥 Excel-import</button>
       <button id="export-excel">📤 Excel-export</button>
+      <label class="btn">
+       📄 Импорт JSON
+  <input type="file" accept=".json" onchange="window.importJsonFile(event)" hidden>
+</label>
+<button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
+
       <button id="clear-data">🗑 Очистить</button>
       <input id="search" placeholder="🔍 Поиск...">
     </div>
@@ -203,6 +209,7 @@
   <script src="d3.v7.min.js"></script>
   <script src="xlsx.full.min.js"></script>
   <script src="FileSaver.min.js"></script>
+<script src="src/utils/dataStorage.js"></script>
 
   <script src="src/core/DataManager.js"></script>
   <script src="src/core/FamilyTree.js"></script>
@@ -214,5 +221,38 @@
   <script src="src/ui/table.js"></script>
   <script src="src/ui/modals.js"></script>
   <script src="src/ui/app.js"></script>
+  <script>
+window.importJsonFile = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      localStorage.setItem("familyTreeData", JSON.stringify(data));
+      if (typeof window.loadPeople === "function") window.loadPeople();
+      if (typeof window.refreshAll === "function") window.refreshAll();
+      alert(`✅ Импортировано ${data.length} записей`);
+    } catch (error) {
+      alert("❌ Неверный JSON");
+    }
+  };
+  reader.readAsText(file);
+};
+
+window.exportJsonFile = function() {
+  const data = JSON.parse(localStorage.getItem("familyTreeData") || "[]");
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `family-tree-${new Date().toISOString().split("T")[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  console.log(`✅ Экспорт JSON: ${data.length} записей`);
+};
+console.log("✅ JSON функции загружены!");
+</script>
+
 </body>
 </html>
