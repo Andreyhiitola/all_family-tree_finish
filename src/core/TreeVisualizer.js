@@ -16,6 +16,42 @@ class TreeVisualizer {
     )
   }
 
+  // 🎨 ГЕНЕРАЦИЯ ЦВЕТА ПО ФАМИЛИИ
+  getSurnameColor(surname) {
+    if (!surname) return '#999999'; // Серый для пустых фамилий
+    
+    // Простой хеш строки
+    let hash = 0;
+    for (let i = 0; i < surname.length; i++) {
+      hash = surname.charCodeAt(i) + ((hash << 5) - hash);
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    // Преобразуем хеш в HSL цвет
+    // Hue: 0-360 (полный спектр цветов)
+    const hue = Math.abs(hash % 360);
+    
+    // Saturation: 60-80% (яркие, но не перенасыщенные)
+    const saturation = 65 + (Math.abs(hash) % 15);
+    
+    // Lightness будет разной для мужчин/женщин (задается отдельно)
+    
+    return { hue, saturation };
+  }
+
+  // 🎨 ПОЛУЧИТЬ ФИНАЛЬНЫЙ ЦВЕТ С УЧЕТОМ ПОЛА
+  getPersonColor(person) {
+    if (!person) return '#999999';
+    
+    const { hue, saturation } = this.getSurnameColor(person.surname || 'Unknown');
+    
+    // Мужчины: темнее (lightness 45-55%)
+    // Женщины: светлее (lightness 60-70%)
+    const lightness = person.gender === 'M' ? 50 : 65;
+    
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
   render(rootId) {
     const hierarchy = this.familyTree.buildDescendantsHierarchy(rootId)
     if (!hierarchy) return
@@ -84,11 +120,12 @@ class TreeVisualizer {
       .attr('r', 25)
       .attr('fill', d => {
         const person = dataAccessor(d)
-        return person.gender === 'M' ? '#4A90E2' : '#E91E63'
+        return this.getPersonColor(person) // 🎨 ИСПОЛЬЗУЕМ ЦВЕТ ПО ФАМИЛИИ
       })
-      .attr('stroke', '#333')
-      .attr('stroke-width', 2)
+      .attr('stroke', '#fff') // Белая обводка для контраста
+      .attr('stroke-width', 3)
       .style('cursor', 'pointer')
+      .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))') // Тень для объема
 
     personGroup.selectAll('text.name')
       .data(d => [d])
@@ -100,6 +137,7 @@ class TreeVisualizer {
       .style('font-weight', 'bold')
       .style('fill', '#FFF')
       .style('pointer-events', 'none')
+      .style('text-shadow', '0 1px 2px rgba(0,0,0,0.5)') // Тень текста
       .text(d => dataAccessor(d)?.name || '')
 
     personGroup.selectAll('text.surname')
@@ -111,6 +149,7 @@ class TreeVisualizer {
       .style('font-size', '9px')
       .style('fill', '#FFF')
       .style('pointer-events', 'none')
+      .style('text-shadow', '0 1px 2px rgba(0,0,0,0.5)') // Тень текста
       .text(d => dataAccessor(d)?.surname || '')
   }
 }

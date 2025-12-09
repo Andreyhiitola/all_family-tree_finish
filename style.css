@@ -276,6 +276,100 @@ body {
   cursor: pointer;
 }
 
+/* Profile Modal */
+
+.profile-container {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+.profile-left {
+  flex: 0 0 220px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  border: 2px solid var(--border-color);
+  margin-bottom: 12px;
+}
+
+.profile-right {
+  flex: 1;
+}
+
+.profile-bio {
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+/* === ГАЛЕРЕЯ С ГОРИЗОНТАЛЬНЫМ СКРОЛЛОМ === */
+.profile-gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 12px 0;
+  scroll-behavior: smooth;
+  
+  /* Стили скроллбара */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #e0e0e0;
+}
+
+/* Webkit браузеры (Chrome, Safari, Edge) */
+.profile-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.profile-gallery::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+
+.profile-gallery::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.profile-gallery::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dark);
+}
+
+.profile-gallery img {
+  height: 150px;
+  min-width: 150px;
+  max-width: 200px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.profile-gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent);
+}
+
+/* Если галерея пустая */
+.profile-gallery p {
+  width: 100%;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px;
+}
+
 /* Form */
 
 .form-row {
@@ -298,14 +392,16 @@ body {
   font-size: 0.9rem;
 }
 
-.form-actions {
+.form-actions,
+.form-buttons {
   margin-top: 10px;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
 }
 
-.form-actions button {
+.form-actions button,
+.form-buttons button {
   padding: 6px 12px;
   border-radius: 4px;
   border: none;
@@ -355,5 +451,13 @@ body {
 
   #tree-svg {
     height: 500px;
+  }
+  
+  .profile-container {
+    flex-direction: column;
+  }
+  
+  .profile-left {
+    flex: auto;
   }
 }

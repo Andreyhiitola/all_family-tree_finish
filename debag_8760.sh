@@ -4,9 +4,24 @@ PORT=8760
 IP=$(hostname -I | awk '{print $1}')
 PROJECT_PATH="all_family-tree_finish"
 
+# Проверяем и убиваем процесс на порту
+echo "🔍 Checking port $PORT..."
+PID=$(lsof -ti:$PORT 2>/dev/null)
+
+if [ ! -z "$PID" ]; then
+  echo "⚠️  Port $PORT is already in use (PID: $PID)"
+  echo "🔪 Killing process..."
+  kill -9 $PID 2>/dev/null
+  sleep 1
+  echo "✅ Port $PORT is now free"
+else
+  echo "✅ Port $PORT is available"
+fi
+
 # Переходим в родительскую папку (Desktop)
 cd ~/Desktop || exit 1
 
+echo ""
 echo "======================================"
 echo "🚀 Starting Family Tree Web Server"
 echo "======================================"
