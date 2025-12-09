@@ -15,6 +15,7 @@
       <button id="show-data-table">📋 Таблица</button>
       <button id="import-excel">📥 Excel-import</button>
       <button id="export-excel">📤 Excel-export</button>
+      <button class="btn" onclick="window.refreshTreeData()">🔄 Рефреш</button>
       <label class="btn">
        📄 Импорт JSON
   <input type="file" accept=".json" onchange="window.importJsonFile(event)" hidden>
@@ -298,8 +299,31 @@ console.log("🔄 Автозагрузка запущена...");
   }
 })();
 </script>
+  <!-- Функция рефреш дерева -->
+  <script>
+    window.refreshTreeData = function() {
+      console.log("🔄 Рефреш дерева...");
+      
+      // Очищаем SVG
+      if (typeof d3 !== 'undefined') {
+        d3.select("#tree-svg").selectAll("*").remove();
+      }
+      
+      // Перезагружаем данные
+      const data = JSON.parse(localStorage.getItem('familyTreeData') || '[]');
+      window.people = data;
+      
+      // Рендерим дерево заново
+      if (window.familyTree && typeof window.familyTree.render === 'function') {
+        window.familyTree.render();
+        console.log("✅ Дерево восстановлено!");
+      } else {
+        console.log("⚠️ Перезагрузка страницы...");
+        location.reload();
+      }
+    };
+  </script>
 </body>
 </html>
 
-</body>
-</html>
+
