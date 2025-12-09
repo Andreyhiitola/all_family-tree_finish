@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Семейное древо</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/all_family-tree_finish/">  <!-- ← СЮДА строка 6 --> 
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Семейное древо</h1>
+    <div class="header-controls">
+      <button id="add-person">➕ Добавить</button>
+      <button id="show-data-table">📋 Таблица</button>
+      <button id="import-excel">📥 Excel-import</button>
+      <button id="export-excel">📤 Excel-export</button>
+      <button class="btn" onclick="window.refreshTreeData()">🔄 Рефреш</button>
+      <label class="btn">
+       📄 Импорт JSON
+  <input type="file" accept=".json" onchange="window.importJsonFile(event)" hidden>
+</label>
+<button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
+
+      <button id="clear-data">🗑 Очистить</button>
+      <input id="search" placeholder="🔍 Поиск...">
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="tree-section">
+      <div class="tree-container">
+        <svg id="tree-svg" width="1200" height="800"></svg>
+      </div>
+      <div id="auto-save-status">💾 Автосохранение</div>
+    </section>
+
+    <aside class="info-panel">
+      <div class="info-placeholder">👆 Кликните по человеку</div>
+      <div class="person-details" style="display:none">
+        <h2>
+            <span data-field="name"></span> 
+            <span data-field="surname"></span>
+        </h2>
+        
+        <p><strong>Пол:</strong> <span data-field="gender"></span></p>
+        <p><strong>Отчество:</strong> <span data-field="middlename"></span></p>
+        <p><strong>Родился:</strong> <span data-field="birthDate"></span></p>
+        <p><strong>Умер:</strong> <span data-field="deathDate"></span></p>
+        <p><strong>Место:</strong> <span data-field="birthPlace"></span></p>
+        <p><strong>Биография:</strong> <span data-field="biography"></span></p>
+
+        <div class="person-actions">
+          <button id="edit-person">✏️ Редактировать</button>
+          <button id="delete-person">🗑 Удалить</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <p>👥 Всего: <span id="total-people">0</span></p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Модальное окно редактирования -->
+  <div id="person-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cancel-form">&times;</span>
+      <h2 id="modal-title">Персона</h2>
+      <form id="person-form">
+        <input type="hidden" id="form-id">
+        
+        <div class="form-row">
+          <label>Имя:</label>
+          <input type="text" id="form-name" required>
+        </div>
+        <div class="form-row">
+          <label>Фамилия:</label>
+          <input type="text" id="form-surname" required>
+        </div>
+        <div class="form-row">
+          <label>Отчество:</label>
+          <input type="text" id="form-middlename">
+        </div>
+        <div class="form-row">
+          <label>Пол:</label>
+          <select id="form-gender">
+            <option value="M">Мужской</option>
+            <option value="F">Женский</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Дата рождения:</label>
+          <input type="date" id="form-birthDate">
+        </div>
+        <div class="form-row">
+          <label>Дата смерти:</label>
+          <input type="date" id="form-deathDate">
+        </div>
+        <div class="form-row">
+          <label>Место рождения:</label>
+          <input type="text" id="form-birthPlace">
+        </div>
+        
+        <!-- Связи -->
+        <div class="form-row">
+            <label>Отец:</label>
+            <select id="form-father"><option value="">Нет</option></select>
+        </div>
+        <div class="form-row">
+            <label>Мать:</label>
+            <select id="form-mother"><option value="">Нет</option></select>
+        </div>
+        <div class="form-row">
+            <label>Супруг(а):</label>
+            <select id="form-spouse"><option value="">Нет</option></select>
+        </div>
+
+        <!-- Фото и биография -->
+        <div class="form-row">
+          <label>URL аватара:</label>
+          <input type="url" id="form-photo" placeholder="https://example.com/photo.jpg или photos/avatars/1.jpg">
+          <small style="color:#666; font-size:11px;">Укажите ссылку на изображение или путь к локальному файлу</small>
+        </div>
+        
+        <div class="form-row">
+          <label>Биография:</label>
+          <textarea id="form-biography" rows="4" placeholder="Расскажите о человеке..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Галерея фото (URLs через запятую):</label>
+          <textarea id="form-photos" rows="2" placeholder="https://example.com/1.jpg, photos/gallery/1-1.jpg, photos/gallery/1-2.jpg"></textarea>
+          <small style="color:#666; font-size:11px;">Введите ссылки на фото через запятую. Можно использовать как внешние URL, так и локальные пути</small>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit">💾 Сохранить</button>
+            <button type="button" id="cancel-form-btn" style="background:#999;">❌ Отмена</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Модальное окно Таблицы -->
+  <div id="data-table-modal" class="modal">
+    <div class="modal-content modal-large">
+        <span class="close">&times;</span>
+        <h2>Таблица данных</h2>
+        <div style="overflow:auto; max-height:400px;">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно Импорта -->
+  <div id="import-modal" class="modal">
+      <div class="modal-content">
+          <span class="close" id="cancel-import">&times;</span>
+          <h2>Импорт Excel</h2>
+          <input type="file" id="excel-file" accept=".xlsx, .xls">
+      </div>
+  </div>
+
+  <!-- Модальное окно Удаления -->
+  <div id="delete-modal" class="modal">
+      <div class="modal-content">
+          <span class="close" id="cancel-delete">&times;</span>
+          <h2>Подтверждение</h2>
+          <p id="delete-message">Вы уверены?</p>
+          <button id="confirm-delete" style="background:red; color:white;">🗑 Удалить</button>
+      </div>
+  </div>
+
+  <!-- Модальное окно Профиля -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close" id="close-profile">&times;</span>
+      
+      <div class="profile-container">
+        <!-- Левая колонка: Аватар и основная инфо -->
+        <div class="profile-left">
+          <img id="profile-avatar" src="https://via.placeholder.com/200?text=No+Photo" alt="Фото" class="profile-avatar">
+          <h2 id="profile-name">Имя Фамилия</h2>
+          <p id="profile-dates"></p>
+          <p id="profile-place"></p>
+        </div>
+        
+        <!-- Правая колонка: Биография и галерея -->
+        <div class="profile-right">
+          <h3>Биография</h3>
+          <div id="profile-biography" class="profile-bio">Биография не указана.</div>
+          
+          <h3>Галерея фото</h3>
+          <div id="profile-gallery" class="profile-gallery">
+            <p style="color:#999;">Нет дополнительных фото</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Скрипты -->
+  <script src="d3.v7.min.js"></script>
+  <script src="xlsx.full.min.js"></script>
+  <script src="FileSaver.min.js"></script>
+<script src="src/utils/dataStorage.js"></script>
+
+  <script src="src/core/DataManager.js"></script>
+  <script src="src/core/FamilyTree.js"></script>
+  <script src="src/core/TreeVisualizer.js"></script>
+  <script src="src/utils/importExcel.js"></script>
+  <script src="src/utils/exportExcel.js"></script>
+  <script src="src/ui/notifications.js"></script>
+  <script src="src/ui/forms.js"></script>
+  <script src="src/ui/table.js"></script>
+  <script src="src/ui/modals.js"></script>
+  <script src="src/ui/app.js"></script>
+  <script>
+window.importJsonFile = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      localStorage.setItem("familyTreeData", JSON.stringify(data));
+      if (typeof window.loadPeople === "function") window.loadPeople();
+      if (typeof window.refreshAll === "function") window.refreshAll();
+      alert(`✅ Импортировано ${data.length} записей`);
+    } catch (error) {
+      alert("❌ Неверный JSON");
+    }
+  };
+  reader.readAsText(file);
+};
+
+window.exportJsonFile = function() {
+  const data = JSON.parse(localStorage.getItem("familyTreeData") || "[]");
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `family-tree-${new Date().toISOString().split("T")[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  console.log(`✅ Экспорт JSON: ${data.length} записей`);
+};
+console.log("✅ JSON функции загружены!");
+</script>
+<script>
+// 🔄 АВТОЗАГРУЗКА family-data.json
+<script>
+console.log("🔄 Автозагрузка JSON (без консоли)");
+fetch("data/family-data.json")
+  .then(r => r.json())
+  .then(data => {
+    localStorage.setItem("familyTreeData", JSON.stringify(data));
+    window.people = data;
+    document.getElementById("total-people").textContent = data.length;
+    if (typeof window.refreshAll === "function") window.refreshAll();
+    console.log("✅ Загружено " + data.length + " человек");
+  });
+</script>
+        const data = await response.json();
+        console.log("✅ Получено записей:", data.length);
+        
+        if (data && data.length > 0) {
+          localStorage.setItem('familyTreeData', JSON.stringify(data));
+          window.people = data;
+          
+          // Ждём загрузки app.js
+          setTimeout(() => {
+            if (typeof window.refreshAll === 'function') {
+              window.refreshAll();
+              console.log("✅ График обновлён!");
+            }
+          }, 1000);
+        }
+      } else {
+        console.error("❌ HTTP", response.status, response.statusText);
+      }
+    } catch (err) {
+      console.error("❌ Ошибка автозагрузки:", err);
+    }
+  } else {
+    console.log("✅ Данные уже в localStorage:", JSON.parse(stored).length);
+  }
+})();
+</script>
+  <!-- Функция рефреш дерева -->
+  <script>
+    window.refreshTreeData = function() {
+      console.log("🔄 Рефреш дерева...");
+      
+      // Очищаем SVG
+      if (typeof d3 !== 'undefined') {
+        d3.select("#tree-svg").selectAll("*").remove();
+      }
+      
+      // Перезагружаем данные
+      const data = JSON.parse(localStorage.getItem('familyTreeData') || '[]');
+      window.people = data;
+      
+      // Рендерим дерево заново
+      if (window.familyTree && typeof window.familyTree.render === 'function') {
+        window.familyTree.render();
+        console.log("✅ Дерево восстановлено!");
+      } else {
+        console.log("⚠️ Перезагрузка страницы...");
+        location.reload();
+      }
+    };
+  </script>
+</body>
+</html>
+
+
