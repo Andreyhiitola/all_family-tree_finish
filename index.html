@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Семейное древо</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <base href="/all_family-tree_finish/">  <!-- ← СЮДА строка 6 --> 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -253,51 +252,14 @@ window.exportJsonFile = function() {
   console.log(`✅ Экспорт JSON: ${data.length} записей`);
 };
 console.log("✅ JSON функции загружены!");
-</script>
-<script>
-// 🔄 АВТОЗАГРУЗКА family-data.json
-console.log("🔄 Автозагрузка запущена...");
 
-(async function autoLoad() {
-  const stored = localStorage.getItem('familyTreeData');
-  
-  if (!stored || stored === '[]' || JSON.parse(stored).length === 0) {
-    console.log("📥 localStorage пуст, грузим с GitHub...");
-    
-    try {
-      const url = '/data/family-data.json';
-      console.log("📡 Запрос:", url);
-      
-      const response = await fetch(url);
-      console.log("📊 Статус:", response.status);
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log("✅ Получено записей:", data.length);
-        
-        if (data && data.length > 0) {
-          localStorage.setItem('familyTreeData', JSON.stringify(data));
-          window.people = data;
-          
-          // Ждём загрузки app.js
-          setTimeout(() => {
-            if (typeof window.refreshAll === 'function') {
-              window.refreshAll();
-              console.log("✅ График обновлён!");
-            }
-          }, 1000);
-        }
-      } else {
-        console.error("❌ HTTP", response.status, response.statusText);
-      }
-    } catch (err) {
-      console.error("❌ Ошибка автозагрузки:", err);
-    }
-  } else {
-    console.log("✅ Данные уже в localStorage:", JSON.parse(stored).length);
-  }
-})();
+<script>
+  });
 </script>
+
+
+
+
   <!-- Функция рефреш дерева -->
   <script>
     window.refreshTreeData = function() {
@@ -325,4 +287,21 @@ console.log("🔄 Автозагрузка запущена...");
 </body>
 </html>
 
+<script>
+console.log("🔄 Автозагрузка RAW GitHub");
+fetch("https://raw.githubusercontent.com/andreyhiitola/all_family-tree_finish/main/data/family-data.json")
+  .then(r => r.json())
+  .then(data => {
+    localStorage.setItem("familyTreeData", JSON.stringify(data));
+    window.people = data;
+    document.getElementById("total-people").textContent = data.length;
+    setTimeout(() => {
+      if (window.DataManager) window.DataManager.people = data;
+      if (window.familyTree) {window.familyTree.people = data;window.familyTree.buildIndex();}
+      if (window.treeVisualizer) window.treeVisualizer.render(1);
+      if (typeof window.refreshAll === "function") window.refreshAll();
+    }, 500);
+    console.log("✅ Автозагрузка 30 человек!");
+  });
+</script>
 
