@@ -254,6 +254,52 @@ window.exportJsonFile = function() {
 };
 console.log("✅ JSON функции загружены!");
 </script>
+<script>
+// 🔄 АВТОЗАГРУЗКА family-data.json
+console.log("🔄 Автозагрузка запущена...");
+
+(async function autoLoad() {
+  const stored = localStorage.getItem('familyTreeData');
+  
+  if (!stored || stored === '[]' || JSON.parse(stored).length === 0) {
+    console.log("📥 localStorage пуст, грузим с GitHub...");
+    
+    try {
+      const url = '/all_family-tree_finish/data/family-data.json';
+      console.log("📡 Запрос:", url);
+      
+      const response = await fetch(url);
+      console.log("📊 Статус:", response.status);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log("✅ Получено записей:", data.length);
+        
+        if (data && data.length > 0) {
+          localStorage.setItem('familyTreeData', JSON.stringify(data));
+          window.people = data;
+          
+          // Ждём загрузки app.js
+          setTimeout(() => {
+            if (typeof window.refreshAll === 'function') {
+              window.refreshAll();
+              console.log("✅ График обновлён!");
+            }
+          }, 1000);
+        }
+      } else {
+        console.error("❌ HTTP", response.status, response.statusText);
+      }
+    } catch (err) {
+      console.error("❌ Ошибка автозагрузки:", err);
+    }
+  } else {
+    console.log("✅ Данные уже в localStorage:", JSON.parse(stored).length);
+  }
+})();
+</script>
+</body>
+</html>
 
 </body>
 </html>
