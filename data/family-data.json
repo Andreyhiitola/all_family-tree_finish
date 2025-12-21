@@ -67,7 +67,7 @@
     {
       "id": 5,
       "name": "Лаврентий",
-      "surname": "Сагуров (Основатель Фамилии Сагуров)",
+      "surname": "Сагуров",
       "middlename": "",
       "gender": "M",
       "birthDate": "1915-01-01",
@@ -147,7 +147,7 @@
     {
       "id": 10,
       "name": "Дмитрий",
-      "surname": "Вустин (основатель Фамилии)",
+      "surname": "Вустин",
       "middlename": "Никифорович",
       "gender": "M",
       "birthDate": "1907-01-01",
@@ -158,7 +158,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 11
+      "spouseId": null
     },
     {
       "id": 11,
@@ -638,7 +638,7 @@
       "photos": [],
       "fatherId": 17,
       "motherId": 42,
-      "spouseId": 44
+      "spouseId": null
     },
     {
       "id": 41,
@@ -686,38 +686,6 @@
       "photos": [],
       "fatherId": 17,
       "motherId": 21,
-      "spouseId": null
-    },
-    {
-      "id": 44,
-      "name": "Анастасия",
-      "surname": "Сагурова",
-      "middlename": "",
-      "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
-      "fatherId": null,
-      "motherId": null,
-      "spouseId": 40
-    },
-    {
-      "id": 45,
-      "name": "Рада",
-      "surname": "Сагурова",
-      "middlename": "",
-      "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
-      "fatherId": 40,
-      "motherId": null,
       "spouseId": null
     }
   ]

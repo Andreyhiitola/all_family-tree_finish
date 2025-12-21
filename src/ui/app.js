@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dataManager = new window.DataManager()
   await dataManager.init()
   
-  const familyTree = new window.FamilyTreeCore(dataManager.getPeople())
+  const familyTree = new window.FamilyTree(dataManager.getPeople())
   let currentRootId = null
 
   if (dataManager.getPeople().length > 0) {
