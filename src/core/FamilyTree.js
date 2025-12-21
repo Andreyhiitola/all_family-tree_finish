@@ -1,4 +1,4 @@
-class FamilyTreeCore {
+class FamilyTree {
   constructor(people) { 
     this.setPeople(people || []) 
   }
@@ -36,20 +36,18 @@ class FamilyTreeCore {
     return this.childrenByParentId.get(id) || []
   }
 
-  // Получает детей пары (общих для обоих супругов)
   getChildrenOfCouple(person1Id, person2Id) {
     const children1 = this.getChildrenOf(person1Id)
-    const children2 = person2Id ? this.getChildrenOf(person2Id) : []
     
-    // Объединяем детей (убираем дубликаты)
-    const allChildren = [...children1]
-    children2.forEach(child => {
-      if (!allChildren.find(c => c.id === child.id)) {
-        allChildren.push(child)
-      }
+    if (!person2Id) {
+      return children1
+    }
+    
+    // Возвращаем ТОЛЬКО общих детей (у которых оба родителя совпадают)
+    return children1.filter(child => {
+      return (child.fatherId === person1Id && child.motherId === person2Id) ||
+             (child.fatherId === person2Id && child.motherId === person1Id)
     })
-    
-    return allChildren
   }
 
   buildDescendantsHierarchy(rootId) {
@@ -63,7 +61,6 @@ class FamilyTreeCore {
 
     const processedPeople = new Set()
 
-    // Рекурсивная функция для построения узла с супругом
     const buildFamilyNode = (person, depth) => {
       if (depth > 50 || processedPeople.has(person.id)) {
         return null
@@ -71,52 +68,114 @@ class FamilyTreeCore {
 
       processedPeople.add(person.id)
 
-      const spouse = person.spouseId ? this.getPersonById(person.spouseId) : null
+      const spouses = this.getSpouses(person.id)
       
-      if (spouse) {
-        processedPeople.add(spouse.id)
-      }
+      spouses.forEach(s => processedPeople.add(s.id))
 
-      // Создаем узел семьи
-      const familyNode = {
-        type: 'family',
-        id: `family-${person.id}`,
-        person1: {
-          id: person.id,
-          name: person.name,
-          surname: person.surname,
-          gender: person.gender
-        },
-        person2: spouse ? {
-          id: spouse.id,
-          name: spouse.name,
-          surname: spouse.surname,
-          gender: spouse.gender
-        } : null,
-        children: []
-      }
-
-      // Получаем всех детей пары
-      const children = this.getChildrenOfCouple(person.id, spouse?.id)
-      
-      children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
-
-      children.forEach(child => {
-        const childNode = buildFamilyNode(child, depth + 1)
-        if (childNode) {
-          familyNode.children.push(childNode)
+      if (spouses.length === 0) {
+        const children = this.getChildrenOf(person.id)
+        
+        const familyNode = {
+          type: 'family',
+          id: `family-${person.id}`,
+          person1: {
+            id: person.id,
+            name: person.name,
+            surname: person.surname,
+            gender: person.gender
+          },
+          person2: null,
+          children: []
         }
+
+        children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
+
+        children.forEach(child => {
+          const childNode = buildFamilyNode(child, depth + 1)
+          if (childNode) familyNode.children.push(childNode)
+        })
+
+        if (familyNode.children.length === 0) delete familyNode.children
+        return familyNode
+      }
+
+      if (spouses.length === 1) {
+        const spouse = spouses[0]
+        const children = this.getChildrenOfCouple(person.id, spouse.id)
+
+        const familyNode = {
+          type: 'family',
+          id: `family-${person.id}-${spouse.id}`,
+          person1: {
+            id: person.id,
+            name: person.name,
+            surname: person.surname,
+            gender: person.gender
+          },
+          person2: {
+            id: spouse.id,
+            name: spouse.name,
+            surname: spouse.surname,
+            gender: spouse.gender
+          },
+          children: []
+        }
+
+        children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
+
+        children.forEach(child => {
+          const childNode = buildFamilyNode(child, depth + 1)
+          if (childNode) familyNode.children.push(childNode)
+        })
+
+        if (familyNode.children.length === 0) delete familyNode.children
+        return familyNode
+      }
+
+      const marriages = spouses.map(spouse => {
+        const children = this.getChildrenOfCouple(person.id, spouse.id)
+
+        const marriageNode = {
+          type: 'family',
+          id: `family-${person.id}-${spouse.id}`,
+          person1: {
+            id: person.id,
+            name: person.name,
+            surname: person.surname,
+            gender: person.gender
+          },
+          person2: {
+            id: spouse.id,
+            name: spouse.name,
+            surname: spouse.surname,
+            gender: spouse.gender
+          },
+          children: []
+        }
+
+        children.sort((a, b) => (a.birthDate || '9999') > (b.birthDate || '9999') ? 1 : -1)
+
+        children.forEach(child => {
+          const childNode = buildFamilyNode(child, depth + 1)
+          if (childNode) marriageNode.children.push(childNode)
+        })
+
+        if (marriageNode.children.length === 0) delete marriageNode.children
+        return marriageNode
       })
 
-      if (familyNode.children.length === 0) {
-        delete familyNode.children
+      return {
+        type: 'multiple-marriages',
+        id: `marriages-${person.id}`,
+        marriages: marriages
       }
-
-      return familyNode
     }
 
     const treeData = buildFamilyNode(root, 0)
-    return d3.hierarchy(treeData, d => d.children || [])
+    return d3.hierarchy(treeData, d => {
+      if (d.marriages) return d.marriages
+      return d.children || []
+    })
   }
 
   getSpousePairs() {
@@ -142,6 +201,31 @@ class FamilyTreeCore {
     console.log('💑 Найдено супружеских пар:', pairs.length)
     return pairs
   }
+
+  getSpouses(personId) {
+    const person = this.byId.get(personId)
+    if (!person) return []
+    
+    const spouses = new Set()
+    
+    if (person.gender === 'M' && person.wifeId) {
+      spouses.add(person.wifeId)
+    } else if (person.gender === 'F' && person.husbandId) {
+      spouses.add(person.husbandId)
+    }
+    
+    const children = this.getChildrenOf(personId)
+    
+    children.forEach(child => {
+      if (person.gender === 'M' && child.motherId) {
+        spouses.add(child.motherId)
+      } else if (person.gender === 'F' && child.fatherId) {
+        spouses.add(child.fatherId)
+      }
+    })
+    
+    return Array.from(spouses).map(id => this.byId.get(id)).filter(s => s)
+  }
 }
 
-window.FamilyTreeCore = FamilyTreeCore
+window.FamilyTree = FamilyTree
