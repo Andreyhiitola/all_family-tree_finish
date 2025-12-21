@@ -315,3 +315,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   refreshAll()
   console.log('✅ App fully loaded!')
 })
+
+window.closeModal = function() {
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.classList.remove("show");
+    setTimeout(() => modal.style.display = "none", 300);
+  });
+  document.body.style.overflow = "auto";
+};
+
+window.openModal = function(id) {
+  const modal = document.getElementById(id || "person-modal");
+  modal.style.display = "flex";
+  setTimeout(() => modal.classList.add("show"), 10);
+  document.body.style.overflow = "hidden";
+};
+
+// ESC закрывает модалку
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+

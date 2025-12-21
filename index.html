@@ -63,6 +63,7 @@
   <!-- Модальное окно редактирования -->
   <div id="person-modal" class="modal">
     <div class="modal-content">
+  <button class="modal-close" onclick="closeModal()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; z-index: 10002;">×</button>
       <span class="close" id="cancel-form">&times;</span>
       <h2 id="modal-title">Персона</h2>
       <form id="person-form">
@@ -161,6 +162,7 @@
   <!-- Модальное окно Импорта -->
   <div id="import-modal" class="modal">
       <div class="modal-content">
+  <button class="modal-close" onclick="closeModal()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; z-index: 10002;">×</button>
           <span class="close" id="cancel-import">&times;</span>
           <h2>Импорт Excel</h2>
           <input type="file" id="excel-file" accept=".xlsx, .xls">
@@ -170,6 +172,7 @@
   <!-- Модальное окно Удаления -->
   <div id="delete-modal" class="modal">
       <div class="modal-content">
+  <button class="modal-close" onclick="closeModal()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; z-index: 10002;">×</button>
           <span class="close" id="cancel-delete">&times;</span>
           <h2>Подтверждение</h2>
           <p id="delete-message">Вы уверены?</p>
