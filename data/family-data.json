@@ -12,7 +12,7 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 2,
-      "photo": "",  // ← сюда URL аватара
+      "photo": "",  
       "photos": [], // ← сюда галерею (массив URL)
       "biography": "" // ← сюда биографию
     },
