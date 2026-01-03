@@ -186,8 +186,8 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/Оля.jpg",
+      "photos": [photos/avatars/Оля.jpg],
       "fatherId": 9,
       "motherId": 8,
       "spouseId": 23
