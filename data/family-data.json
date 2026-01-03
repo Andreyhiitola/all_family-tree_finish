@@ -11,7 +11,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 2
+      "spouseId": 2,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 2,
@@ -24,7 +27,10 @@
       "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 1
+      "spouseId": 1,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 3,
@@ -37,7 +43,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": 1,
       "motherId": 2,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 4,
@@ -50,7 +59,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": 5,
       "motherId": 6,
-      "spouseId": 3
+      "spouseId": 3,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 5,
@@ -63,7 +75,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 6
+      "spouseId": 6,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 6,
@@ -76,7 +91,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 5
+      "spouseId": 5,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 7,
@@ -89,7 +107,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": 4,
       "motherId": 3,
-      "spouseId": 15
+      "spouseId": 15,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+     "biography": "" // ← сюда биографию
     },
     {
       "id": 8,
@@ -102,7 +123,10 @@
       "birthPlace": "Харьковская область",
       "fatherId": 4,
       "motherId": 3,
-      "spouseId": 9
+      "spouseId": 9,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 9,
@@ -115,7 +139,10 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "fatherId": 10,
       "motherId": 11,
-      "spouseId": 8
+      "spouseId": 8,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 10,
@@ -128,7 +155,10 @@
       "birthPlace": "Белорусь   УТОЧНИТЬ МЕСто",
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 11,
@@ -141,7 +171,10 @@
       "birthPlace": "Белорусь",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 10
+      "spouseId": 10,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 12,
@@ -154,7 +187,10 @@
       "birthPlace": null,
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 23
+      "spouseId": 23,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 13,
@@ -167,7 +203,10 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 22
+      "spouseId": 22,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 14,
@@ -180,7 +219,10 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 32
+      "spouseId": 32,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 15,
@@ -193,7 +235,10 @@
       "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 7
+      "spouseId": 7,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 16,
@@ -206,7 +251,10 @@
       "birthPlace": "г.Балхаш, Казахская ССР",
       "fatherId": 7,
       "motherId": 15,
-      "spouseId": 19
+      "spouseId": 19,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 17,
@@ -219,7 +267,10 @@
       "birthPlace": "Вышевогорск, Челябинска область",
       "fatherId": 7,
       "motherId": 15,
-      "spouseId": 21
+      "spouseId": 21,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 18,
@@ -232,7 +283,10 @@
       "birthPlace": "город Санкт-Петербург",
       "fatherId": 16,
       "motherId": 19,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 19,
@@ -245,7 +299,10 @@
       "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 16
+      "spouseId": 16,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 20,
@@ -258,7 +315,10 @@
       "birthPlace": "г.Санкт-Петербург",
       "fatherId": 16,
       "motherId": 19,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 21,
@@ -271,7 +331,10 @@
       "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 22,
@@ -284,7 +347,10 @@
       "birthPlace": "совхоз Джанашар, Алмаатинская область, Каз ССЗ",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 13
+      "spouseId": 13,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 23,
@@ -297,7 +363,10 @@
       "birthPlace": "совхоз Космос, Алмаатинска обл., Каз. ССР",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 12
+      "spouseId": 12,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 24,
@@ -310,7 +379,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 23,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 25,
@@ -323,7 +395,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 23,
       "motherId": 12,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 26,
@@ -336,7 +411,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 25,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 27,
@@ -349,7 +427,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 25,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 28,
@@ -362,7 +443,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 22,
       "motherId": 13,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 29,
@@ -375,7 +459,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": 22,
       "motherId": 13,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 30,
@@ -388,7 +475,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": null,
       "motherId": 28,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 31,
@@ -401,7 +491,10 @@
       "birthPlace": "г.Алма-Ата",
       "fatherId": null,
       "motherId": 28,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 32,
@@ -414,7 +507,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 14
+      "spouseId": 14,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 33,
@@ -427,7 +523,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": null,
       "motherId": null,
-      "spouseId": 14
+      "spouseId": 14,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 34,
@@ -440,7 +539,10 @@
       "birthPlace": "гор.Алм-Ата",
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 35,
@@ -453,7 +555,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 36,
@@ -466,7 +571,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": null,
       "motherId": 34,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 37,
@@ -479,7 +587,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": null,
       "motherId": 34,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 38,
@@ -492,7 +603,10 @@
       "birthPlace": null,
       "fatherId": 14,
       "motherId": 33,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 39,
@@ -505,7 +619,10 @@
       "birthPlace": "гор.Алма-Ата",
       "fatherId": 35,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 40,
@@ -518,7 +635,10 @@
       "birthPlace": "гор.Текели, Казахстан",
       "fatherId": 17,
       "motherId": 42,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 41,
@@ -531,7 +651,10 @@
       "birthPlace": "гор.Текели, Казахстан",
       "fatherId": 17,
       "motherId": 21,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 42,
@@ -544,7 +667,10 @@
       "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 17
+      "spouseId": 17,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     },
     {
       "id": 43,
@@ -557,7 +683,10 @@
       "birthPlace": "гор. Текели",
       "fatherId": 17,
       "motherId": 21,
-      "spouseId": null
+      "spouseId": null,
+      "photo": "",  // ← сюда URL аватара
+      "photos": [], // ← сюда галерею (массив URL)
+      "biography": "" // ← сюда биографию
     }
   ]
 }
