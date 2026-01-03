@@ -13,8 +13,8 @@
       "motherId": null,
       "spouseId": 2,
       "photo": "",  
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 2,
@@ -28,9 +28,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 1,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 3,
@@ -44,9 +44,9 @@
       "fatherId": 1,
       "motherId": 2,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 4,
@@ -60,9 +60,9 @@
       "fatherId": 5,
       "motherId": 6,
       "spouseId": 3,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 5,
@@ -76,9 +76,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 6,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "", 
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 6,
@@ -92,9 +92,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 5,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 7,
@@ -108,9 +108,9 @@
       "fatherId": 4,
       "motherId": 3,
       "spouseId": 15,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-     "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+     "biography": ""
     },
     {
       "id": 8,
@@ -124,9 +124,9 @@
       "fatherId": 4,
       "motherId": 3,
       "spouseId": 9,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 9,
@@ -140,9 +140,9 @@
       "fatherId": 10,
       "motherId": 11,
       "spouseId": 8,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 10,
@@ -156,9 +156,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 11,
@@ -172,9 +172,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 10,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 12,
@@ -188,9 +188,9 @@
       "fatherId": 9,
       "motherId": 8,
       "spouseId": 23,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 13,
@@ -204,9 +204,9 @@
       "fatherId": 9,
       "motherId": 8,
       "spouseId": 22,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 14,
@@ -220,9 +220,9 @@
       "fatherId": 9,
       "motherId": 8,
       "spouseId": 32,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 15,
@@ -236,9 +236,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 7,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 16,
@@ -252,9 +252,9 @@
       "fatherId": 7,
       "motherId": 15,
       "spouseId": 19,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 17,
@@ -268,9 +268,9 @@
       "fatherId": 7,
       "motherId": 15,
       "spouseId": 21,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 18,
@@ -284,9 +284,9 @@
       "fatherId": 16,
       "motherId": 19,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 19,
@@ -300,9 +300,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 16,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 20,
@@ -316,9 +316,9 @@
       "fatherId": 16,
       "motherId": 19,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 21,
@@ -332,9 +332,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 22,
@@ -348,9 +348,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 13,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 23,
@@ -364,9 +364,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 12,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 24,
@@ -380,9 +380,9 @@
       "fatherId": 23,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 25,
@@ -396,9 +396,9 @@
       "fatherId": 23,
       "motherId": 12,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 26,
@@ -412,9 +412,9 @@
       "fatherId": 25,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 27,
@@ -428,9 +428,9 @@
       "fatherId": 25,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 28,
@@ -444,9 +444,9 @@
       "fatherId": 22,
       "motherId": 13,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 29,
@@ -460,9 +460,9 @@
       "fatherId": 22,
       "motherId": 13,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 30,
@@ -476,9 +476,9 @@
       "fatherId": null,
       "motherId": 28,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 31,
@@ -492,9 +492,9 @@
       "fatherId": null,
       "motherId": 28,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 32,
@@ -508,9 +508,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 14,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "", 
+      "photos": [],
+      "biography": "" 
     },
     {
       "id": 33,
@@ -524,9 +524,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 14,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 34,
@@ -540,9 +540,9 @@
       "fatherId": 14,
       "motherId": 32,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 35,
@@ -556,10 +556,10 @@
       "fatherId": 14,
       "motherId": 32,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
-    },
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
+     },
     {
       "id": 36,
       "name": "Сабрина",
@@ -572,9 +572,9 @@
       "fatherId": null,
       "motherId": 34,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": ""
     },
     {
       "id": 37,
@@ -588,9 +588,9 @@
       "fatherId": null,
       "motherId": 34,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 38,
@@ -604,9 +604,9 @@
       "fatherId": 14,
       "motherId": 33,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [],
+      "biography": "" 
     },
     {
       "id": 39,
@@ -620,9 +620,9 @@
       "fatherId": 35,
       "motherId": null,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "", 
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 40,
@@ -636,10 +636,10 @@
       "fatherId": 17,
       "motherId": 42,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
-    },
+      "photo": "", 
+      "photos": [],
+      "biography": "" 
+     },
     {
       "id": 41,
       "name": "Егор",
@@ -652,10 +652,10 @@
       "fatherId": 17,
       "motherId": 21,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
-    },
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
+     },
     {
       "id": 42,
       "name": "Лариса",
@@ -668,9 +668,9 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 17,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     },
     {
       "id": 43,
@@ -684,9 +684,9 @@
       "fatherId": 17,
       "motherId": 21,
       "spouseId": null,
-      "photo": "",  // ← сюда URL аватара
-      "photos": [], // ← сюда галерею (массив URL)
-      "biography": "" // ← сюда биографию
+      "photo": "",  
+      "photos": [], 
+      "biography": "" 
     }
   ]
 }
