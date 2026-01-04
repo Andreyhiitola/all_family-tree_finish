@@ -125,8 +125,8 @@
       "motherId": 3,
       "spouseId": 9,
       "biography": null,
-      "photo": photos/avatars/теть_Лида.jpg,
-      "photos": [photos/avatars/теть_Лида.jpg]
+      "photo": 'photos/avatars/теть_Лида.jpg',
+      "photos": ['photos/avatars/теть_Лида.jpg']
     },
     {
       "id": 9,
