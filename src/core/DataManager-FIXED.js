@@ -1,67 +1,83 @@
+/**
+ * ИСПРАВЛЕННЫЙ DataManager
+ * Решает проблемы:
+ * 1. Загрузка из data/people.json при первом запуске
+ * 2. Правильное кеширование с версионностью
+ * 3. Управление путями к фотографиям
+ * 4. Принудительная перезагрузка данных
+ */
+
 class DataManager {
   constructor(storageKey = 'familyTreeData') {
     this.storageKey = storageKey
     this.versionKey = 'familyTreeVersion'
-    this.currentVersion = '1.0.4'
+    this.currentVersion = '1.0.3' // Увеличивайте при изменениях
     
     this.people = []
     this.isModified = false
     this.autoSaveTimer = null
     
+    // Пути к файлам
     this.basePath = this.detectBasePath()
-    this.dataPath = this.basePath + 'data/people.json'
-    this.photosPath = this.basePath + 'photos'
+    this.dataPath = `${this.basePath}data/people.json`
+    this.photosPath = `${this.basePath}photos`
   }
 
+  /**
+   * Определить базовый путь (для GitHub Pages и локальной разработки)
+   */
   detectBasePath() {
-    const hostname = window.location.hostname
-    const port = window.location.port
-    
-    if (hostname === 'localhost' || 
-        hostname === '127.0.0.1' || 
-        hostname === '0.0.0.0' ||
-        hostname === '' ||
-        port === '8760' ||
+    // Для локальной разработки
+    if (window.location.hostname === 'localhost' || 
+        window.location.hostname === '127.0.0.1' ||
         window.location.protocol === 'file:') {
       console.log('🏠 Режим: локальная разработка')
       return './'
     }
     
-    if (hostname.includes('github.io')) {
+    // Для GitHub Pages
+    if (window.location.hostname.includes('github.io')) {
       const pathname = window.location.pathname
       const match = pathname.match(/^\/([^\/]+)/)
       const repoName = match ? match[1] : ''
       console.log('🌐 Режим: GitHub Pages, репозиторий:', repoName)
-      return repoName ? ('/' + repoName + '/') : '/'
+      return repoName ? `/${repoName}/` : '/'
     }
     
-    console.log('🌐 Режим: продакшн сервер')
+    // Для своего домена
+    console.log('🌐 Режим: свой домен')
     return '/'
   }
 
+  /**
+   * Инициализация - загружает данные
+   */
   async init() {
-    console.log('📥 DataManager: Загрузка...')
+    console.log('📥 DataManager: Инициализация...')
     console.log('📂 Базовый путь:', this.basePath)
     console.log('📂 Путь к данным:', this.dataPath)
     
+    // Проверяем версию кеша
     const cachedVersion = localStorage.getItem(this.versionKey)
     const isCacheValid = cachedVersion === this.currentVersion
     
     if (!isCacheValid && cachedVersion) {
-      console.log('🔄 Обновление версии:', cachedVersion, '→', this.currentVersion)
+      console.log(`🔄 Обновление версии: ${cachedVersion} → ${this.currentVersion}`)
       this.clearCache()
     }
     
+    // Пытаемся загрузить из кеша
     if (isCacheValid) {
       const cached = this.loadFromCache()
       if (cached && cached.length > 0) {
         this.people = cached
         this.normalizePeople()
-        console.log('✅ Загружено из кеша:', this.people.length, 'человек')
+        console.log(`✅ Загружено из кеша: ${this.people.length} человек`)
         return
       }
     }
     
+    // Загружаем из JSON файла
     try {
       console.log('📡 Загрузка из JSON файла:', this.dataPath)
       const data = await this.loadFromJSON()
@@ -70,21 +86,22 @@ class DataManager {
         this.people = data
         this.normalizePeople()
         this.saveToCache()
-        console.log('✅ Загружено из JSON:', this.people.length, 'человек')
+        console.log(`✅ Загружено из JSON: ${this.people.length} человек`)
       } else {
-        console.warn('⚠️ JSON файл пуст')
+        console.warn('⚠️ JSON файл пуст или не найден')
         this.people = []
       }
     } catch (error) {
       console.error('❌ Ошибка загрузки JSON:', error)
       
+      // Пытаемся загрузить из localStorage как fallback
       const stored = localStorage.getItem(this.storageKey)
       if (stored) {
         try {
           const parsed = JSON.parse(stored)
           this.people = Array.isArray(parsed) ? parsed : (parsed.people || [])
           this.normalizePeople()
-          console.log('⚠️ Загружено из старого кеша:', this.people.length, 'человек')
+          console.log(`⚠️ Загружено из старого кеша: ${this.people.length} человек`)
         } catch (e) {
           console.error('❌ Ошибка чтения кеша:', e)
           this.people = []
@@ -93,37 +110,51 @@ class DataManager {
     }
   }
 
+  /**
+   * Загрузить данные из JSON файла
+   */
   async loadFromJSON() {
-    const timestamp = new Date().getTime()
-    const url = this.dataPath + '?t=' + timestamp
-    
-    console.log('🌐 Запрос:', url)
-    
-    const response = await fetch(url, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
+    try {
+      // Добавляем timestamp для обхода кеша браузера
+      const timestamp = new Date().getTime()
+      const url = `${this.dataPath}?t=${timestamp}`
+      
+      console.log('🌐 Запрос:', url)
+      
+      const response = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
+      
+      console.log('📊 HTTP статус:', response.status, response.statusText)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
-    })
-    
-    console.log('📊 HTTP статус:', response.status, response.statusText)
-    
-    if (!response.ok) {
-      throw new Error('HTTP ' + response.status + ': ' + response.statusText)
-    }
-    
-    const data = await response.json()
-    
-    if (Array.isArray(data)) {
-      return data
-    } else if (data.people && Array.isArray(data.people)) {
-      return data.people
-    } else {
-      throw new Error('Неверный формат JSON')
+      
+      const data = await response.json()
+      
+      // Обрабатываем разные форматы
+      if (Array.isArray(data)) {
+        return data
+      } else if (data.people && Array.isArray(data.people)) {
+        return data.people
+      } else {
+        throw new Error('Неверный формат JSON')
+      }
+      
+    } catch (error) {
+      console.error('❌ Ошибка загрузки JSON:', error)
+      throw error
     }
   }
 
+  /**
+   * Нормализация данных
+   */
   normalizePeople() {
     this.people = this.people.map(p => {
       const id = parseInt(p.id, 10) || 0
@@ -153,6 +184,9 @@ class DataManager {
     console.log('✅ Нормализовано:', this.people.length, 'человек')
   }
 
+  /**
+   * Загрузить из кеша
+   */
   loadFromCache() {
     try {
       const json = localStorage.getItem(this.storageKey)
@@ -168,6 +202,9 @@ class DataManager {
     }
   }
 
+  /**
+   * Сохранить в кеш
+   */
   saveToCache() {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify({ people: this.people }))
@@ -178,68 +215,90 @@ class DataManager {
     }
   }
 
+  /**
+   * Очистить кеш
+   */
   clearCache() {
     localStorage.removeItem(this.storageKey)
     localStorage.removeItem(this.versionKey)
     console.log('🗑️ Кеш очищен')
   }
 
+  /**
+   * Принудительно перезагрузить данные из JSON
+   */
   async reload() {
-    console.log('🔄 Принудительная перезагрузка...')
+    console.log('🔄 Принудительная перезагрузка данных...')
     this.clearCache()
     this.people = []
     await this.init()
     return this.people
   }
 
+  /**
+   * Получить URL аватара
+   */
   getPhotoUrl(photoPath) {
     if (!photoPath) {
-      return this.photosPath + '/default-avatar.png'
+      return `${this.photosPath}/default-avatar.png`
     }
     
+    // Если это полный URL
     if (photoPath.startsWith('http://') || photoPath.startsWith('https://')) {
       return photoPath
     }
     
+    // Если это абсолютный путь
     if (photoPath.startsWith('/')) {
       return photoPath
     }
     
-    return this.photosPath + '/avatars/' + photoPath
+    // Относительный путь
+    return `${this.photosPath}/avatars/${photoPath}`
   }
 
+  /**
+   * Получить URLs фотогалереи
+   */
   getGalleryUrls(photos) {
     if (!Array.isArray(photos)) return []
     
-    const self = this
-    return photos.map(function(photo) {
+    return photos.map(photo => {
       if (!photo) return null
       
+      // Полный URL
       if (photo.startsWith('http://') || photo.startsWith('https://')) {
         return photo
       }
       
+      // Абсолютный путь
       if (photo.startsWith('/')) {
         return photo
       }
       
-      return self.photosPath + '/gallery/' + photo
-    }).filter(function(url) {
-      return url !== null
-    })
+      // Относительный путь
+      return `${this.photosPath}/gallery/${photo}`
+    }).filter(url => url !== null)
   }
 
+  /**
+   * Генерация ID
+   */
   generateId() { 
     if (this.people.length === 0) return 1
-    return this.people.reduce(function(max, p) {
-      return Math.max(max, p.id || 0)
-    }, 0) + 1
+    return this.people.reduce((max, p) => Math.max(max, p.id || 0), 0) + 1 
   }
 
+  /**
+   * Получить всех людей
+   */
   getPeople() { 
     return this.people 
   }
   
+  /**
+   * Установить данные
+   */
   setPeople(people) { 
     this.people = people || []
     this.normalizePeople()
@@ -247,11 +306,12 @@ class DataManager {
     this.save()
   }
 
+  /**
+   * Добавить или обновить человека
+   */
   upsertPerson(person) {
     if (!person.id) person.id = this.generateId()
-    const idx = this.people.findIndex(function(p) {
-      return p.id === person.id
-    })
+    const idx = this.people.findIndex(p => p.id === person.id)
     if (idx === -1) {
       this.people.push(person)
     } else {
@@ -262,26 +322,32 @@ class DataManager {
     this.save()
   }
 
+  /**
+   * Удалить человека
+   */
   deletePerson(id) {
-    this.people = this.people.filter(function(p) {
-      return p.id !== id
-    })
+    this.people = this.people.filter(p => p.id !== id)
     this.isModified = true
     this.save()
   }
 
+  /**
+   * Сохранить
+   */
   save() {
     this.saveToCache()
     this.isModified = false
   }
 
-  startAutoSave(intervalMs, callback) {
-    const self = this
+  /**
+   * Автосохранение
+   */
+  startAutoSave(intervalMs = 10000, callback) {
     if (this.autoSaveTimer) clearInterval(this.autoSaveTimer)
     
-    this.autoSaveTimer = setInterval(function() {
-      if (self.isModified) {
-        self.save()
+    this.autoSaveTimer = setInterval(() => {
+      if (this.isModified) {
+        this.save()
         if (callback) callback()
       }
     }, intervalMs)
@@ -289,29 +355,35 @@ class DataManager {
     console.log('⏰ Автосохранение запущено:', intervalMs, 'мс')
   }
 
+  /**
+   * Очистить все данные
+   */
   clearAll() {
     this.people = []
     this.save()
   }
 
+  /**
+   * Получить статистику
+   */
   getStatistics() {
     return {
       total: this.people.length,
-      males: this.people.filter(function(p) { return p.gender === 'M' }).length,
-      females: this.people.filter(function(p) { return p.gender === 'F' }).length,
-      withPhotos: this.people.filter(function(p) { return p.photo }).length,
-      withGallery: this.people.filter(function(p) { return p.photos && p.photos.length > 0 }).length,
-      living: this.people.filter(function(p) { return !p.deathDate }).length,
-      deceased: this.people.filter(function(p) { return p.deathDate }).length
+      males: this.people.filter(p => p.gender === 'M').length,
+      females: this.people.filter(p => p.gender === 'F').length,
+      withPhotos: this.people.filter(p => p.photo).length,
+      withGallery: this.people.filter(p => p.photos && p.photos.length > 0).length,
+      living: this.people.filter(p => !p.deathDate).length,
+      deceased: this.people.filter(p => p.deathDate).length
     }
   }
 
+  /**
+   * Отладочная информация
+   */
   getDebugInfo() {
     return {
       version: this.currentVersion,
-      hostname: window.location.hostname,
-      port: window.location.port,
-      protocol: window.location.protocol,
       basePath: this.basePath,
       dataPath: this.dataPath,
       photosPath: this.photosPath,

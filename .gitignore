@@ -1,0 +1,10 @@
+# .gitignore
+
+# НЕ исключайте data/
+# data/
+
+# Исключайте только временные файлы
+*.log
+*.tmp
+node_modules/
+.DS_Store
