@@ -60,7 +60,123 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     updateStats()
   }
+/**
+ * ДОПОЛНЕНИЕ к app.js
+ * Добавьте этот код в конец вашего app.js (после инициализации dataManager)
+ */
+
+// ============================================================================
+// ИНИЦИАЛИЗАЦИЯ PROFILE MODAL
+// ============================================================================
+
+// Создаем ProfileModal после загрузки dataManager
+if (typeof ProfileModal !== 'undefined') {
+  window.profileModal = new ProfileModal(dataManager)
+  console.log('✅ ProfileModal инициализирован')
+} else {
+  console.error('❌ ProfileModal не загружен. Проверьте подключение ProfileModal.js')
+}
+
+// ============================================================================
+// ОБРАБОТЧИКИ КЛИКОВ ПО УЗЛАМ ДЕРЕВА
+// ============================================================================
+
+// Если есть TreeVisualizer, добавляем открытие профиля по двойному клику
+if (typeof treeViz !== 'undefined' && treeViz.gNodes) {
+  // Добавляем обработчик двойного клика на узлы
+  treeViz.gNodes.on('dblclick', function(event, d) {
+    event.stopPropagation()
+    
+    // Получаем ID персоны из узла
+    let personId = null
+    if (d.data && d.data.person1) {
+      personId = d.data.person1.id
+    }
+    
+    if (personId && window.profileModal) {
+      console.log('🎯 Двойной клик на узел, открываем профиль:', personId)
+      window.profileModal.open(personId)
+    }
+  })
   
+  console.log('✅ Двойной клик на узлах дерева активирован')
+}
+
+// ============================================================================
+// ИНТЕГРАЦИЯ С БОКОВОЙ ПАНЕЛЬЮ
+// ============================================================================
+
+// Добавляем кнопку "Показать профиль" в боковую панель
+function addProfileButtonToSidebar() {
+  const detailsDiv = document.querySelector('.person-details')
+  if (!detailsDiv) return
+  
+  // Проверяем, не добавлена ли уже кнопка
+  if (detailsDiv.querySelector('#view-profile-btn')) return
+  
+  const actionsDiv = detailsDiv.querySelector('.person-actions')
+  if (!actionsDiv) return
+  
+  const viewProfileBtn = document.createElement('button')
+  viewProfileBtn.id = 'view-profile-btn'
+  viewProfileBtn.className = 'btn btn-primary'
+  viewProfileBtn.innerHTML = '👁 Профиль'
+  viewProfileBtn.title = 'Показать полный профиль'
+  viewProfileBtn.onclick = function() {
+    if (selectedPersonId && window.profileModal) {
+      window.profileModal.open(selectedPersonId)
+    }
+  }
+  
+  // Вставляем первой кнопкой
+  actionsDiv.insertBefore(viewProfileBtn, actionsDiv.firstChild)
+  
+  console.log('✅ Кнопка "Профиль" добавлена в боковую панель')
+}
+
+// Пытаемся добавить кнопку через 1 секунду после загрузки
+setTimeout(addProfileButtonToSidebar, 1000)
+
+// ============================================================================
+// ГЛОБАЛЬНЫЕ ФУНКЦИИ ДЛЯ ОТЛАДКИ
+// ============================================================================
+
+window.debugProfile = {
+  open: function(id) {
+    if (window.profileModal) {
+      window.profileModal.open(id)
+    } else {
+      console.error('❌ ProfileModal не инициализирован')
+    }
+  },
+  
+  test: function() {
+    const people = dataManager.getPeople()
+    if (people.length > 0) {
+      console.log('🧪 Тестируем ProfileModal с первым человеком')
+      window.profileModal.open(people[0].id)
+    } else {
+      console.error('❌ Нет людей для теста')
+    }
+  },
+  
+  stats: function() {
+    const people = dataManager.getPeople()
+    const withPhotos = people.filter(p => p.photo).length
+    const withGallery = people.filter(p => p.photos && p.photos.length > 0).length
+    
+    console.table({
+      'Всего людей': people.length,
+      'С аватарами': withPhotos,
+      'С галереями': withGallery
+    })
+  }
+}
+
+console.log('✅ ProfileModal интегрирован')
+console.log('📝 Команды: window.debugProfile.test() - тест профиля')
+console.log('📝 Команды: window.debugProfile.open(ID) - открыть профиль')
+console.log('📝 Команды: window.debugProfile.stats() - статистика фото')  
   // Глобальный доступ к refreshAll
   window.refreshAll = refreshAll
 
