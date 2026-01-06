@@ -141,8 +141,8 @@
       "motherId": 11,
       "spouseId": 8,
       "biography": "",
-      "photo": "photos/Дядь_Аркадий_обратно_фото.jpg",
-      "photos": []
+      "photo": "photos/avatars/Дядь_Аркадий.jpg",
+      "photos": ["photos/avatars/Дядь_Аркадий.jpg"]
     },
     {
       "id": 10,
@@ -206,7 +206,7 @@
       "spouseId": 22,
       "biography": null,
       "photo": "photos/avatars/Неля.jpg",
-      "photos": []
+      "photos": ["photos/avatars/Неля.jpg"]
     },
     {
       "id": 14,
