@@ -4,33 +4,33 @@
       "id": 1,
       "name": "Федор",
       "surname": "Рыбалко",
-      "middlename": "",
+      "middlename": null,
       "gender": "M",
       "birthDate": "1870-03-05",
       "deathDate": "1946-07-20",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 2
+      "spouseId": 2,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 2,
       "name": "Мария",
       "surname": "Рыбалко",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
       "birthDate": "1873-01-20",
       "deathDate": "1947-05-09",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 1
+      "spouseId": 1,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 3,
@@ -41,12 +41,12 @@
       "birthDate": "1918-09-11",
       "deathDate": "1989-02-25",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 1,
       "motherId": 2,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 4,
@@ -57,44 +57,44 @@
       "birthDate": "1915-08-29",
       "deathDate": "1943-09-23",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 1,
       "motherId": 6,
-      "spouseId": 3
+      "spouseId": 3,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 5,
       "name": "Лаврентий",
       "surname": "Сагуров",
-      "middlename": "",
+      "middlename": null,
       "gender": "M",
       "birthDate": "1915-01-01",
       "deathDate": "1936-01-01",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 6
+      "spouseId": 6,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 6,
       "name": "Соломея",
       "surname": "Сагурова",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
       "birthDate": "1870-01-01",
       "deathDate": "1938-01-01",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 5
+      "spouseId": 5,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 7,
@@ -105,12 +105,12 @@
       "birthDate": "1940-09-01",
       "deathDate": "2004-12-03",
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 4,
       "motherId": 3,
-      "spouseId": 15
+      "spouseId": 15,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 8,
@@ -119,16 +119,16 @@
       "middlename": "Андреевна",
       "gender": "F",
       "birthDate": "1938-09-01",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "Харьковская область",
-      "biography": "",
-      "photo": "photos/avatars/теть_Лида.jpg",
-      "photos": [
-        "photos/теть_Лида.jpg"
-      ],
       "fatherId": 4,
       "motherId": 3,
-      "spouseId": 9
+      "spouseId": 9,
+      "biography": null,
+      "photo": "photos/avatars/теть_Лида.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 9,
@@ -139,14 +139,14 @@
       "birthDate": "1937-01-01",
       "deathDate": "2014-01-17",
       "birthPlace": "пос. Космос, Алмаатинская область",
-      "biography": "",
-      "photo": "photos/avatars/Дядь_Аркадий.jpg",
-      "photos": [
-        "photos/avatars/Дядь_Аркадий.jpg"
-      ],
       "fatherId": 10,
       "motherId": 11,
-      "spouseId": 8
+      "spouseId": 8,
+      "biography": null,
+      "photo": "photos/avatars/Дядь_Аркадий.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 10,
@@ -157,28 +157,28 @@
       "birthDate": "1907-01-01",
       "deathDate": "1947-01-01",
       "birthPlace": "Белорусь   УТОЧНИТЬ МЕСто",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 11,
       "name": "Елена",
       "surname": "Вустина (Максимова)",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
       "birthDate": "1910-05-17",
       "deathDate": "1994-06-01",
       "birthPlace": "Белорусь",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 10
+      "spouseId": 10,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 12,
@@ -186,35 +186,35 @@
       "surname": "Витошкина (Вустина)",
       "middlename": "Аркадьевна",
       "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "photos/avatars/Оля.jpg",
-      "photos": [
-        "photos/avatars/Оля.jpg"
-      ],
+      "birthDate": null,
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 23
+      "spouseId": 23,
+      "biography": null,
+      "photo": "photos/avatars/Оля.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 13,
       "name": "Неля",
       "surname": "Мезько (Вустина)",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
       "birthDate": "1962-09-04",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "пос. Космос, Алмаатинская область",
-      "biography": "",
-      "photo": "photos/avatars/Неля.jpg",
-      "photos": [
-        "photos/avatars/Неля.jpg"
-      ],
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 22
+      "spouseId": 22,
+      "biography": null,
+      "photo": "photos/avatars/Неля.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 14,
@@ -223,14 +223,14 @@
       "middlename": "Аркадьевич",
       "gender": "M",
       "birthDate": "1968-12-22",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "пос. Космос, Алмаатинская область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 32
+      "spouseId": 32,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 15,
@@ -240,13 +240,13 @@
       "gender": "F",
       "birthDate": "1939-12-07",
       "deathDate": "2016-10-23",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 7
+      "spouseId": 7,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 16,
@@ -255,14 +255,14 @@
       "middlename": "Петрович",
       "gender": "M",
       "birthDate": "1966-05-25",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Балхаш, Казахская ССР",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 7,
       "motherId": 15,
-      "spouseId": 19
+      "spouseId": 19,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 17,
@@ -271,14 +271,14 @@
       "middlename": "Петрович",
       "gender": "M",
       "birthDate": "1969-09-20",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "Вышевогорск, Челябинска область",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 7,
       "motherId": 15,
-      "spouseId": 21
+      "spouseId": 21,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 18,
@@ -287,30 +287,30 @@
       "middlename": "Андреевна",
       "gender": "M",
       "birthDate": "1993-12-07",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "город Санкт-Петербург",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 16,
       "motherId": 19,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 19,
       "name": "Татьяна",
       "surname": "Сагурова (Быстрова)",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthDate": null,
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 16
+      "spouseId": 16,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 20,
@@ -319,30 +319,30 @@
       "middlename": "Андреевна",
       "gender": "F",
       "birthDate": "1995-07-08",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Санкт-Петербург",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 16,
       "motherId": 19,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 21,
       "name": "Мария",
       "surname": "Сагурова",
-      "middlename": "",
+      "middlename": null,
       "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthDate": null,
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 22,
@@ -351,16 +351,16 @@
       "middlename": "Ерофеевич",
       "gender": "M",
       "birthDate": "1959-10-29",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "совхоз Джанашар, Алмаатинская область, Каз ССЗ",
-      "biography": "",
-      "photo": "photos/avatars/Петр.jpg",
-      "photos": [
-        "photos/avatars/Петр.jpg"
-      ],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 13
+      "spouseId": 13,
+      "biography": null,
+      "photo": "photos/avatars/Петр.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 23,
@@ -371,12 +371,12 @@
       "birthDate": "1954-06-07",
       "deathDate": "2007-06-11",
       "birthPlace": "совхоз Космос, Алмаатинска обл., Каз. ССР",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 12
+      "spouseId": 12,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 24,
@@ -387,12 +387,12 @@
       "birthDate": "1979-05-21",
       "deathDate": "2024-02-06",
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 23,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 25,
@@ -401,14 +401,14 @@
       "middlename": "Александрович",
       "gender": "M",
       "birthDate": "1983-02-08",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 23,
       "motherId": 12,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 26,
@@ -416,15 +416,15 @@
       "surname": "Ветошкина",
       "middlename": "Константиновна",
       "gender": "F",
-      "birthDate": "1010-11-13",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthDate": "1010-11-07",
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": 25,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 27,
@@ -433,16 +433,16 @@
       "middlename": "Константиновна",
       "gender": "F",
       "birthDate": "2012-07-07",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "photos/avatars/Зоя.jpg",
-      "photos": [
-        "photos/avatars/Зоя.jpg"
-      ],
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": 25,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": "photos/avatars/Зоя.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 28,
@@ -451,14 +451,14 @@
       "middlename": "Петровна",
       "gender": "F",
       "birthDate": "1982-05-23",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 22,
       "motherId": 13,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 29,
@@ -467,14 +467,14 @@
       "middlename": "Петрович",
       "gender": "M",
       "birthDate": "1987-11-17",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 22,
       "motherId": 13,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 30,
@@ -483,14 +483,14 @@
       "middlename": "Алексеевич",
       "gender": "M",
       "birthDate": "2007-06-14",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": 28,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 31,
@@ -499,16 +499,16 @@
       "middlename": "Алексеевна",
       "gender": "F",
       "birthDate": "2010-08-26",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "photos/avatars/Валерия.jpg",
-      "photos": [
-        "photos/avatars/Валерия.jpg"
-      ],
       "fatherId": null,
       "motherId": 28,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": "photos/avatars/Валерия.jpg",
+      "photos": [
+        ""
+      ]
     },
     {
       "id": 32,
@@ -517,14 +517,14 @@
       "middlename": "Павловна",
       "gender": "F",
       "birthDate": "1970-09-18",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 14
+      "spouseId": 14,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 33,
@@ -533,14 +533,14 @@
       "middlename": "Владимировна",
       "gender": "F",
       "birthDate": "1975-03-31",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 14
+      "spouseId": 14,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 34,
@@ -549,14 +549,14 @@
       "middlename": "Александровна",
       "gender": "F",
       "birthDate": "2013-01-03",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алм-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 35,
@@ -565,14 +565,14 @@
       "middlename": "Александрович",
       "gender": "M",
       "birthDate": "1995-05-14",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 36,
@@ -581,30 +581,30 @@
       "middlename": "Александровна",
       "gender": "F",
       "birthDate": "2013-01-03",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": 34,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 37,
       "name": "Руслан",
       "surname": "Вустин",
-      "middlename": "",
+      "middlename": null,
       "gender": "M",
       "birthDate": "2024-03-22",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": null,
       "motherId": 34,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 38,
@@ -612,31 +612,31 @@
       "surname": "Вустина",
       "middlename": "Александровна",
       "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "birthDate": null,
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": 14,
       "motherId": 33,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 39,
       "name": "Аарон",
       "surname": "Вустин",
-      "middlename": "",
+      "middlename": null,
       "gender": "M",
       "birthDate": "2022-05-31",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 35,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 40,
@@ -645,14 +645,14 @@
       "middlename": "Дмитриевич",
       "gender": "M",
       "birthDate": "1995-10-29",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Текели, Казахстан",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 17,
       "motherId": 42,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 41,
@@ -661,14 +661,14 @@
       "middlename": "Дмитриевич",
       "gender": "M",
       "birthDate": "2000-12-11",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор.Текели, Казахстан",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 17,
       "motherId": 21,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 42,
@@ -677,14 +677,14 @@
       "middlename": "Александровна",
       "gender": "F",
       "birthDate": "1968-11-13",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
+      "deathDate": null,
+      "birthPlace": null,
       "fatherId": null,
       "motherId": null,
-      "spouseId": 17
+      "spouseId": 17,
+      "biography": null,
+      "photo": null,
+      "photos": []
     },
     {
       "id": 43,
@@ -693,14 +693,14 @@
       "middlename": "Дмитреевич",
       "gender": "M",
       "birthDate": "2002-02-07",
-      "deathDate": "",
+      "deathDate": null,
       "birthPlace": "гор. Текели",
-      "biography": "",
-      "photo": "",
-      "photos": [],
       "fatherId": 17,
       "motherId": 21,
-      "spouseId": null
+      "spouseId": null,
+      "biography": null,
+      "photo": null,
+      "photos": []
     }
   ]
 }
