@@ -205,6 +205,10 @@ class DataManager {
       return photoPath
     }
     
+    if (photoPath.startsWith('photos/') || photoPath.startsWith('avatars/')) {
+      return photoPath
+    }
+    
     return this.photosPath + '/avatars/' + photoPath
   }
 

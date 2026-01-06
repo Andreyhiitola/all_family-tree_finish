@@ -1,180 +1,398 @@
-#!/bin/bash
+/* ============================================
+   PROFILE MODAL STYLES
+   ============================================ */
 
-# ============================================================================
-# АВТОМАТИЧЕСКАЯ УСТАНОВКА PROFILEMODAL
-# ============================================================================
-
-echo "🚀 Установка ProfileModal..."
-echo ""
-
-# Переходим в папку проекта
-cd ~/Desktop/all_family-tree_finish || {
-    echo "❌ Папка проекта не найдена!"
-    exit 1
+/* Модальное окно */
+.profile-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
 }
 
-# Определяем откуда брать файлы
-SOURCE_DIR=""
+.profile-modal.active {
+    display: block;
+}
 
-if [ -f "ProfileModal.js" ]; then
-    SOURCE_DIR="."
-    echo "📂 Файлы найдены в текущей папке"
-elif [ -f "$HOME/Downloads/ProfileModal.js" ]; then
-    SOURCE_DIR="$HOME/Downloads"
-    echo "📂 Файлы найдены в Downloads"
-else
-    echo "❌ Файлы не найдены!"
-    echo "Поместите файлы в папку проекта или в Downloads"
-    exit 1
-fi
+/* Контент модального окна */
+.profile-modal-content {
+    background-color: #ffffff;
+    margin: 2% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
 
-echo ""
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-# ============================================================================
-# УСТАНОВКА ФАЙЛОВ
-# ============================================================================
+/* Кнопка закрытия */
+.profile-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s;
+}
 
-echo "📦 Перемещение файлов..."
+.profile-modal-close:hover {
+    color: #333;
+}
 
-# 1. ProfileModal.js
-if [ -f "$SOURCE_DIR/ProfileModal.js" ]; then
-    mv "$SOURCE_DIR/ProfileModal.js" src/ui/
-    echo "✅ ProfileModal.js → src/ui/"
-else
-    echo "⚠️  ProfileModal.js не найден"
-fi
+/* Кнопка fullscreen */
+.profile-modal-fullscreen {
+    position: absolute;
+    right: 60px;
+    top: 20px;
+    font-size: 24px;
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s;
+}
 
-# 2. table-FIXED.js (заменяет table.js)
-if [ -f "$SOURCE_DIR/table-FIXED.js" ]; then
-    if [ -f "src/ui/table.js" ]; then
-        mv src/ui/table.js src/ui/table.js.backup
-        echo "📦 Создан backup: src/ui/table.js.backup"
-    elif [ -f "src/table.js" ]; then
-        mv src/table.js src/table.js.backup
-        echo "📦 Создан backup: src/table.js.backup"
-    fi
+.profile-modal-fullscreen:hover {
+    color: #667eea;
+}
+
+/* Заголовок профиля */
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.profile-photo-container {
+    flex-shrink: 0;
+    margin-right: 25px;
+}
+
+.profile-photo {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: block;
+    max-width: 120px !important;
+    max-height: 120px !important;
+}
+
+.profile-main-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.profile-dates {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.profile-dates span {
+    margin-right: 5px;
+}
+
+/* Вкладки */
+.profile-tabs {
+    display: flex;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-tab {
+    flex: 1;
+    padding: 15px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile-tab:hover {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.profile-tab.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    background-color: white;
+}
+
+/* Контент вкладок */
+.profile-content {
+    padding: 30px;
+}
+
+.profile-tab-content {
+    display: none;
+}
+
+.profile-tab-content.active {
+    display: block;
+}
+
+/* Сетка информации */
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.profile-info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.profile-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.profile-value {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Секция семьи */
+.profile-family-section {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.family-group {
+    margin-bottom: 30px;
+}
+
+.family-group h3 {
+    margin: 0 0 15px 0;
+    color: #667eea;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.family-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.family-member-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.family-member-card:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.family-member-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 2px solid white;
+}
+
+.family-member-info {
+    flex: 1;
+}
+
+.family-member-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.family-member-dates {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Галерея */
+.profile-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Сообщение "нет данных" */
+.no-data {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 40px 20px;
+}
+
+/* Кнопки действий */
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px 30px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+    border-radius: 0 0 12px 12px;
+}
+
+.profile-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-btn-primary {
+    background-color: #667eea;
+    color: white;
+}
+
+.profile-btn-primary:hover {
+    background-color: #5568d3;
+}
+
+.profile-btn-secondary {
+    background-color: white;
+    color: #667eea;
+    border: 1px solid #667eea;
+}
+
+.profile-btn-secondary:hover {
+    background-color: #f0f2ff;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .profile-modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
     
-    # Определяем куда класть table.js
-    if [ -d "src/ui" ]; then
-        mv "$SOURCE_DIR/table-FIXED.js" src/ui/table.js
-        echo "✅ table-FIXED.js → src/ui/table.js"
-    else
-        mv "$SOURCE_DIR/table-FIXED.js" src/table.js
-        echo "✅ table-FIXED.js → src/table.js"
-    fi
-else
-    echo "⚠️  table-FIXED.js не найден"
-fi
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-photo-container {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .family-members {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
 
-# 3. profile-modal-styles.css
-if [ -f "$SOURCE_DIR/profile-modal-styles.css" ]; then
-    mv "$SOURCE_DIR/profile-modal-styles.css" ./
-    echo "✅ profile-modal-styles.css → корень проекта"
-else
-    echo "⚠️  profile-modal-styles.css не найден"
-fi
+/* Fullscreen режим */
+.profile-modal-content.fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
 
-# 4. app-profilemodal-integration.js (опционально)
-if [ -f "$SOURCE_DIR/app-profilemodal-integration.js" ]; then
-    mv "$SOURCE_DIR/app-profilemodal-integration.js" src/ui/
-    echo "✅ app-profilemodal-integration.js → src/ui/"
-fi
-
-echo ""
-
-# ============================================================================
-# ПРОВЕРКА УСТАНОВКИ
-# ============================================================================
-
-echo "🔍 Проверка установки..."
-echo ""
-
-ALL_OK=true
-
-if [ -f "src/ui/ProfileModal.js" ]; then
-    echo "✅ ProfileModal.js установлен"
-else
-    echo "❌ ProfileModal.js НЕ установлен"
-    ALL_OK=false
-fi
-
-if [ -f "src/ui/table.js" ] || [ -f "src/table.js" ]; then
-    echo "✅ table.js установлен"
-else
-    echo "❌ table.js НЕ установлен"
-    ALL_OK=false
-fi
-
-if [ -f "profile-modal-styles.css" ]; then
-    echo "✅ profile-modal-styles.css установлен"
-else
-    echo "❌ profile-modal-styles.css НЕ установлен"
-    ALL_OK=false
-fi
-
-echo ""
-
-# ============================================================================
-# ПРОВЕРКА index.html
-# ============================================================================
-
-echo "📝 Проверка index.html..."
-echo ""
-
-if grep -q "profile-modal-styles.css" index.html; then
-    echo "✅ CSS подключен в index.html"
-else
-    echo "⚠️  CSS НЕ подключен в index.html"
-    echo ""
-    echo "Добавьте в <head>:"
-    echo '<link rel="stylesheet" href="profile-modal-styles.css">'
-    echo ""
-fi
-
-if grep -q "ProfileModal.js" index.html; then
-    echo "✅ ProfileModal.js подключен в index.html"
-else
-    echo "⚠️  ProfileModal.js НЕ подключен в index.html"
-    echo ""
-    echo "Добавьте перед app.js:"
-    echo '<script src="src/ui/ProfileModal.js"></script>'
-    echo ""
-fi
-
-echo ""
-
-# ============================================================================
-# ФИНАЛЬНЫЕ ИНСТРУКЦИИ
-# ============================================================================
-
-if [ "$ALL_OK" = true ]; then
-    echo "🎉 ВСЁ УСТАНОВЛЕНО!"
-    echo ""
-    echo "📋 ДАЛЬНЕЙШИЕ ШАГИ:"
-    echo ""
-    echo "1. Откройте index.html и проверьте подключение файлов:"
-    echo "   • <link rel='stylesheet' href='profile-modal-styles.css'>"
-    echo "   • <script src='src/ui/ProfileModal.js'></script>"
-    echo ""
-    echo "2. Добавьте в конец src/ui/app.js:"
-    echo "   • Скопируйте код из app-profilemodal-integration.js"
-    echo "   • Или минимум: window.profileModal = new ProfileModal(dataManager)"
-    echo ""
-    echo "3. Перезапустите сервер:"
-    echo "   python3 -m http.server 8760"
-    echo ""
-    echo "4. Протестируйте в консоли браузера:"
-    echo "   window.debugProfile.test()"
-    echo ""
-else
-    echo "⚠️  УСТАНОВКА НЕПОЛНАЯ"
-    echo ""
-    echo "Проверьте:"
-    echo "1. Файлы в правильной папке?"
-    echo "2. Имена файлов правильные?"
-    echo ""
-fi
-
-echo "════════════════════════════════════════"
-echo "📖 Полная инструкция: PROFILEMODAL-INSTALLATION.md"
-echo "════════════════════════════════════════"
+.profile-modal-content.fullscreen .profile-content {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}

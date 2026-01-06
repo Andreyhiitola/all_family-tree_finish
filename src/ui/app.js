@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Создаем DataManager
   const dataManager = new DataManager()
-  window.dataManagerInstance = dataManager // Глобальный доступ для отладки
+  window.dataManager = dataManager // Глобальный доступ для отладки
   
   // Инициализируем (загружаем данные)
   await dataManager.init()
@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Создаем ProfileModal после загрузки dataManager
 if (typeof ProfileModal !== 'undefined') {
-  window.profileModal = new ProfileModal(dataManager)
+  window.profileModal = new ProfileModal()
+  window.profileModal.init()
   console.log('✅ ProfileModal инициализирован')
 } else {
   console.error('❌ ProfileModal не загружен. Проверьте подключение ProfileModal.js')

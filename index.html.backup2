@@ -21,7 +21,7 @@
       <button id="export-excel">📤 Excel-export</button>
       
       <!-- НОВАЯ КНОПКА: Перезагрузка из JSON -->
-      <button class="btn" onclick="location.reload()" title="Перезагрузить данные из data/people.json">
+      <button class="btn" onclick="window.reloadFromJSON()" title="Перезагрузить данные из data/people.json">
         🔄 Обновить
       </button>
       
@@ -31,7 +31,7 @@
       </label>
       
       <button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
-      <button id="clear-data" disabled title="Функция отключена для безопасности">🗑 Очистить</button>
+      <button id="clear-data" title="Очистить все данные и кеш">🗑 Очистить</button>
       
       <input id="search" placeholder="🔍 Поиск...">
     </div>
@@ -196,6 +196,34 @@
   </div>
 
   <!-- Модальное окно Профиля -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close" id="close-profile">&times;</span>
+      
+      <div class="profile-container">
+        <!-- Левая колонка: Аватар и основная инфо -->
+        <div class="profile-left">
+          <img id="profile-avatar" src="photos/default-avatar.png" alt="Фото" class="profile-avatar">
+          <h2 id="profile-name">Имя Фамилия</h2>
+          <p id="profile-dates"></p>
+          <p id="profile-place"></p>
+        </div>
+        
+        <!-- Правая колонка: Биография и галерея -->
+        <div class="profile-right">
+          <h3>Биография</h3>
+          <div id="profile-biography" class="profile-bio">Биография не указана.</div>
+          
+          <h3>Галерея фото</h3>
+          <div id="profile-gallery" class="profile-gallery">
+            <p style="color:#999;">Нет дополнительных фото</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== СКРИПТЫ ==================== -->
   
   <!-- Библиотеки -->
   <script src="d3.v7.min.js"></script>

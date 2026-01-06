@@ -31,7 +31,7 @@
       </label>
       
       <button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
-      <button id="clear-data" disabled title="Функция отключена для безопасности">🗑 Очистить</button>
+      <button id="clear-data" title="Очистить все данные и кеш">🗑 Очистить</button>
       
       <input id="search" placeholder="🔍 Поиск...">
     </div>

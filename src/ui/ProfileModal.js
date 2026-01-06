@@ -1,375 +1,472 @@
-/**
- * ProfileModal - Модальное окно профиля человека
- * Показывает аватар, информацию и галерею фото с горизонтальным скроллингом
- */
 class ProfileModal {
-  constructor(dataManager) {
-    this.dataManager = dataManager
-    this.modal = null
-    this.currentPersonId = null
-    
-    this.init()
-  }
+    constructor() {
+        this.modal = null;
+        this.currentPerson = null;
+        console.log('ProfileModal: Constructor called');
+    }
 
-  init() {
-    this.modal = document.getElementById('profile-modal')
-    
-    if (!this.modal) {
-      this.createModal()
+    init() {
+        console.log('ProfileModal: init() called');
+        this.createModal();
+        this.attachEventListeners();
+        console.log('ProfileModal: Initialized');
     }
-    
-    const closeBtn = this.modal.querySelector('.close')
-    if (closeBtn) {
-      closeBtn.onclick = () => this.close()
-    }
-    
-    this.modal.onclick = (e) => {
-      if (e.target === this.modal) {
-        this.close()
-      }
-    }
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.style.display === 'block') {
-        this.close()
-      }
-    })
-    
-    console.log('ProfileModal initialized')
-  }
 
-  createModal() {
-    const modal = document.createElement('div')
-    modal.id = 'profile-modal'
-    modal.className = 'modal'
-    
-    modal.innerHTML = '<div class="modal-content modal-profile">' +
-      '<span class="close">&times;</span>' +
-      '<div class="profile-container">' +
-        '<div class="profile-left">' +
-          '<div class="profile-avatar-container">' +
-            '<img id="profile-avatar" src="" alt="Photo" class="profile-avatar">' +
-          '</div>' +
-          '<h2 id="profile-name" class="profile-name">Name</h2>' +
-          '<p id="profile-dates" class="profile-dates"></p>' +
-          '<p id="profile-place" class="profile-place"></p>' +
-          '<div class="profile-actions">' +
-            '<button id="profile-edit" class="btn btn-edit">Edit</button>' +
-            '<button id="profile-delete" class="btn btn-delete">Delete</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="profile-right">' +
-          '<div class="profile-section">' +
-            '<h3>Biography</h3>' +
-            '<div id="profile-biography" class="profile-bio">No biography.</div>' +
-          '</div>' +
-          '<div class="profile-section">' +
-            '<h3>Family</h3>' +
-            '<div id="profile-family" class="profile-family"></div>' +
-          '</div>' +
-          '<div class="profile-section">' +
-            '<h3>Gallery</h3>' +
-            '<div id="profile-gallery" class="profile-gallery">' +
-              '<p style="color:#999;">No photos</p>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>'
-    
-    document.body.appendChild(modal)
-    this.modal = modal
-  }
-
-  open(personId) {
-    const person = this.dataManager.getPeople().find(p => p.id === personId)
-    
-    if (!person) {
-      console.error('Person not found:', personId)
-      alert('Error: person not found')
-      return
-    }
-    
-    this.currentPersonId = personId
-    console.log('Opening profile:', person.name, person.surname)
-    
-    this.fillPersonData(person)
-    this.modal.style.display = 'block'
-    
-    setTimeout(() => {
-      const content = this.modal.querySelector('.modal-content')
-      if (content) {
-        content.style.opacity = '1'
-        content.style.transform = 'scale(1)'
-      }
-    }, 10)
-  }
-
-  fillPersonData(person) {
-    const avatar = document.getElementById('profile-avatar')
-    if (avatar) {
-      const avatarUrl = this.dataManager.getPhotoUrl(person.photo)
-      avatar.src = avatarUrl
-      avatar.onerror = () => {
-        avatar.src = this.dataManager.getPhotoUrl(null)
-      }
-    }
-    
-    const nameEl = document.getElementById('profile-name')
-    if (nameEl) {
-      const fullName = [person.name, person.surname, person.middlename].filter(x => x).join(' ')
-      nameEl.textContent = fullName
-    }
-    
-    const datesEl = document.getElementById('profile-dates')
-    if (datesEl) {
-      let datesText = ''
-      if (person.birthDate) {
-        datesText = 'Born: ' + this.formatDate(person.birthDate)
-      }
-      if (person.deathDate) {
-        datesText += ' - Died: ' + this.formatDate(person.deathDate)
-        const age = this.calculateAge(person.birthDate, person.deathDate)
-        if (age) {
-          datesText += ' (lived ' + age + ' years)'
+    createModal() {
+        // Проверяем, не создано ли уже модальное окно
+        const existing = document.getElementById('profile-modal');
+        if (existing) {
+            console.log('ProfileModal: Modal already exists, removing old one');
+            existing.remove();
         }
-      } else if (person.birthDate) {
-        const age = this.calculateAge(person.birthDate, null)
-        if (age) {
-          datesText += ' (age: ' + age + ' years)'
+
+        // Создаём модальное окно
+        const modalHTML = `
+            <div id="profile-modal" class="profile-modal">
+                <div class="profile-modal-content">
+                    <button class="profile-modal-close">&times;</button>
+                    <button class="profile-modal-fullscreen" title="Развернуть на весь экран">⛶</button>
+                    
+                    <div class="profile-header">
+                        <div class="profile-photo-container">
+                            <img id="profile-photo" src="" alt="Фото" class="profile-photo">
+                        </div>
+                        <div class="profile-main-info">
+                            <h2 id="profile-name">Имя Фамилия</h2>
+                            <div class="profile-dates">
+                                <span id="profile-birth"></span>
+                                <span id="profile-death"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <button class="profile-tab active" data-tab="info">Информация</button>
+                        <button class="profile-tab" data-tab="family">Семья</button>
+                        <button class="profile-tab" data-tab="gallery">Галерея</button>
+                    </div>
+
+                    <div class="profile-content">
+                        <!-- Вкладка: Информация -->
+                        <div id="tab-info" class="profile-tab-content active">
+                            <div class="profile-info-grid">
+                                <div class="profile-info-item">
+                                    <span class="profile-label">Пол:</span>
+                                    <span id="profile-gender" class="profile-value"></span>
+                                </div>
+                                <div class="profile-info-item">
+                                    <span class="profile-label">Дата рождения:</span>
+                                    <span id="profile-birthdate" class="profile-value"></span>
+                                </div>
+                                <div class="profile-info-item">
+                                    <span class="profile-label">Место рождения:</span>
+                                    <span id="profile-birthplace" class="profile-value"></span>
+                                </div>
+                                <div id="profile-deathdate-container" class="profile-info-item">
+                                    <span class="profile-label">Дата смерти:</span>
+                                    <span id="profile-deathdate" class="profile-value"></span>
+                                </div>
+                                <div class="profile-info-item full-width">
+                                    <span class="profile-label">Биография:</span>
+                                    <p id="profile-bio" class="profile-value"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: Семья -->
+                        <div id="tab-family" class="profile-tab-content">
+                            <div id="profile-family" class="profile-family-section">
+                                <!-- Сюда будет добавлена информация о семье -->
+                            </div>
+                        </div>
+
+                        <!-- Вкладка: Галерея -->
+                        <div id="tab-gallery" class="profile-tab-content">
+                            <div id="profile-gallery" class="profile-gallery">
+                                <!-- Сюда будут добавлены фотографии -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button id="profile-edit" class="profile-btn profile-btn-primary">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                        <button id="profile-view-tree" class="profile-btn profile-btn-secondary">
+                            <i class="fas fa-sitemap"></i> Показать в дереве
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        this.modal = document.getElementById('profile-modal');
+    }
+
+    attachEventListeners() {
+        if (!this.modal) {
+            console.error('ProfileModal: Cannot attach listeners - modal is null');
+            return;
         }
-      }
-      datesEl.textContent = datesText
-    }
-    
-    const placeEl = document.getElementById('profile-place')
-    if (placeEl) {
-      if (person.birthPlace) {
-        placeEl.textContent = 'Place: ' + person.birthPlace
-        placeEl.style.display = 'block'
-      } else {
-        placeEl.style.display = 'none'
-      }
-    }
-    
-    const bioEl = document.getElementById('profile-biography')
-    if (bioEl) {
-      if (person.biography && person.biography.trim()) {
-        bioEl.innerHTML = this.formatBiography(person.biography)
-      } else {
-        bioEl.innerHTML = '<p style="color:#999;">No biography.</p>'
-      }
-    }
-    
-    this.fillFamilySection(person)
-    this.fillGallery(person)
-    this.attachActionButtons(person)
-  }
 
-  fillFamilySection(person) {
-    const familyEl = document.getElementById('profile-family')
-    if (!familyEl) {
-      console.error('profile-family element not found')
-      return
-    }
-    
-    const people = this.dataManager.getPeople()
-    
-    let html = '<div class="family-list">'
-    
-    if (person.fatherId) {
-      const father = people.find(p => p.id === person.fatherId)
-      if (father) {
-        html += this.createFamilyLink('Father', father)
-      }
-    }
-    
-    if (person.motherId) {
-      const mother = people.find(p => p.id === person.motherId)
-      if (mother) {
-        html += this.createFamilyLink('Mother', mother)
-      }
-    }
-    
-    if (person.spouseId) {
-      const spouse = people.find(p => p.id === person.spouseId)
-      if (spouse) {
-        const label = spouse.gender === 'M' ? 'Husband' : 'Wife'
-        html += this.createFamilyLink(label, spouse)
-      }
-    }
-    
-    const children = people.filter(p => p.fatherId === person.id || p.motherId === person.id)
-    
-    if (children.length > 0) {
-      html += '<div class="family-group"><strong>Children:</strong></div>'
-      children.forEach(child => {
-        html += this.createFamilyLink('', child)
-      })
-    }
-    
-    html += '</div>'
-    
-    if (html === '<div class="family-list"></div>') {
-      familyEl.innerHTML = '<p style="color:#999;">No family links</p>'
-    } else {
-      familyEl.innerHTML = html
-    }
-  }
-
-  createFamilyLink(label, person) {
-    const name = [person.name, person.surname].filter(x => x).join(' ')
-    return '<div class="family-member">' +
-      '<span class="family-label">' + label + '</span>' +
-      '<a href="#" class="family-link" data-person-id="' + person.id + '">' + name + '</a>' +
-    '</div>'
-  }
-
-  fillGallery(person) {
-    const galleryEl = document.getElementById('profile-gallery')
-    if (!galleryEl) {
-      console.error('profile-gallery element not found')
-      return
-    }
-    
-    if (!person.photos || person.photos.length === 0) {
-      galleryEl.innerHTML = '<p style="color:#999;">No additional photos</p>'
-      return
-    }
-    
-    const photoUrls = this.dataManager.getGalleryUrls(person.photos)
-    
-    let html = '<div class="gallery-scroll">'
-    
-    photoUrls.forEach((url, index) => {
-      html += '<div class="gallery-item">' +
-        '<img src="' + url + '" alt="Photo ' + (index + 1) + '" class="gallery-photo" ' +
-        'onclick="window.profileModal.openLightbox(\'' + url + '\')" ' +
-        'onerror="this.style.display=\'none\'">' +
-      '</div>'
-    })
-    
-    html += '</div>'
-    
-    galleryEl.innerHTML = html
-  }
-
-  openLightbox(imageUrl) {
-    let lightbox = document.getElementById('photo-lightbox')
-    
-    if (!lightbox) {
-      const lightboxHTML = '<div id="photo-lightbox" class="lightbox">' +
-        '<span class="lightbox-close">&times;</span>' +
-        '<img class="lightbox-content" id="lightbox-img">' +
-      '</div>'
-      document.body.insertAdjacentHTML('beforeend', lightboxHTML)
-      lightbox = document.getElementById('photo-lightbox')
-      
-      lightbox.querySelector('.lightbox-close').onclick = () => {
-        lightbox.style.display = 'none'
-      }
-      
-      lightbox.onclick = (e) => {
-        if (e.target === lightbox) {
-          lightbox.style.display = 'none'
+        // Закрытие модального окна
+        const closeBtn = this.modal.querySelector('.profile-modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.close());
         }
-      }
-    }
-    
-    const img = document.getElementById('lightbox-img')
-    img.src = imageUrl
-    lightbox.style.display = 'block'
-  }
 
-  attachActionButtons(person) {
-    const editBtn = document.getElementById('profile-edit')
-    if (editBtn) {
-      editBtn.onclick = () => {
-        this.close()
-        if (window.app && typeof window.app.openPersonForm === 'function') {
-          window.app.openPersonForm(person.id)
+        // Закрытие по клику вне окна
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.close();
+            }
+        });
+
+        // Переключение вкладок
+        const tabs = this.modal.querySelectorAll('.profile-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const tabName = e.target.dataset.tab;
+                this.switchTab(tabName);
+            });
+        });
+
+        // Кнопка редактирования
+        const editBtn = this.modal.querySelector('#profile-edit');
+        if (editBtn) {
+            editBtn.addEventListener('click', () => {
+                if (this.currentPerson) {
+                    this.close();
+                    if (window.openEditForm) {
+                        window.openEditForm(this.currentPerson.id);
+                    }
+                }
+            });
+        }
+
+        // Кнопка "Показать в дереве"
+        const viewTreeBtn = this.modal.querySelector('#profile-view-tree');
+        if (viewTreeBtn) {
+            viewTreeBtn.addEventListener('click', () => {
+                if (this.currentPerson) {
+                    this.close();
+                    if (window.focusOnPerson) {
+                        window.focusOnPerson(this.currentPerson.id);
+                    }
+                }
+            });
+        }
+
+        // Кнопка fullscreen
+        const fullscreenBtn = this.modal.querySelector('.profile-modal-fullscreen');
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', () => {
+                this.toggleFullscreen();
+            });
+        }
+    }
+
+    toggleFullscreen() {
+        const content = this.modal.querySelector('.profile-modal-content');
+        if (!content) return;
+
+        if (content.classList.contains('fullscreen')) {
+            // Выход из fullscreen
+            content.classList.remove('fullscreen');
+            document.body.style.overflow = 'hidden'; // Восстанавливаем блокировку прокрутки фона
         } else {
-          alert('Edit function not available')
+            // Вход в fullscreen
+            content.classList.add('fullscreen');
         }
-      }
     }
-    
-    const deleteBtn = document.getElementById('profile-delete')
-    if (deleteBtn) {
-      deleteBtn.onclick = () => {
-        this.close()
-        if (window.app && typeof window.app.askDeletePerson === 'function') {
-          window.app.askDeletePerson(person.id)
+
+    findPersonById(personId) {
+        if (!window.dataManager) return null;
+        const people = window.dataManager.getPeople();
+        return people.find(p => p.id === personId);
+    }
+
+    // Получить родителей
+    getParents(personId) {
+        const person = this.findPersonById(personId);
+        if (!person) return [];
+        
+        const parents = [];
+        if (person.fatherId) {
+            const father = this.findPersonById(person.fatherId);
+            if (father) parents.push(father);
+        }
+        if (person.motherId) {
+            const mother = this.findPersonById(person.motherId);
+            if (mother) parents.push(mother);
+        }
+        return parents;
+    }
+
+    // Получить супруга/супругу
+    getSpouses(personId) {
+        const person = this.findPersonById(personId);
+        if (!person || !person.spouseId) return [];
+        
+        const spouse = this.findPersonById(person.spouseId);
+        return spouse ? [spouse] : [];
+    }
+
+    // Получить детей
+    getChildren(personId) {
+        if (!window.familyTreeInstance) return [];
+        return window.familyTreeInstance.getChildrenOf(personId) || [];
+    }
+
+    // Получить братьев и сестёр
+    getSiblings(personId) {
+        const person = this.findPersonById(personId);
+        if (!person) return [];
+        
+        const people = window.dataManager.getPeople();
+        return people.filter(p => 
+            p.id !== personId && 
+            ((p.fatherId && p.fatherId === person.fatherId) ||
+             (p.motherId && p.motherId === person.motherId))
+        );
+    }
+
+    open(personId) {
+        if (!this.modal) {
+            console.error('ProfileModal: Modal not initialized, calling init()');
+            this.init();
+        }
+
+        if (!window.dataManager) {
+            alert('Ошибка: DataManager не инициализирован.');
+            return;
+        }
+
+        const person = this.findPersonById(personId);
+        if (!person) {
+            alert('Человек с ID ' + personId + ' не найден');
+            return;
+        }
+
+        this.currentPerson = person;
+        this.fillPersonData(person);
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    close() {
+        if (!this.modal) return;
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+        this.currentPerson = null;
+    }
+
+    fillPersonData(person) {
+        // Основная информация
+        const nameEl = document.getElementById('profile-name');
+        if (nameEl) nameEl.textContent = person.name || 'Неизвестно';
+        
+        // Фото - ИСПРАВЛЕНО: убрано дублирование пути
+        const photoImg = document.getElementById('profile-photo');
+        if (photoImg && window.dataManager) {
+            if (person.photo) {
+                photoImg.src = window.dataManager.getPhotoUrl(person.photo);
+            } else {
+                photoImg.src = window.dataManager.getPhotoUrl('default-avatar.png');
+            }
+            photoImg.style.display = 'block';
+        }
+
+        // Даты в заголовке
+        const birthYear = person.birthDate ? new Date(person.birthDate).getFullYear() : '?';
+        const deathYear = person.deathDate ? new Date(person.deathDate).getFullYear() : '';
+        
+        const birthEl = document.getElementById('profile-birth');
+        const deathEl = document.getElementById('profile-death');
+        if (birthEl) birthEl.textContent = birthYear;
+        if (deathEl) deathEl.textContent = deathYear ? `- ${deathYear}` : '';
+
+        // Детальная информация
+        const genderEl = document.getElementById('profile-gender');
+        if (genderEl) {
+            genderEl.textContent = person.gender === 'M' ? 'Мужчина' : person.gender === 'F' ? 'Женщина' : 'Не указан';
+        }
+
+        const birthdateEl = document.getElementById('profile-birthdate');
+        if (birthdateEl) {
+            birthdateEl.textContent = this.formatDate(person.birthDate) || 'Не указана';
+        }
+
+        const birthplaceEl = document.getElementById('profile-birthplace');
+        if (birthplaceEl) {
+            birthplaceEl.textContent = person.birthPlace || 'Не указано';
+        }
+
+        const deathdateEl = document.getElementById('profile-deathdate');
+        const deathdateContainer = document.getElementById('profile-deathdate-container');
+        if (person.deathDate) {
+            // Человек умер - показываем дату смерти
+            if (deathdateEl) {
+                deathdateEl.textContent = this.formatDate(person.deathDate) || 'Не указана';
+            }
+            if (deathdateContainer) {
+                deathdateContainer.style.display = 'flex';
+            }
         } else {
-          alert('Delete function not available')
+            // Человек жив - скрываем блок даты смерти
+            if (deathdateContainer) {
+                deathdateContainer.style.display = 'none';
+            }
         }
-      }
+
+        const bioEl = document.getElementById('profile-bio');
+        if (bioEl) {
+            bioEl.textContent = person.bio || 'Биография не указана';
+        }
+
+        // Заполняем семейную информацию
+        this.fillFamilySection(person);
+
+        // Заполняем галерею
+        this.fillGallery(person);
     }
-    
-    const familyLinks = this.modal.querySelectorAll('.family-link')
-    familyLinks.forEach(link => {
-      link.onclick = (e) => {
-        e.preventDefault()
-        const personId = parseInt(link.getAttribute('data-person-id'))
-        this.open(personId)
-      }
-    })
-  }
 
-  close() {
-    if (this.modal) {
-      this.modal.style.display = 'none'
+    fillFamilySection(person) {
+        const familyContainer = document.getElementById('profile-family');
+        if (!familyContainer) {
+            console.error('profile-family element not found');
+            return;
+        }
+
+        let familyHTML = '';
+
+        // Родители
+        const parents = this.getParents(person.id);
+        if (parents.length > 0) {
+            familyHTML += '<div class="family-group"><h3>Родители</h3><div class="family-members">';
+            parents.forEach(parent => {
+                familyHTML += this.createPersonCard(parent);
+            });
+            familyHTML += '</div></div>';
+        }
+
+        // Супруги
+        const spouses = this.getSpouses(person.id);
+        if (spouses.length > 0) {
+            familyHTML += '<div class="family-group"><h3>Супруг(а)</h3><div class="family-members">';
+            spouses.forEach(spouse => {
+                familyHTML += this.createPersonCard(spouse);
+            });
+            familyHTML += '</div></div>';
+        }
+
+        // Дети
+        const children = this.getChildren(person.id);
+        if (children.length > 0) {
+            familyHTML += '<div class="family-group"><h3>Дети</h3><div class="family-members">';
+            children.forEach(child => {
+                familyHTML += this.createPersonCard(child);
+            });
+            familyHTML += '</div></div>';
+        }
+
+        // Братья и сёстры
+        const siblings = this.getSiblings(person.id);
+        if (siblings.length > 0) {
+            familyHTML += '<div class="family-group"><h3>Братья и сёстры</h3><div class="family-members">';
+            siblings.forEach(sibling => {
+                familyHTML += this.createPersonCard(sibling);
+            });
+            familyHTML += '</div></div>';
+        }
+
+        if (familyHTML === '') {
+            familyHTML = '<p class="no-data">Информация о семье отсутствует</p>';
+        }
+
+        familyContainer.innerHTML = familyHTML;
     }
-  }
 
-  formatDate(dateStr) {
-    if (!dateStr) return ''
-    
-    try {
-      const date = new Date(dateStr)
-      return date.toLocaleDateString('en-US', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      })
-    } catch (e) {
-      return dateStr
+    createPersonCard(person) {
+        const photoPath = window.dataManager.getPhotoUrl(person.photo || 'default-avatar.png');
+        const birthYear = person.birthDate ? new Date(person.birthDate).getFullYear() : '?';
+        const deathYear = person.deathDate ? ` - ${new Date(person.deathDate).getFullYear()}` : '';
+        
+        return `
+            <div class="family-member-card" onclick="window.profileModal.open(${person.id})">
+                <img src="${photoPath}" alt="${person.name}" class="family-member-photo">
+                <div class="family-member-info">
+                    <div class="family-member-name">${person.name}</div>
+                    <div class="family-member-dates">${birthYear}${deathYear}</div>
+                </div>
+            </div>
+        `;
     }
-  }
 
-  calculateAge(birthDate, deathDate) {
-    if (!birthDate) return null
-    
-    try {
-      const birth = new Date(birthDate)
-      const end = deathDate ? new Date(deathDate) : new Date()
-      
-      let age = end.getFullYear() - birth.getFullYear()
-      const monthDiff = end.getMonth() - birth.getMonth()
-      
-      if (monthDiff < 0 || (monthDiff === 0 && end.getDate() < birth.getDate())) {
-        age--
-      }
-      
-      return age
-    } catch (e) {
-      return null
+    fillGallery(person) {
+        const galleryContainer = document.getElementById('profile-gallery');
+        if (!galleryContainer) {
+            console.error('profile-gallery element not found');
+            return;
+        }
+
+        let galleryHTML = '';
+
+        // Основное фото
+        if (person.photo && window.dataManager) {
+            const photoPath = window.dataManager.getPhotoUrl(person.photo);
+            galleryHTML += `
+                <div class="gallery-item">
+                    <img src="${photoPath}" alt="${person.name}">
+                    <div class="gallery-caption">Основное фото</div>
+                </div>
+            `;
+        }
+
+        // Дополнительные фото
+        if (person.gallery && person.gallery.length > 0 && window.dataManager) {
+            const galleryUrls = window.dataManager.getGalleryUrls(person.gallery);
+            galleryUrls.forEach((photoPath, index) => {
+                if (photoPath) {
+                    galleryHTML += `
+                        <div class="gallery-item">
+                            <img src="${photoPath}" alt="${person.name} - фото ${index + 1}">
+                            <div class="gallery-caption">Фото ${index + 1}</div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        if (galleryHTML === '') {
+            galleryHTML = '<p class="no-data">Фотографии отсутствуют</p>';
+        }
+
+        galleryContainer.innerHTML = galleryHTML;
     }
-  }
 
-  formatBiography(text) {
-    if (!text) return ''
-    
-    const paragraphs = text.split('\n').filter(p => p.trim())
-    
-    return paragraphs.map(p => '<p>' + this.escapeHtml(p) + '</p>').join('')
-  }
+    switchTab(tabName) {
+        const tabs = this.modal.querySelectorAll('.profile-tab');
+        const contents = this.modal.querySelectorAll('.profile-tab-content');
+        
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
 
-  escapeHtml(text) {
-    const div = document.createElement('div')
-    div.textContent = text
-    return div.innerHTML
-  }
+        const activeTab = this.modal.querySelector(`[data-tab="${tabName}"]`);
+        const activeContent = this.modal.querySelector(`#tab-${tabName}`);
+        
+        if (activeTab) activeTab.classList.add('active');
+        if (activeContent) activeContent.classList.add('active');
+    }
+
+    formatDate(dateString) {
+        if (!dateString) return null;
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
 }
-
-window.ProfileModal = ProfileModal
