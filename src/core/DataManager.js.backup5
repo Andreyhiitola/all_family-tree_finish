@@ -155,6 +155,14 @@ class DataManager {
 
   loadFromCache() {
     try {
+      // Проверяем версию кеша
+      const cachedVersion = localStorage.getItem(this.versionKey)
+      if (cachedVersion !== this.currentVersion) {
+        console.log("🔄 Версия кеша устарела:", cachedVersion, "→", this.currentVersion, "- очищаем кеш")
+        this.clearCache()
+        return null
+      }
+      
       const json = localStorage.getItem(this.storageKey)
       if (!json) return null
       
@@ -163,7 +171,7 @@ class DataManager {
       
       return data.length > 0 ? data : null
     } catch (e) {
-      console.error('❌ Ошибка чтения кеша:', e)
+      console.error("❌ Ошибка чтения кеша:", e)
       return null
     }
   }
@@ -218,12 +226,22 @@ class DataManager {
     const self = this
     return photos.map(function(photo) {
       if (!photo) return null
-      return self.getPhotoUrl(photo)
+      
+      if (photo.startsWith('http://') || photo.startsWith('https://')) {
+        return photo
+      }
+      
+      if (photo.startsWith('/')) {
+        return photo
+      }
+      
+      return self.photosPath + '/gallery/' + photo
     }).filter(function(url) {
       return url !== null
     })
   }
-  generateId() {
+
+  generateId() { 
     if (this.people.length === 0) return 1
     return this.people.reduce(function(max, p) {
       return Math.max(max, p.id || 0)

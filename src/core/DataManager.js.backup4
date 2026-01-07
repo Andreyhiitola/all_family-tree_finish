@@ -218,12 +218,22 @@ class DataManager {
     const self = this
     return photos.map(function(photo) {
       if (!photo) return null
-      return self.getPhotoUrl(photo)
+      
+      if (photo.startsWith('http://') || photo.startsWith('https://')) {
+        return photo
+      }
+      
+      if (photo.startsWith('/')) {
+        return photo
+      }
+      
+      return self.photosPath + '/gallery/' + photo
     }).filter(function(url) {
       return url !== null
     })
   }
-  generateId() {
+
+  generateId() { 
     if (this.people.length === 0) return 1
     return this.people.reduce(function(max, p) {
       return Math.max(max, p.id || 0)

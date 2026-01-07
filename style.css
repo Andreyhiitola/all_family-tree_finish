@@ -259,6 +259,8 @@ body {
   width: 90%;
   max-width: 600px;
   box-shadow: var(--shadow-soft);
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
 }
 

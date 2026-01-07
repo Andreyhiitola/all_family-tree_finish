@@ -323,7 +323,7 @@
       "birthPlace": "г.Санкт-Петербург",
       "biography": "",
       "photo": "photos/avatars/Ира-1.jpg",
-      "photos": [photos/avatars/Ира-1.jpg","photos/gallery/Ира-2.jpg","photos/gallery/Ира-3.jpg" ],
+      "photos": ["photos/avatars/Ира-1.jpg","photos/gallery/Ира-2.jpg","photos/gallery/Ира-3.jpg" ],
       "fatherId": 16,
       "motherId": 19,
       "spouseId": null

@@ -419,20 +419,18 @@ class ProfileModal {
             galleryHTML += `
                 <div class="gallery-item">
                     <img src="${photoPath}" alt="${person.name}">
-                    <div class="gallery-caption">Основное фото</div>
                 </div>
             `;
         }
 
         // Дополнительные фото
-        if (person.gallery && person.gallery.length > 0 && window.dataManager) {
-            const galleryUrls = window.dataManager.getGalleryUrls(person.gallery);
+        if (person.photos && person.photos.length > 0 && window.dataManager) {
+            const galleryUrls = window.dataManager.getGalleryUrls(person.photos);
             galleryUrls.forEach((photoPath, index) => {
                 if (photoPath) {
                     galleryHTML += `
                         <div class="gallery-item">
                             <img src="${photoPath}" alt="${person.name} - фото ${index + 1}">
-                            <div class="gallery-caption">Фото ${index + 1}</div>
                         </div>
                     `;
                 }
@@ -444,6 +442,15 @@ class ProfileModal {
         }
 
         galleryContainer.innerHTML = galleryHTML;
+
+        // Добавляем обработчик кликов для открытия фото
+        const galleryItems = galleryContainer.querySelectorAll(".gallery-item img");
+        galleryItems.forEach(img => {
+            img.style.cursor = "pointer";
+            img.addEventListener("click", () => {
+                this.openPhotoModal(img.src);
+            });
+        });
     }
 
     switchTab(tabName) {
@@ -467,6 +474,45 @@ class ProfileModal {
             year: 'numeric', 
             month: 'long', 
             day: 'numeric' 
+        });
+    }
+    openPhotoModal(imageSrc) {
+        const galleryImages = Array.from(document.querySelectorAll(".gallery-item img")).map(img => img.src);
+        let currentIndex = galleryImages.indexOf(imageSrc);
+        
+        const modal = document.createElement("div");
+        modal.style.cssText = "position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.9);z-index:10000;display:flex;align-items:center;justify-content:center;";
+        
+        const img = document.createElement("img");
+        img.src = imageSrc;
+        img.style.cssText = "max-width:85%;max-height:85%;object-fit:contain;";
+        
+        const prevBtn = document.createElement("button");
+        prevBtn.innerHTML = "◀";
+        prevBtn.style.cssText = "position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:48px;background:rgba(255,255,255,0.2);border:none;color:white;cursor:pointer;padding:20px;border-radius:8px;";
+        prevBtn.onclick = (e) => { e.stopPropagation(); currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length; img.src = galleryImages[currentIndex]; };
+        
+        const nextBtn = document.createElement("button");
+        nextBtn.innerHTML = "▶";
+        nextBtn.style.cssText = "position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:48px;background:rgba(255,255,255,0.2);border:none;color:white;cursor:pointer;padding:20px;border-radius:8px;";
+        nextBtn.onclick = (e) => { e.stopPropagation(); currentIndex = (currentIndex + 1) % galleryImages.length; img.src = galleryImages[currentIndex]; };
+        
+        const closeBtn = document.createElement("button");
+        closeBtn.innerHTML = "✕";
+        closeBtn.style.cssText = "position:absolute;top:20px;right:20px;font-size:36px;background:none;border:none;color:white;cursor:pointer;";
+        closeBtn.onclick = () => modal.remove();
+        
+        modal.appendChild(img);
+        modal.appendChild(prevBtn);
+        modal.appendChild(nextBtn);
+        modal.appendChild(closeBtn);
+        document.body.appendChild(modal);
+        
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+        document.addEventListener("keydown", function handler(e) {
+            if (e.key === "Escape") { modal.remove(); document.removeEventListener("keydown", handler); }
+            else if (e.key === "ArrowLeft") { currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length; img.src = galleryImages[currentIndex]; }
+            else if (e.key === "ArrowRight") { currentIndex = (currentIndex + 1) % galleryImages.length; img.src = galleryImages[currentIndex]; }
         });
     }
 }
