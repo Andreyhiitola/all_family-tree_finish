@@ -46,7 +46,7 @@
       "photos": [],
       "fatherId": 1,
       "motherId": 2,
-      "spouseId": null
+      "spouseId": 4
     },
     {
       "id": 4,
@@ -60,7 +60,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
-      "fatherId": 1,
+      "fatherId": 5,
       "motherId": 6,
       "spouseId": 3
     },
@@ -323,7 +323,11 @@
       "birthPlace": "г.Санкт-Петербург",
       "biography": "",
       "photo": "photos/avatars/Ира-1.jpg",
-      "photos": ["photos/avatars/Ира-1.jpg","photos/gallery/Ира-2.jpg","photos/gallery/Ира-3.jpg" ],
+      "photos": [
+        "photos/avatars/Ира-1.jpg",
+        "photos/gallery/Ира-2.jpg",
+        "photos/gallery/Ира-3.jpg"
+      ],
       "fatherId": 16,
       "motherId": 19,
       "spouseId": null
@@ -342,7 +346,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 17
+      "spouseId": null
     },
     {
       "id": 22,
