@@ -15,13 +15,14 @@
   <header class="app-header">
     <h1>🌳 Семейное древо</h1>
     <div class="header-controls">
+      <button id="export-excel">📤 Excel-export</button>
+      
+      <!-- НОВАЯ КНОПКА: Перезагрузка из JSON -->
       <button class="btn" onclick="location.reload()" title="Перезагрузить данные из data/people.json">
         🔄 Обновить
       </button>
-      <button id="add-person" style="display: none;">➕ Добавить</button>
-      <button id="export-excel">📤 Excel-export</button>
-      <button id="show-data-table">📋 Таблица</button>
       
+      <!--       <!--       <label class="btn"> --> -->
       
       <button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
       

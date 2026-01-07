@@ -5,7 +5,7 @@ window.initModals = function initModals(app) {
   const importModal = document.getElementById('import-modal')
 
   document.getElementById('add-person').addEventListener('click', () => {
-    app.openPersonForm(null)
+    window.requireAuth(() => app.openPersonForm(null))
   })
 
   document.getElementById('cancel-form').addEventListener('click', () => {
@@ -27,7 +27,7 @@ window.initModals = function initModals(app) {
   })
 
   document.getElementById('import-excel').addEventListener('click', () => {
-    importModal.style.display = 'block'
+    window.requireAuth(() => { importModal.style.display = "block" })
   })
 
   importModal.querySelector('.close').addEventListener('click', () => {

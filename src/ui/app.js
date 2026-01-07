@@ -215,11 +215,11 @@ console.log('📝 Команды: window.debugProfile.stats() - статисти
     const deleteBtn = document.getElementById('delete-person')
     
     if (editBtn) {
-      editBtn.onclick = () => app.openPersonForm(id)
+      editBtn.onclick = () => window.requireAuth(() => app.openPersonForm(id))
     }
     
     if (deleteBtn) {
-      deleteBtn.onclick = () => app.askDeletePerson(id)
+      deleteBtn.onclick = () => window.requireAuth(() => app.askDeletePerson(id))
     }
   }
 
@@ -390,14 +390,14 @@ console.log('📝 Команды: window.debugProfile.stats() - статисти
   /**
    * Очистить все данные
    */
-  document.getElementById('clear-data').addEventListener('click', () => {
-    if (confirm('Удалить все данные? Это действие нельзя отменить!')) {
-      dataManager.clearAll()
-      dataManager.clearCache()
-      refreshAll()
-      showNotification('Все данные удалены', 'success')
-    }
-  })
+  //   document.getElementById('clear-data').addEventListener('click', () => {
+  //     if (confirm('Удалить все данные? Это действие нельзя отменить!')) {
+  //       dataManager.clearAll()
+  //       dataManager.clearCache()
+  //       refreshAll()
+  //       showNotification('Все данные удалены', 'success')
+  //     }
+  //   })
 
   /**
    * Импорт Excel

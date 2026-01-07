@@ -49,7 +49,7 @@ window.renderPeopleTable = function renderPeopleTable(people) {
     btnEdit.onclick = () => {
       console.log('✏️ Редактируем ID:', person.id)
       if (window.app && typeof window.app.openPersonForm === 'function') {
-        window.app.openPersonForm(person.id)
+        window.requireAuth(() => window.app.openPersonForm(person.id))
         // Закрываем модал таблицы
         document.getElementById('data-table-modal').style.display = 'none'
       } else {
@@ -65,7 +65,7 @@ window.renderPeopleTable = function renderPeopleTable(people) {
     btnDelete.onclick = () => {
       console.log('🗑 Удаляем ID:', person.id)
       if (window.app && typeof window.app.askDeletePerson === 'function') {
-        window.app.askDeletePerson(person.id)
+        window.requireAuth(() => window.app.askDeletePerson(person.id))
         // Закрываем модал таблицы
         document.getElementById('data-table-modal').style.display = 'none'
       } else {
