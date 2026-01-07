@@ -72,33 +72,47 @@ class TreeVisualizer {
         .y(d => d.x)
       )
 
-    // УЗЛЫ (семейные пары)
-    const familyGroups = this.gNodes.selectAll('g.family-node')
+    // УЗЛЫ - обрабатываем разные типы
+    const allNodes = this.gNodes.selectAll('g.tree-node')
       .data(root.descendants(), d => d.data.id)
       .join('g')
-      .attr('class', 'family-node')
+      .attr('class', d => `tree-node node-${d.data.type}`)
       .attr('transform', d => `translate(${d.y},${d.x})`)
-
-    // Рисуем первого человека (основной)
-    this.drawPerson(familyGroups, -25, d => d.data.person1)
-
-    // Рисуем супруга (если есть)
-    familyGroups.each((d, i, nodes) => {
-      if (d.data.person2) {
-        this.drawPerson(d3.select(nodes[i]), 25, node => node.data.person2)
-        
-        // Линия брака между супругами
-        d3.select(nodes[i])
-          .selectAll('line.marriage-line')
+    
+    // Отрисовываем узлы по типам
+    allNodes.each((d, i, nodes) => {
+      const node = d3.select(nodes[i])
+      
+      if (d.data.type === 'separator') {
+        // Серый кружок-разделитель
+        node.selectAll('circle.separator')
           .data([d])
-          .join('line')
-          .attr('class', 'marriage-line')
-          .attr('x1', -25)
-          .attr('y1', 0)
-          .attr('x2', 25)
-          .attr('y2', 0)
-          .attr('stroke', '#FF6B6B')
-          .attr('stroke-width', 3)
+          .join('circle')
+          .attr('class', 'separator')
+          .attr('r', 12)
+          .attr('fill', '#999999')
+          .attr('stroke', '#666666')
+          .attr('stroke-width', 2)
+      } 
+      else if (d.data.type === 'marriage' || d.data.type === 'family') {
+        // Узел брака или семьи - рисуем пару
+        this.drawPerson(node, -25, n => n.data.person1)
+        
+        if (d.data.person2) {
+          this.drawPerson(node, 25, n => n.data.person2)
+          
+          // Линия брака между супругами
+          node.selectAll('line.marriage-line')
+            .data([d])
+            .join('line')
+            .attr('class', 'marriage-line')
+            .attr('x1', -25)
+            .attr('y1', 0)
+            .attr('x2', 25)
+            .attr('y2', 0)
+            .attr('stroke', '#FF6B6B')
+            .attr('stroke-width', 3)
+        }
       }
     })
   }
