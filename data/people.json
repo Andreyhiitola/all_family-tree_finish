@@ -560,7 +560,7 @@
       "photos": [],
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": 47
+      "spouseId": 48
     },
     {
       "id": 35,
@@ -588,7 +588,7 @@
       "deathDate": "",
       "birthPlace": "гор.Алма-Ата",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/Сабрина.jpeg",
       "photos": [],
       "fatherId": null,
       "motherId": 34,
@@ -769,22 +769,6 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 34
-    },
-    {
-      "id": 48,
-      "name": "Сабрина",
-      "surname": "Вустина",
-      "middlename": "",
-      "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "photos/avatars/Саьрина.jpg",
-      "photos": [],
-      "fatherId": null,
-      "motherId": null,
-      "spouseId": null
     }
   ]
 }
