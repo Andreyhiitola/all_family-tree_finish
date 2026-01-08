@@ -552,7 +552,7 @@
     {
       "id": 34,
       "name": "Юля",
-      "surname": "Вустина",
+      "surname": "Ищенко (Вустина)",
       "middlename": "Александровна",
       "gender": "F",
       "birthDate": "2013-01-03",
@@ -563,7 +563,7 @@
       "photos": [],
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": 53
+      "spouseId": 55
     },
     {
       "id": 35,
@@ -584,8 +584,8 @@
     {
       "id": 36,
       "name": "Сабрина",
-      "surname": "Вустина",
-      "middlename": "Александровна",
+      "surname": "Кадеева",
+      "middlename": "Лиевна",
       "gender": "F",
       "birthDate": "2013-01-03",
       "deathDate": "",
@@ -593,15 +593,15 @@
       "biography": "",
       "photo": "photos/avatars/Сабрина.jpeg",
       "photos": [],
-      "fatherId": null,
+      "fatherId": 54,
       "motherId": 34,
       "spouseId": null
     },
     {
       "id": 37,
       "name": "Руслан",
-      "surname": "Вустин",
-      "middlename": "",
+      "surname": "Ищенко",
+      "middlename": "Романович",
       "gender": "M",
       "birthDate": "2024-03-22",
       "deathDate": "",
@@ -858,10 +858,10 @@
     {
       "id": 53,
       "name": "Роман",
-      "surname": "!!!!!",
+      "surname": "Ищенко",
       "middlename": "",
       "gender": "M",
-      "birthDate": "",
+      "birthDate": "1989-11-08",
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
@@ -869,7 +869,23 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 37
+      "spouseId": 34
+    },
+    {
+      "id": 54,
+      "name": "Али",
+      "surname": "Кадеев",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": null
     }
   ]
 }
