@@ -560,7 +560,7 @@
       "photos": [],
       "fatherId": 14,
       "motherId": 32,
-      "spouseId": null
+      "spouseId": 47
     },
     {
       "id": 35,
@@ -752,6 +752,38 @@
       "photos": [],
       "fatherId": 44,
       "motherId": 28,
+      "spouseId": null
+    },
+    {
+      "id": 47,
+      "name": "Роман",
+      "surname": "!!!!!",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Роман_муж_Юли.jpg",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": 34
+    },
+    {
+      "id": 48,
+      "name": "Сабрина",
+      "surname": "Вустина",
+      "middlename": "",
+      "gender": "F",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Саьрина.jpg",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
       "spouseId": null
     }
   ]
