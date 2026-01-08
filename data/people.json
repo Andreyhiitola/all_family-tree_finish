@@ -737,6 +737,22 @@
       "fatherId": 44,
       "motherId": 28,
       "spouseId": null
+    },
+    {
+      "id": 46,
+      "name": "Валерия",
+      "surname": "Брандт",
+      "middlename": "Алексеевна",
+      "gender": "F",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Валерия.jpg",
+      "photos": [],
+      "fatherId": 44,
+      "motherId": 28,
+      "spouseId": null
     }
   ]
 }
