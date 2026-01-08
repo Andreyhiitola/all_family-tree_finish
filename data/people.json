@@ -785,6 +785,22 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 40
+    },
+    {
+      "id": 49,
+      "name": "Рада",
+      "surname": "Сагурова",
+      "middlename": "Антоновна",
+      "gender": "F",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Рада.jpg",
+      "photos": [],
+      "fatherId": 40,
+      "motherId": 48,
+      "spouseId": null
     }
   ]
 }
