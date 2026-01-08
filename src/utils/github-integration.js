@@ -17,8 +17,7 @@ const GITHUB_CONFIG = {
 }
 
 // Создаем экземпляр GitHub Sync
-const githubSync = new GitHubSync(GITHUB_CONFIG)
-window.githubSync = githubSync  // Для отладки
+window.githubSync = new GitHubSync(GITHUB_CONFIG)
 
 // ============================================================================
 // ДОБАВЛЕНИЕ КНОПОК В ИНТЕРФЕЙС
@@ -55,7 +54,7 @@ function addGitHubButtons() {
   header.appendChild(configBtn)
   
   // Если не настроено - показываем предупреждение
-  if (!githubSync.isEnabled()) {
+  if (!window.githubSync.isEnabled()) {
     pullBtn.disabled = true
     pushBtn.disabled = true
     pullBtn.title = 'Сначала настройте GitHub токен'
@@ -71,7 +70,7 @@ function addGitHubButtons() {
  * Загрузить данные с GitHub
  */
 async function pullFromGitHub() {
-  if (!githubSync.isEnabled()) {
+  if (!window.githubSync.isEnabled()) {
     alert('❌ GitHub не настроен. Нажмите ⚙️ GitHub для настройки.')
     return
   }
@@ -83,7 +82,7 @@ async function pullFromGitHub() {
   try {
     showNotification('⬇️ Загрузка с GitHub...', 'info')
     
-    const people = await githubSync.pullFromGitHub()
+    const people = await window.githubSync.pullFromGitHub()
     
     // Обновляем данные
     dataManager.setPeople(people)
@@ -107,7 +106,7 @@ async function pullFromGitHub() {
  * Отправить данные в GitHub
  */
 async function pushToGitHub() {
-  if (!githubSync.isEnabled()) {
+  if (!window.githubSync.isEnabled()) {
     alert('❌ GitHub не настроен. Нажмите ⚙️ GitHub для настройки.')
     return
   }
@@ -119,7 +118,7 @@ async function pushToGitHub() {
     showNotification('⬆️ Отправка в GitHub...', 'info')
     
     const people = dataManager.getPeople()
-    await githubSync.pushToGitHub(people, message)
+    await window.githubSync.pushToGitHub(people, message)
     
     showNotification('✅ Данные отправлены в GitHub', 'success')
     
@@ -168,7 +167,7 @@ function configureGitHub() {
  * Автоматическая отправка в GitHub при изменениях
  */
 function enableAutoSync() {
-  if (!githubSync.isEnabled()) {
+  if (!window.githubSync.isEnabled()) {
     console.warn('⚠️ Автосинхронизация не включена: GitHub не настроен')
     return
   }
@@ -185,7 +184,7 @@ function enableAutoSync() {
     window.githubSyncTimer = setTimeout(async function() {
       try {
         const people = dataManager.getPeople()
-        await githubSync.pushToGitHub(people, 'Автосохранение: ' + new Date().toLocaleString())
+        await window.githubSync.pushToGitHub(people, 'Автосохранение: ' + new Date().toLocaleString())
         console.log('✅ Автосохранение в GitHub')
       } catch (error) {
         console.error('❌ Ошибка автосохранения:', error)
@@ -247,7 +246,7 @@ window.githubCommands = {
   
   // Статус
   status: function() {
-    console.table(githubSync.getStatus())
+    console.table(window.githubSync.getStatus())
   },
   
   // Включить автосинхронизацию
