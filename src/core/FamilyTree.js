@@ -77,7 +77,7 @@ class FamilyTreeCore {
       const otherId = person.gender === "M" ? child.motherId : child.fatherId;
       if (otherId && otherId !== person.spouseId) {
         const other = this.getPersonById(otherId);
-        if (other && !spouses.find(s => s.id === other.id)) {
+        if (other && !spouses.find(s => s && s.id === other.id)) {
           spouses.push(other);
         }
       }
