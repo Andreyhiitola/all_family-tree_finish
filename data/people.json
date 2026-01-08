@@ -278,7 +278,7 @@
       "photos": [],
       "fatherId": 7,
       "motherId": 15,
-      "spouseId": 48
+      "spouseId": 21
     },
     {
       "id": 18,
@@ -346,7 +346,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": 17
     },
     {
       "id": 22,
@@ -700,7 +700,7 @@
       "deathDate": "",
       "birthPlace": "гор. Текели",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/Олег.jpg",
       "photos": [],
       "fatherId": 17,
       "motherId": 21,
