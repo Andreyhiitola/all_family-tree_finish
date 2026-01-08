@@ -274,7 +274,7 @@
       "deathDate": "",
       "birthPlace": "Вышевогорск, Челябинска область",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/Дмитрий.jpg",
       "photos": [],
       "fatherId": 7,
       "motherId": 15,
@@ -784,7 +784,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 40
+      "spouseId": 17
     }
   ]
 }
