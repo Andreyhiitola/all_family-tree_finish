@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Федор",
-      "surname": "Рыбалко",
+      "surname": "Рыбалко (Родоначальник)",
       "middlename": "",
       "gender": "M",
       "birthDate": "1870-03-05",
@@ -146,12 +146,12 @@
       ],
       "fatherId": 10,
       "motherId": 11,
-      "spouseId": 51
+      "spouseId": 8
     },
     {
       "id": 10,
       "name": "Дмитрий",
-      "surname": "Вустин",
+      "surname": "Вустин (Родоначальник)",
       "middlename": "Никифорович",
       "gender": "M",
       "birthDate": "1907-01-01",
