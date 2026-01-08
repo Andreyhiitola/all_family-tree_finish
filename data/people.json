@@ -721,6 +721,22 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 28
+    },
+    {
+      "id": 45,
+      "name": "Артем",
+      "surname": "Брандт",
+      "middlename": "Алексеевич",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Артем.jpg",
+      "photos": [],
+      "fatherId": 44,
+      "motherId": 28,
+      "spouseId": null
     }
   ]
 }
