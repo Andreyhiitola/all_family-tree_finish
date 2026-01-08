@@ -85,6 +85,47 @@ class FamilyTreeCore {
     
     return spouses.filter(s => s);
   }
+
+  /**
+   * Найти все корневые семьи (люди без родителей)
+   * Группирует супружеские пары вместе
+   */
+  findRootFamilies() {
+    const rootPeople = this.people.filter(p => !p.fatherId && !p.motherId);
+    const families = [];
+    const processed = new Set();
+
+    rootPeople.forEach(person => {
+      if (processed.has(person.id)) return;
+
+      const family = {
+        id: person.id,
+        person1: person,
+        person2: null,
+        label: `${person.name} ${person.surname}`
+      };
+
+      if (person.spouseId) {
+        const spouse = this.getPersonById(person.spouseId);
+        if (spouse && rootPeople.find(p => p.id === spouse.id)) {
+          family.person2 = spouse;
+          family.label = `${person.name} + ${spouse.name} ${person.surname}`;
+          processed.add(spouse.id);
+        }
+      }
+
+      families.push(family);
+      processed.add(person.id);
+    });
+
+    families.sort((a, b) => {
+      const dateA = a.person1.birthDate || "9999";
+      const dateB = b.person1.birthDate || "9999";
+      return dateA.localeCompare(dateB);
+    });
+
+    return families;
+  }
   buildDescendantsHierarchy(rootId) {
     const root = this.getPersonById(rootId)
     if (!root) {

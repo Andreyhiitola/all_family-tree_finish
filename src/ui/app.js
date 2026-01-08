@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Создаем ядро семейного дерева
-  const familyTree = new FamilyTreeCore(dataManager.getPeople())
+  window.familyTree = new FamilyTreeCore(dataManager.getPeople())
+  const familyTree = window.familyTree
   window.familyTreeInstance = familyTree // Для отладки
   
   let currentRootId = dataManager.getPeople()[0]?.id || null
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let personToDelete = null
 
   // Создаем визуализатор
-  const treeViz = new TreeVisualizer({
+  window.treeViz = new TreeVisualizer({
     svgSelector: '#tree-svg',
     familyTree,
     onNodeClick: (id) => {
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       updatePersonInfo(id)
     }
   })
+  const treeViz = window.treeViz
   window.treeVizInstance = treeViz // Для отладки
 
   /**
@@ -465,5 +467,75 @@ console.log('📝 Команды: window.debugProfile.stats() - статисти
   console.log('📊 Статистика:', stats)
   
   console.log('✅ Приложение инициализировано')
+
+  // Заполняем селектор корневых семей
+  populateRootSelector();
+
+  // Заполняем селектор корневых семей
+  populateRootSelector();
   console.log('👉 Используйте window.debugFamilyTree() для отладки')
 })
+
+/**
+ * Заполнить селектор корневых семей
+ */
+function populateRootSelector() {
+  const selector = document.getElementById('root-selector');
+  if (!selector) return;
+
+  const families = window.familyTree.findRootFamilies();
+  
+  // Очищаем все кроме первой опции
+  while (selector.options.length > 1) {
+    selector.remove(1);
+  }
+
+  // Добавляем все корневые семьи
+  families.forEach(family => {
+    const option = document.createElement('option');
+    option.value = family.id;
+    option.textContent = family.label;
+    selector.appendChild(option);
+  });
+
+  // Обработчик изменения
+  selector.onchange = (e) => {
+    const rootId = parseInt(e.target.value);
+    if (rootId) {
+      currentRootId = rootId;
+      refreshTree();
+    }
+  };
+}
+
+/**
+ * Заполнить селектор корневых семей
+ */
+function populateRootSelector() {
+  const selector = document.getElementById('root-selector');
+  if (!selector) return;
+
+  const families = window.familyTree.findRootFamilies();
+  
+  // Очищаем все кроме первой опции
+  while (selector.options.length > 1) {
+    selector.remove(1);
+  }
+
+  // Добавляем все корневые семьи
+  families.forEach(family => {
+    const option = document.createElement('option');
+    option.value = family.id;
+    option.textContent = family.label;
+    selector.appendChild(option);
+  });
+
+  // Обработчик изменения
+  selector.onchange = (e) => {
+    const rootId = parseInt(e.target.value);
+    if (rootId) {
+      currentRootId = rootId;
+      window.treeViz.render(currentRootId);
+    }
+  };
+}
