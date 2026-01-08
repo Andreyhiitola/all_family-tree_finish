@@ -230,7 +230,7 @@
       "photos": [],
       "fatherId": 9,
       "motherId": 8,
-      "spouseId": 32
+      "spouseId": 33
     },
     {
       "id": 15,
@@ -540,7 +540,7 @@
       "deathDate": "",
       "birthPlace": "гор.Алма-Ата",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/Оксана.jpg",
       "photos": [],
       "fatherId": null,
       "motherId": null,
