@@ -484,22 +484,6 @@
       "spouseId": null
     },
     {
-      "id": 30,
-      "name": "Артем",
-      "surname": "Брандт",
-      "middlename": "Алексеевич",
-      "gender": "M",
-      "birthDate": "2007-06-14",
-      "deathDate": "",
-      "birthPlace": "г.Алма-Ата",
-      "biography": "",
-      "photo": "",
-      "photos": [],
-      "fatherId": null,
-      "motherId": 28,
-      "spouseId": null
-    },
-    {
       "id": 31,
       "name": "Валерия",
       "surname": "Брантд",
