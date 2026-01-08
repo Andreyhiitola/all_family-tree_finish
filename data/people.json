@@ -462,7 +462,7 @@
       "photos": [],
       "fatherId": 22,
       "motherId": 13,
-      "spouseId": null
+      "spouseId": 44
     },
     {
       "id": 29,
@@ -705,6 +705,22 @@
       "fatherId": 17,
       "motherId": 21,
       "spouseId": null
+    },
+    {
+      "id": 44,
+      "name": "Алексей",
+      "surname": "Брандт",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Алексей_Олеся.jpg",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": 28
     }
   ]
 }
