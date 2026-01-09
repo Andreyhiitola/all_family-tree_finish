@@ -195,7 +195,7 @@
       "biography": "",
       "photo": "photos/avatars/Оля.jpg",
       "photos": [
-        "photos/avatars/Оля.jpg"
+        "photos/gallery/вустины_сестры.jpg"
       ],
       "fatherId": 9,
       "motherId": 8,
@@ -281,7 +281,10 @@
       "birthPlace": "Вышевогорск, Челябинска область",
       "biography": "",
       "photo": "photos/avatars/Дмитрий.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/Дмитрий_детство.jpg",
+        "photos/gallery/Дмитрий_Сагуров.jpg"
+      ],
       "fatherId": 7,
       "motherId": 15,
       "spouseId": 21
