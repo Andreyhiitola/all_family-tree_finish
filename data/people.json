@@ -42,8 +42,11 @@
       "deathDate": "1989-02-25",
       "birthPlace": "Харьковская область",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/Баба_Оксана_3.jpg",
+      "photos": [
+        "photos/gallery/Баба_Оксана+2.jpg",
+        "photos/gallery/Баба_Оксана_3.jpg"
+      ],
       "fatherId": 1,
       "motherId": 2,
       "spouseId": 4
@@ -124,7 +127,9 @@
       "biography": "",
       "photo": "photos/avatars/теть_Лида.jpg",
       "photos": [
-        "photos/теть_Лида.jpg"
+        "photos/gallery/Лида_Вустина_2.jpg",
+        "photos/gallery/Лида_Вустина_3.jpg",
+        "photos/gallery/Лида_Вустина.jpg"
       ],
       "fatherId": 4,
       "motherId": 3,
@@ -192,7 +197,7 @@
       "biography": "",
       "photo": "photos/avatars/Оля.jpg",
       "photos": [
-        "photos/avatars/Оля.jpg"
+        "photos/gallery/вустины_сестры.jpg"
       ],
       "fatherId": 9,
       "motherId": 8,
@@ -210,7 +215,7 @@
       "biography": "",
       "photo": "photos/avatars/Неля.jpg",
       "photos": [
-        "photos/avatars/Неля.jpg"
+        "photos/gallery/Неля_Мезько.jpg"
       ],
       "fatherId": 9,
       "motherId": 8,
@@ -227,7 +232,10 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "",
       "photo": "photos/avatars/Александр.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/Александр_Вустин.jpg",
+        "photos/gallery/Александр_Вустин_2.jpg"
+      ],
       "fatherId": 9,
       "motherId": 8,
       "spouseId": 33
@@ -242,8 +250,13 @@
       "deathDate": "2016-10-23",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/мама-1.jpg",
+      "photos": [
+        "photos/gallery/мама_3.jpg",
+        "photos/gallery/мама_4.jpg",
+        "photos/gallery/мама_5.jpg",
+        "photos/gallery/мама_6.jpg"
+      ],
       "fatherId": null,
       "motherId": null,
       "spouseId": 7
@@ -275,7 +288,10 @@
       "birthPlace": "Вышевогорск, Челябинска область",
       "biography": "",
       "photo": "photos/avatars/Дмитрий.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/Дмитрий_детство.jpg",
+        "photos/gallery/Дмитрий_Сагуров.jpg"
+      ],
       "fatherId": 7,
       "motherId": 15,
       "spouseId": 21
@@ -327,9 +343,9 @@
       "biography": "",
       "photo": "photos/avatars/Ира-1.jpg",
       "photos": [
-        "photos/avatars/Ира-1.jpg",
         "photos/gallery/Ира-2.jpg",
-        "photos/gallery/Ира-3.jpg"
+        "photos/gallery/Ира-3.jpg",
+        "photos/gallery/Bра-4.jpg"
       ],
       "fatherId": 16,
       "motherId": 19,
@@ -462,7 +478,9 @@
       "birthPlace": "г.Алма-Ата",
       "biography": "",
       "photo": "photos/avatars/Олеся.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/Олеся_Мезько.jpg"
+      ],
       "fatherId": 22,
       "motherId": 13,
       "spouseId": 44
@@ -867,6 +885,40 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": null
+    },
+    {
+      "id": 55,
+      "name": "Вера",
+      "surname": "Рылова (Гвоздева)",
+      "middlename": "Аньоновна",
+      "gender": "F",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/avatars/Рылова_ГвоздеваВера.jpg",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": null
+    },
+    {
+      "id": 56,
+      "name": "Варавара",
+      "surname": "Гвоздева",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "photos/gallery/ Баба_ВаряГвоздева.jpg",
+      "photos": [
+        "photos/gallery/Баба_ВаряГвоздева.jpg"
+      ],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
