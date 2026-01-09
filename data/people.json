@@ -127,7 +127,9 @@
       "biography": "",
       "photo": "photos/avatars/теть_Лида.jpg",
       "photos": [
-        "photos/теть_Лида.jpg"
+        "photos/gallery/Лида_Вустина_2.jpg",
+        "photos/gallery/Лида_Вустина_3.jpg",
+        "photos/gallery/Лида_Вустина.jpg"
       ],
       "fatherId": 4,
       "motherId": 3,
@@ -213,7 +215,7 @@
       "biography": "",
       "photo": "photos/avatars/Неля.jpg",
       "photos": [
-        "photos/avatars/Неля.jpg"
+        "photos/gallery/Неля_Мезько.jpg"
       ],
       "fatherId": 9,
       "motherId": 8,
@@ -249,7 +251,12 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/мама-1.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/мама_3.jpg",
+        "photos/gallery/мама_4.jpg",
+        "photos/gallery/мама_5.jpg",
+        "photos/gallery/мама_6.jpg"
+      ],
       "fatherId": null,
       "motherId": null,
       "spouseId": 7
@@ -336,9 +343,9 @@
       "biography": "",
       "photo": "photos/avatars/Ира-1.jpg",
       "photos": [
-        "photos/avatars/Ира-1.jpg",
         "photos/gallery/Ира-2.jpg",
-        "photos/gallery/Ира-3.jpg"
+        "photos/gallery/Ира-3.jpg",
+        "photos/gallery/Bра-4.jpg"
       ],
       "fatherId": 16,
       "motherId": 19,
@@ -471,7 +478,9 @@
       "birthPlace": "г.Алма-Ата",
       "biography": "",
       "photo": "photos/avatars/Олеся.jpg",
-      "photos": [],
+      "photos": [
+        "photos/gallery/Олеся_Мезько.jpg"
+      ],
       "fatherId": 22,
       "motherId": 13,
       "spouseId": 44
