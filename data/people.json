@@ -1025,7 +1025,7 @@
       "photo": "",
       "photos": [],
       "fatherId": null,
-      "motherId": null,
+      "motherId": 71,
       "spouseId": 68
     },
     {
@@ -1122,7 +1122,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": 71
     },
     {
       "id": 71,
@@ -1138,7 +1138,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": 70
     },
     {
       "id": 72,
@@ -1393,7 +1393,7 @@
       "photo": "",
       "photos": [],
       "fatherId": null,
-      "motherId": null,
+      "motherId": 89,
       "spouseId": null
     },
     {
@@ -1409,7 +1409,7 @@
       "photo": "",
       "photos": [],
       "fatherId": null,
-      "motherId": null,
+      "motherId": 89,
       "spouseId": null
     },
     {
