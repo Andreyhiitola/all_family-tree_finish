@@ -67,9 +67,9 @@ class TreeVisualizer {
       .data(root.links())
       .join('path')
       .attr('class', 'link')
-      .attr('d', d3.linkHorizontal()
-        .x(d => d.y)
-        .y(d => d.x)
+      .attr('d', d3.linkVertical()
+        .x(d => d.x)
+        .y(d => d.y)
       )
 
     // УЗЛЫ - обрабатываем разные типы
@@ -77,7 +77,7 @@ class TreeVisualizer {
       .data(root.descendants(), d => d.data.id)
       .join('g')
       .attr('class', d => `tree-node node-${d.data.type}`)
-      .attr('transform', d => `translate(${d.y},${d.x})`)
+      .attr('transform', d => `translate(${d.x},${d.y})`)
     
     // Отрисовываем узлы по типам
     allNodes.each((d, i, nodes) => {
@@ -128,10 +128,14 @@ class TreeVisualizer {
         if (person) this.onNodeClick?.(person.id)
       })
 
-    personGroup.selectAll('circle')
+    personGroup.selectAll('rect')
       .data(d => [d])
-      .join('circle')
-      .attr('r', 25)
+      .join('rect')
+      .attr('width', 50)
+      .attr('height', 50)
+      .attr('x', -25)
+      .attr('y', -25)
+      .attr('rx', 5)
       .attr('fill', d => {
         const person = dataAccessor(d)
         return this.getPersonColor(person) // 🎨 ИСПОЛЬЗУЕМ ЦВЕТ ПО ФАМИЛИИ
