@@ -1,0 +1,19 @@
+Найдите в js/DataManager.js функцию _loadFromCache() и добавьте проверку версии:
+
+После строки:
+    const cached = localStorage.getItem(this.cacheKey);
+
+Добавьте:
+    // Проверка версии данных
+    const dataVersion = localStorage.getItem('data_version');
+    const currentVersion = '1.0.1'; // Обновляйте при изменении данных
+    
+    if (dataVersion !== currentVersion) {
+        console.log('🔄 Обнаружена новая версия данных, очистка кеша');
+        localStorage.removeItem(this.cacheKey);
+        localStorage.setItem('data_version', currentVersion);
+        return null;
+    }
+
+И в функции _saveToCache() добавьте после сохранения:
+    localStorage.setItem('data_version', '1.0.1');
