@@ -119,10 +119,11 @@ class FamilyTreeCore {
     });
 
     families.sort((a, b) => {
-      const dateA = a.person1.birthDate || "9999";
-      const dateB = b.person1.birthDate || "9999";
-      return dateA.localeCompare(dateB);
-    });
+  const dateA = String(a.person1.birthDate || "9999");
+  const dateB = String(b.person1.birthDate || "9999");
+  return dateA.localeCompare(dateB);
+});
+
 
     return families;
   }

@@ -14,8 +14,8 @@
   <!-- ❌ УДАЛЕНА ПРОБЛЕМНАЯ СТРОКА: <base href="/all_family-tree_finish/"> -->
   <!-- Это ломало пути при локальной разработке! -->
   
-  <link rel="stylesheet" href="style.css?v=202601121507">
-  <link rel="stylesheet" href="profile-modal-styles.css?v=202601121507"> 
+  <link rel="stylesheet" href="style.css?v=202602121220">
+  <link rel="stylesheet" href="profile-modal-styles.css?v=202602121220"> 
 </head>
 <body>
   <header class="app-header">
@@ -205,25 +205,25 @@
   <script src="xlsx.full.min.js"></script>
   <script src="FileSaver.min.js"></script>
   <!-- Утилиты -->
-  <script src="src/utils/dataStorage.js?v=202601121507"></script>
-  <script src="src/core/DataManager.js?v=202601121507"></script>
+  <script src="src/utils/dataStorage.js?v=202602121220"></script>
+  <script src="src/core/DataManager.js?v=202602121220"></script>
   <!-- Ядро -->
-  <script src="src/core/FamilyTree.js?v=202601121507"></script>
-  <script src="src/core/TreeVisualizer.js?v=202601121507"></script>
+  <script src="src/core/FamilyTree.js?v=202602121220"></script>
+  <script src="src/core/TreeVisualizer.js?v=202602121220"></script>
   <!-- Утилиты импорта/экспорта -->
-  <script src="src/utils/importExcel.js?v=202601121507"></script>
-  <script src="src/utils/exportExcel.js?v=202601121507"></script>
+  <script src="src/utils/importExcel.js?v=202602121220"></script>
+  <script src="src/utils/exportExcel.js?v=202602121220"></script>
   <!-- UI -->
-  <script src="src/auth.js?v=202601121507"></script>
-  <script src="src/utils/notifications.js?v=202601121507"></script>
-  <script src="src/ui/forms.js?v=202601121507"></script>
-  <script src="src/ui/table.js?v=202601121507"></script>
-  <script src="src/ui/ProfileModal.js?v=202601121507"></script> 
-  <script src="src/ui/modals.js?v=202601121507"></script>
-  <script src="src/utils/GitHubSync.js?v=202601121507"></script>
-  <script src="src/utils/github-integration.js?v=202601121507"></script>
+  <script src="src/auth.js?v=202602121220"></script>
+  <script src="src/utils/notifications.js?v=202602121220"></script>
+  <script src="src/ui/forms.js?v=202602121220"></script>
+  <script src="src/ui/table.js?v=202602121220"></script>
+  <script src="src/ui/ProfileModal.js?v=202602121220"></script> 
+  <script src="src/ui/modals.js?v=202602121220"></script>
+  <script src="src/utils/GitHubSync.js?v=202602121220"></script>
+  <script src="src/utils/github-integration.js?v=202602121220"></script>
   <!-- Главное приложение -->
-  <script src="src/ui/app.js?v=202601121507"></script>
+  <script src="src/ui/app.js?v=202602121220"></script>
 
   <!-- ==================== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ==================== -->
   
@@ -346,6 +346,7 @@
     // Логирование при загрузке
     console.log('%c🌳 Семейное древо v1.0.3', 'color: green; font-size: 16px; font-weight: bold')
     console.log('📝 Для отладки используйте: window.debugFamilyTree()')
+  </script>
   <!-- Модальное окно для ввода GitHub токена -->
   <div id="auth-modal" class="modal" style="display: none;">
     <div class="modal-content" style="max-width: 500px;">
