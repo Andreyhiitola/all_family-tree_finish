@@ -21,6 +21,8 @@
 
 /* Контент модального окна */
 .profile-modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
     background-color: #ffffff;
     margin: 2% auto;
     padding: 0;
@@ -352,6 +354,8 @@
 /* Адаптивность */
 @media (max-width: 768px) {
     .profile-modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
         width: 95%;
         margin: 5% auto;
     }
