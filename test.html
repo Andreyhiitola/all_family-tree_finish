@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<script src="d3.v7.min.js"></script>
+<script src="table-FIXED.js"></script>
+<div id="app"></div>
+<script>
+fetch('data/people.json')
+  .then(r=>r.json())
+  .then(data => {
+    console.log('✅ JSON:', data.people.length, 'человек');
+    window.renderPeopleTable(data.people);
+  })
+  .catch(e=>console.error('❌ Ошибка:', e));
+</script>
+</html>
