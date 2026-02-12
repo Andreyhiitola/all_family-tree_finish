@@ -14,8 +14,8 @@
   <!-- ❌ УДАЛЕНА ПРОБЛЕМНАЯ СТРОКА: <base href="/all_family-tree_finish/"> -->
   <!-- Это ломало пути при локальной разработке! -->
   
-  <link rel="stylesheet" href="style.css?v=202602121220">
-  <link rel="stylesheet" href="profile-modal-styles.css?v=202602121220"> 
+  <link rel="stylesheet" href="style.css?v=202602121250">
+  <link rel="stylesheet" href="profile-modal-styles.css?v=202602121250"> 
 </head>
 <body>
   <header class="app-header">
@@ -205,25 +205,25 @@
   <script src="xlsx.full.min.js"></script>
   <script src="FileSaver.min.js"></script>
   <!-- Утилиты -->
-  <script src="src/utils/dataStorage.js?v=202602121220"></script>
-  <script src="src/core/DataManager.js?v=202602121220"></script>
+  <script src="src/utils/dataStorage.js?v=202602121250"></script>
+  <script src="src/core/DataManager.js?v=202602121250"></script>
   <!-- Ядро -->
-  <script src="src/core/FamilyTree.js?v=202602121220"></script>
-  <script src="src/core/TreeVisualizer.js?v=202602121220"></script>
+  <script src="src/core/FamilyTree.js?v=202602121250"></script>
+  <script src="src/core/TreeVisualizer.js?v=202602121250"></script>
   <!-- Утилиты импорта/экспорта -->
-  <script src="src/utils/importExcel.js?v=202602121220"></script>
-  <script src="src/utils/exportExcel.js?v=202602121220"></script>
+  <script src="src/utils/importExcel.js?v=202602121250"></script>
+  <script src="src/utils/exportExcel.js?v=202602121250"></script>
   <!-- UI -->
-  <script src="src/auth.js?v=202602121220"></script>
-  <script src="src/utils/notifications.js?v=202602121220"></script>
-  <script src="src/ui/forms.js?v=202602121220"></script>
-  <script src="src/ui/table.js?v=202602121220"></script>
-  <script src="src/ui/ProfileModal.js?v=202602121220"></script> 
-  <script src="src/ui/modals.js?v=202602121220"></script>
-  <script src="src/utils/GitHubSync.js?v=202602121220"></script>
-  <script src="src/utils/github-integration.js?v=202602121220"></script>
+  <script src="src/auth.js?v=202602121250"></script>
+  <script src="src/utils/notifications.js?v=202602121250"></script>
+  <script src="src/ui/forms.js?v=202602121250"></script>
+  <script src="src/ui/table.js?v=202602121250"></script>
+  <script src="src/ui/ProfileModal.js?v=202602121250"></script> 
+  <script src="src/ui/modals.js?v=202602121250"></script>
+  <script src="src/utils/GitHubSync.js?v=202602121250"></script>
+  <script src="src/utils/github-integration.js?v=202602121250"></script>
   <!-- Главное приложение -->
-  <script src="src/ui/app.js?v=202602121220"></script>
+  <script src="src/ui/app.js?v=202602121250"></script>
 
   <!-- ==================== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ==================== -->
   
@@ -365,12 +365,32 @@
   <script>
     // Функция очистки кэша
     function clearCacheAndReload() {
+      console.log('🗑️ Начинаем очистку кеша...');
+      
+      // Очистить все кеши браузера
       if ('caches' in window) {
-        caches.keys().then(keys => keys.forEach(key => caches.delete(key)));
+        caches.keys().then(keys => {
+          console.log('Удаляем кеши:', keys);
+          return Promise.all(keys.map(key => caches.delete(key)));
+        }).then(() => {
+          console.log('✅ Кеши удалены');
+        });
       }
+      
+      // Очистить localStorage
+      console.log('Очищаем localStorage');
       localStorage.clear();
+      
+      // Очистить sessionStorage
+      console.log('Очищаем sessionStorage');
       sessionStorage.clear();
-      location.reload(true);
+      
+      console.log('🔄 Перезагружаем страницу...');
+      
+      // Жесткая перезагрузка через новый URL с timestamp
+      setTimeout(() => {
+        window.location.href = window.location.pathname + '?nocache=' + Date.now();
+      }, 500);
     }
   </script>
 </body>
