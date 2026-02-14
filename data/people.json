@@ -1754,6 +1754,22 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": null
+    },
+    {
+      "id": 914,
+      "name": "Ольга",
+      "surname": "Батунина",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "",
+      "photos": [],
+      "fatherId": 913,
+      "motherId": null,
+      "spouseId": null
     }
   ]
 }
