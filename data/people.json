@@ -382,7 +382,7 @@
       "photos": [],
       "fatherId": 127,
       "motherId": 126,
-      "spouseId": 113
+      "spouseId": 912
     },
     {
       "id": 123,
@@ -1737,7 +1737,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": 122
     },
     {
       "id": 913,
