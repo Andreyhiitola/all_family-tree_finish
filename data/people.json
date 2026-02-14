@@ -74,7 +74,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-102.jpg",
       "photos": [],
       "fatherId": 103,
       "motherId": 107,
@@ -539,7 +539,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "жена Игоря Быстрова",
-      "photo": "",
+      "photo": "photos/avatars/id-132.jpg",
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
@@ -556,7 +556,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "брат Валентины",
-      "photo": "",
+      "photo": "photos/avatars/id-133.jpg",
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
@@ -573,7 +573,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "жена Вячеслава Захарова",
-      "photo": "",
+      "photo": "photos/avatars/id-134.jpg",
       "photos": [],
       "fatherId": null,
       "motherId": null,
@@ -590,7 +590,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "сын Вячеслава Захарова",
-      "photo": "",
+      "photo": "photos/avatars/АндрейСаг.jpg",
       "photos": [],
       "fatherId": 133,
       "motherId": 134,
@@ -638,7 +638,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "дочь Вячеслава Захарова",
-      "photo": "",
+      "photo": "photos/avatars/id-138.jpg",
       "photos": [],
       "fatherId": 133,
       "motherId": 134,
@@ -704,9 +704,7 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/gallery/ Баба_ВаряГвоздева.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 201
@@ -787,8 +785,11 @@
       "biography": "",
       "photo": "photos/avatars/Баба_Оксана_3.jpg",
       "photos": [
-        "",
-        ""
+        "photos/gallery/Баба_Оксана.jpg",
+        "photos/gallery/Баба_Оксана+2.jpg",
+        "photos/gallery/Баба_Оксана_3.jpg",
+        "photos/gallery/Баба_Оксана.jpg",
+        "photos/gallery/Баба_Оксана+2.jpg"
       ],
       "fatherId": 1,
       "motherId": 2,
@@ -852,8 +853,13 @@
       "deathDate": "2004-12-03",
       "birthPlace": "Харьковская область",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/gallery/Сагуров_Петр.jpg",
+      "photos": [
+        "photos/gallery/Сагуров_Петр.jpg",
+        "photos/gallery/Сагуров_Петр_2.jpg",
+        "photos/gallery/Сагуров_Петр_3.jpg",
+        "photos/gallery/Сагуров_Петр_4.jpg"
+      ],
       "fatherId": 301,
       "motherId": 300,
       "spouseId": 305
@@ -870,10 +876,11 @@
       "biography": "",
       "photo": "photos/avatars/мама-1.jpg",
       "photos": [
-        "",
-        "",
-        "",
-        ""
+        "photos/gallery/мама_2.jpg",
+        "photos/gallery/мама_3.jpg",
+        "photos/gallery/мама_4.jpg",
+        "photos/gallery/мама_5.jpg",
+        "photos/gallery/мама_6.jpg"
       ],
       "fatherId": 201,
       "motherId": 200,
@@ -889,8 +896,11 @@
       "deathDate": "",
       "birthPlace": "г.Балхаш, Казахская ССР",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/АндрейСаг.jpg",
+      "photos": [
+        "photos/gallery/Сагуров_Андрей_Дима.jpg",
+        "photos/gallery/Сагуров_Андрей_Дима.jpg"
+      ],
       "fatherId": 304,
       "motherId": 305,
       "spouseId": 308
@@ -907,8 +917,11 @@
       "biography": "",
       "photo": "photos/avatars/Дмитрий.jpg",
       "photos": [
-        "",
-        ""
+        "photos/gallery/Дмитрий_Сагуров.jpg",
+        "photos/gallery/Дмитрий_Сагуров_1.jpg",
+        "photos/gallery/Дмитрий_детство.jpg",
+        "photos/gallery/Дмитрий_Сагуров.jpg",
+        "photos/gallery/Дмитрий_Сагуров_1.jpg"
       ],
       "fatherId": 304,
       "motherId": 305,
@@ -942,9 +955,9 @@
       "biography": "",
       "photo": "photos/avatars/Ира-1.jpg",
       "photos": [
-        "",
-        "",
-        ""
+        "photos/gallery/Ира-2.jpg",
+        "photos/gallery/Ира-3.jpg",
+        "photos/gallery/Ира_4.jpg"
       ],
       "fatherId": 306,
       "motherId": 308,
@@ -1057,11 +1070,7 @@
       "birthPlace": "Харьковская область",
       "biography": "",
       "photo": "photos/avatars/теть_Лида.jpg",
-      "photos": [
-        "",
-        "",
-        ""
-      ],
+      "photos": [],
       "fatherId": 301,
       "motherId": 300,
       "spouseId": 401
@@ -1077,9 +1086,7 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "НОВЫЙ НОВЫЙ",
       "photo": "photos/avatars/Дядь_Аркадий.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": 402,
       "motherId": 403,
       "spouseId": 400
@@ -1127,10 +1134,7 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "",
       "photo": "photos/avatars/Александр.jpg",
-      "photos": [
-        "",
-        ""
-      ],
+      "photos": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 406
@@ -1322,9 +1326,7 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Зоя.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": 502,
       "motherId": null,
       "spouseId": null
@@ -1339,7 +1341,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-600.jpg",
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
@@ -1356,7 +1358,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-601.jpg",
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
@@ -1373,7 +1375,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-602.jpg",
       "photos": [],
       "fatherId": 102,
       "motherId": 132,
@@ -1405,7 +1407,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "мать Франка Скочимарро",
-      "photo": "",
+      "photo": "photos/avatars/id-604.jpg",
       "photos": [],
       "fatherId": null,
       "motherId": null,
@@ -1422,7 +1424,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "отец Франка Скочимарро",
-      "photo": "",
+      "photo": "photos/avatars/id-605.jpg",
       "photos": [],
       "fatherId": null,
       "motherId": null,
@@ -1440,9 +1442,7 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "",
       "photo": "photos/avatars/Неля.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 701
@@ -1458,9 +1458,7 @@
       "birthPlace": "совхоз Джанашар, Алмаатинская область, Каз ССЗ",
       "biography": "",
       "photo": "photos/avatars/Петр.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 700
@@ -1540,9 +1538,7 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Оля.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 500
@@ -1559,8 +1555,10 @@
       "biography": "",
       "photo": "photos/avatars/КатяСаг.jpg",
       "photos": [
-        "",
-        ""
+        "photos/gallery/КатяСаг-1.jpg",
+        "photos/gallery/КатяСаг-2.jpg",
+        "photos/gallery/КатяСаг-1.jpg",
+        "photos/gallery/КатяСаг-2.jpg"
       ],
       "fatherId": 306,
       "motherId": 308,
@@ -1577,9 +1575,7 @@
       "birthPlace": "г.Алма-Ата",
       "biography": "",
       "photo": "photos/avatars/Олеся.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": 701,
       "motherId": 700,
       "spouseId": 800
@@ -1595,9 +1591,7 @@
       "birthPlace": "г.Алма-Ата",
       "biography": "",
       "photo": "photos/avatars/Валерия.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": null,
       "motherId": 902,
       "spouseId": null
@@ -1693,9 +1687,7 @@
       "birthPlace": "город Санк-Петербург",
       "biography": "",
       "photo": "photos/avatars/СергейВин.jpg",
-      "photos": [
-        ""
-      ],
+      "photos": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 901
