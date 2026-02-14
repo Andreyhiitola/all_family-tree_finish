@@ -1724,22 +1724,6 @@
       "spouseId": null
     },
     {
-      "id": 912,
-      "name": "Михаил",
-      "surname": "Герасимов",
-      "middlename": "",
-      "gender": "M",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
-      "fatherId": null,
-      "motherId": null,
-      "spouseId": 122
-    },
-    {
       "id": 913,
       "name": "Максим",
       "surname": "Батунин (родоначальник)",
