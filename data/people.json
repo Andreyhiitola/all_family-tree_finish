@@ -78,7 +78,8 @@
       "photos": [],
       "fatherId": 103,
       "motherId": 107,
-      "spouseId": 132
+      "spouseId": 132,
+      "avatar": "photos/avatars/id-102.jpg"
     },
     {
       "id": 103,
@@ -542,7 +543,8 @@
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 102
+      "spouseId": 102,
+      "avatar": "photos/avatars/id-132.jpg"
     },
     {
       "id": 133,
@@ -558,7 +560,8 @@
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 134
+      "spouseId": 134,
+      "avatar": "photos/avatars/id-133.jpg"
     },
     {
       "id": 134,
@@ -574,7 +577,8 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 133
+      "spouseId": 133,
+      "avatar": "photos/avatars/id-134.jpg"
     },
     {
       "id": 135,
@@ -638,7 +642,8 @@
       "photos": [],
       "fatherId": 133,
       "motherId": 134,
-      "spouseId": 139
+      "spouseId": 139,
+      "avatar": "photos/avatars/id-138.jpg"
     },
     {
       "id": 139,
@@ -1338,7 +1343,8 @@
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null
+      "spouseId": null,
+      "avatar": "photos/avatars/id-600.jpg"
     },
     {
       "id": 601,
@@ -1354,7 +1360,8 @@
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null
+      "spouseId": null,
+      "avatar": "photos/avatars/id-601.jpg"
     },
     {
       "id": 602,
@@ -1402,7 +1409,8 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 605
+      "spouseId": 605,
+      "avatar": "photos/avatars/id-604.jpg"
     },
     {
       "id": 605,
@@ -1418,7 +1426,8 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 604
+      "spouseId": 604,
+      "avatar": "photos/avatars/id-605.jpg"
     },
     {
       "id": 700,
