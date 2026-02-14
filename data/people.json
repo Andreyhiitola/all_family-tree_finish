@@ -167,12 +167,12 @@
       "middlename": "Максимовна",
       "gender": "F",
       "birthDate": "1912-05-01",
-      "deathDate": 1997,
+      "deathDate": "",
       "birthPlace": "",
       "biography": "Первый муж - Николай Быстров (отец Анатолия). Второй муж - Иван Кузнецов (отчим Анатолия).",
       "photo": "",
       "photos": [],
-      "fatherId": null,
+      "fatherId": 913,
       "motherId": null,
       "spouseId": 104
     },
@@ -1738,8 +1738,22 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": null
+    },
+    {
+      "id": 913,
+      "name": "Максим",
+      "surname": "Батунин (родоначльник)",
+      "middlename": "",
+      "gender": "M",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "biography": "",
+      "photo": "",
+      "photos": [],
+      "fatherId": null,
+      "motherId": null,
+      "spouseId": null
     }
-  ],
-  "version": "1.0.4",
-  "lastUpdate": "2026-02-12T17:11:00"
+  ]
 }
