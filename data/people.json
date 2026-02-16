@@ -59,7 +59,7 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/id-101.jpg",
-      "photos": "photos/gallery/id-101.jpg",
+      "photos": [],
       "fatherId": 103,
       "motherId": 107,
       "spouseId": null
@@ -75,11 +75,10 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/id-102.jpg",
-      "photos": "photos/gallery/id-103.jpg",
+      "photos": [],
       "fatherId": 103,
       "motherId": 107,
-      "spouseId": 132,
-      "avatar": "photos/avatars/id-102.jpg"
+      "spouseId": 132
     },
     {
       "id": 103,
@@ -96,7 +95,6 @@
         "photos/gallery/id-103-2.jpg",
         "photos/gallery/id-103-3.jpg"
       ],
-
       "fatherId": 104,
       "motherId": 109,
       "spouseId": 107
@@ -116,22 +114,6 @@
       "fatherId": null,
       "motherId": null,
       "spouseId": 109
-    },
-    {
-      "id": 106,
-      "name": "Валентина",
-      "surname": "Быстрова (",
-      "middlename": "",
-      "gender": "F",
-      "birthDate": "",
-      "deathDate": "",
-      "birthPlace": "",
-      "biography": "",
-      "photo": "",
-      "photos": [],
-      "fatherId": null,
-      "motherId": null,
-      "spouseId": null
     },
     {
       "id": 107,
@@ -547,8 +529,7 @@
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 102,
-      "avatar": "photos/avatars/id-132.jpg"
+      "spouseId": 102
     },
     {
       "id": 133,
@@ -564,8 +545,7 @@
       "photos": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 134,
-      "avatar": "photos/avatars/id-133.jpg"
+      "spouseId": 134
     },
     {
       "id": 134,
@@ -581,8 +561,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 133,
-      "avatar": "photos/avatars/id-134.jpg"
+      "spouseId": 133
     },
     {
       "id": 135,
@@ -646,8 +625,7 @@
       "photos": [],
       "fatherId": 133,
       "motherId": 134,
-      "spouseId": 139,
-      "avatar": "photos/avatars/id-138.jpg"
+      "spouseId": 139
     },
     {
       "id": 139,
@@ -905,7 +883,7 @@
         "photos/gallery/Сагуров_Андрей_Дима.jpg",
         "photos/gallery/Сагуров_Андрей_Дима.jpg",
         "photos/gallery/id-306-1.jpg",
-        "photos/gallery/id-306.jpg"    
+        "photos/gallery/id-306.jpg"
       ],
       "fatherId": 304,
       "motherId": 305,
@@ -944,8 +922,9 @@
       "birthPlace": "",
       "biography": "",
       "photo": "",
-      "photos": ["photos/gallery/id-308.jpg",
-                 "photos/gallery/id-308-2.jpg"   
+      "photos": [
+        "photos/gallery/id-308.jpg",
+        "photos/gallery/id-308-2.jpg"
       ],
       "fatherId": 103,
       "motherId": 107,
@@ -967,7 +946,7 @@
         "photos/gallery/Ира-3.jpg",
         "photos/gallery/Ира_4.jpg",
         "photos/gallery/id-308.jpg",
-        "photos/gallery/id-309.jpg"     
+        "photos/gallery/id-309.jpg"
       ],
       "fatherId": 306,
       "motherId": 308,
@@ -984,7 +963,8 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Мария.jpg",
-      "photos": ["photos/gallery/id-310.jpg" 
+      "photos": [
+        "photos/gallery/id-310.jpg"
       ],
       "fatherId": null,
       "motherId": null,
@@ -1081,7 +1061,8 @@
       "birthPlace": "Харьковская область",
       "biography": "",
       "photo": "photos/avatars/теть_Лида.jpg",
-      "photos": [ "photos/gallery/id-400.jpg"
+      "photos": [
+        "photos/gallery/id-400.jpg"
       ],
       "fatherId": 301,
       "motherId": 300,
@@ -1098,7 +1079,8 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "НОВЫЙ НОВЫЙ",
       "photo": "photos/avatars/Дядь_Аркадий.jpg",
-      "photos": [ "photos/gallery/id-401.jpg"
+      "photos": [
+        "photos/gallery/id-401.jpg"
       ],
       "fatherId": 402,
       "motherId": 403,
@@ -1358,8 +1340,7 @@
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null,
-      "avatar": "photos/avatars/id-600.jpg"
+      "spouseId": null
     },
     {
       "id": 601,
@@ -1375,8 +1356,7 @@
       "photos": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null,
-      "avatar": "photos/avatars/id-601.jpg"
+      "spouseId": null
     },
     {
       "id": 602,
@@ -1424,8 +1404,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 605,
-      "avatar": "photos/avatars/id-604.jpg"
+      "spouseId": 605
     },
     {
       "id": 605,
@@ -1441,8 +1420,7 @@
       "photos": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 604,
-      "avatar": "photos/avatars/id-605.jpg"
+      "spouseId": 604
     },
     {
       "id": 700,
@@ -1551,7 +1529,8 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Оля.jpg",
-      "photos": [ "photos/gallery/it-900.jpg"
+      "photos": [
+        "photos/gallery/it-900.jpg"
       ],
       "fatherId": 401,
       "motherId": 400,
