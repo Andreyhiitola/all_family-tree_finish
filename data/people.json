@@ -58,8 +58,8 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/id-101.jpg",
+      "photos": "photos/gallery/id-101.jpg",
       "fatherId": 103,
       "motherId": 107,
       "spouseId": null
@@ -75,7 +75,7 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/id-102.jpg",
-      "photos": [],
+      "photos": "photos/gallery/id-103.jpg",
       "fatherId": 103,
       "motherId": 107,
       "spouseId": 132,
@@ -91,8 +91,12 @@
       "deathDate": "2024-05-26",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
-      "photos": [],
+      "photo": "photos/avatars/id-103.jpg",
+      "photos": [
+        "photos/gallery/id-103-2.jpg",
+        "photos/gallery/id-103-3.jpg"
+      ],
+
       "fatherId": 104,
       "motherId": 109,
       "spouseId": 107
@@ -139,7 +143,7 @@
       "deathDate": "",
       "birthPlace": "",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-107.jpg",
       "photos": [],
       "fatherId": 141,
       "motherId": 122,
@@ -899,7 +903,9 @@
       "photo": "photos/avatars/АндрейСаг.jpg",
       "photos": [
         "photos/gallery/Сагуров_Андрей_Дима.jpg",
-        "photos/gallery/Сагуров_Андрей_Дима.jpg"
+        "photos/gallery/Сагуров_Андрей_Дима.jpg",
+        "photos/gallery/id-306-1.jpg",
+        "photos/gallery/id-306.jpg"    
       ],
       "fatherId": 304,
       "motherId": 305,
@@ -938,7 +944,9 @@
       "birthPlace": "",
       "biography": "",
       "photo": "",
-      "photos": [],
+      "photos": ["photos/gallery/id-308.jpg",
+                 "photos/gallery/id-308-2.jpg"   
+      ],
       "fatherId": 103,
       "motherId": 107,
       "spouseId": 306
@@ -957,7 +965,9 @@
       "photos": [
         "photos/gallery/Ира-2.jpg",
         "photos/gallery/Ира-3.jpg",
-        "photos/gallery/Ира_4.jpg"
+        "photos/gallery/Ира_4.jpg",
+        "photos/gallery/id-308.jpg",
+        "photos/gallery/id-309.jpg"     
       ],
       "fatherId": 306,
       "motherId": 308,
@@ -974,7 +984,8 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Мария.jpg",
-      "photos": [],
+      "photos": ["photos/gallery/id-310.jpg" 
+      ],
       "fatherId": null,
       "motherId": null,
       "spouseId": 307
@@ -1070,7 +1081,8 @@
       "birthPlace": "Харьковская область",
       "biography": "",
       "photo": "photos/avatars/теть_Лида.jpg",
-      "photos": [],
+      "photos": [ "photos/gallery/id-400.jpg"
+      ],
       "fatherId": 301,
       "motherId": 300,
       "spouseId": 401
@@ -1086,7 +1098,8 @@
       "birthPlace": "пос. Космос, Алмаатинская область",
       "biography": "НОВЫЙ НОВЫЙ",
       "photo": "photos/avatars/Дядь_Аркадий.jpg",
-      "photos": [],
+      "photos": [ "photos/gallery/id-401.jpg"
+      ],
       "fatherId": 402,
       "motherId": 403,
       "spouseId": 400
@@ -1261,7 +1274,7 @@
       "deathDate": "2007-06-11",
       "birthPlace": "совхоз Космос, Алмаатинска обл., Каз. ССР",
       "biography": "",
-      "photo": "",
+      "photo": "photos/avatars/id-500.jpg",
       "photos": [],
       "fatherId": null,
       "motherId": null,
@@ -1538,7 +1551,8 @@
       "birthPlace": "",
       "biography": "",
       "photo": "photos/avatars/Оля.jpg",
-      "photos": [],
+      "photos": [ "photos/gallery/it-900.jpg"
+      ],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 500
@@ -1558,7 +1572,8 @@
         "photos/gallery/КатяСаг-1.jpg",
         "photos/gallery/КатяСаг-2.jpg",
         "photos/gallery/КатяСаг-1.jpg",
-        "photos/gallery/КатяСаг-2.jpg"
+        "photos/gallery/КатяСаг-2.jpg",
+        "photos/gallery/id-901.jpg"
       ],
       "fatherId": 306,
       "motherId": 308,
@@ -1745,7 +1760,7 @@
       "name": "Ольга",
       "surname": "Батунина",
       "middlename": "",
-      "gender": "M",
+      "gender": "F",
       "birthDate": "",
       "deathDate": "",
       "birthPlace": "",

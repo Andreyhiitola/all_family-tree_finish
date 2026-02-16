@@ -166,9 +166,9 @@ class ProfileModal {
         
         // Фото
         const photoImg = document.getElementById('profile-photo');
-        if (person.photo) {
+        if (person.avatar) {
             // Убираем дублирование пути
-            const photoPath = person.photo.startsWith('photos/') ? person.photo : `photos/${person.photo}`;
+            const photoPath = person.avatar.startsWith('photos/') ? person.avatar : `photos/${person.avatar}`;
             photoImg.src = photoPath;
             photoImg.style.display = 'block';
         } else {
@@ -254,8 +254,8 @@ class ProfileModal {
     }
 
     createPersonCard(person) {
-        const photoPath = person.photo 
-            ? (person.photo.startsWith('photos/') ? person.photo : `photos/${person.photo}`)
+        const photoPath = person.avatar 
+            ? (person.avatar.startsWith('photos/') ? person.avatar : `photos/${person.avatar}`)
             : 'photos/default-avatar.png';
         
         const birthYear = person.birthDate ? new Date(person.birthDate).getFullYear() : '?';
@@ -283,8 +283,8 @@ class ProfileModal {
         let galleryHTML = '';
 
         // Основное фото
-        if (person.photo) {
-            const photoPath = person.photo.startsWith('photos/') ? person.photo : `photos/${person.photo}`;
+        if (person.avatar) {
+            const photoPath = person.avatar.startsWith('photos/') ? person.avatar : `photos/${person.avatar}`;
             galleryHTML += `
                 <div class="gallery-item">
                     <img src="${photoPath}" alt="${person.name}">
