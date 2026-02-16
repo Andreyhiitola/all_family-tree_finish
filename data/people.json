@@ -1596,7 +1596,7 @@
       "surname": "Ищенко (Вустина)",
       "middlename": "Александровна",
       "gender": "F",
-      "birthDate": "2013-01-03",
+      "birthDate": "1991-05-07",
       "deathDate": "",
       "birthPlace": "гор.Алм-Ата",
       "biography": "",
@@ -1604,7 +1604,7 @@
       "photos": [],
       "fatherId": 404,
       "motherId": 405,
-      "spouseId": 55
+      "spouseId": null
     },
     {
       "id": 905,
