@@ -463,3 +463,65 @@ window.familyTree.findRootFamilies()
 window.treeViz.render(5)
 window.isAuthorized()
 ```
+устройств. как это называется
+
+PWA мобильное приложение:
+12:54 PM
+Это называется PWA (Progressive Web App) — прогрессивное веб-приложение.
+
+По сути это обычный сайт, который можно "установить" на телефон как приложение — появляется иконка на рабочем столе, работает офлайн, нет адресной строки браузера. Выглядит и ощущается как нативное приложение, но писать отдельно ничего не нужно — просто доработка существующего проекта.
+
+Что нужно добавить:
+
+1. manifest.json — описание приложения для телефона:
+
+json
+{
+  "name": "Family Tree",
+  "short_name": "FamilyTree",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A90D9",
+  "icons": [
+    { "src": "photos/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "photos/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
+2. service-worker.js — кэширование для офлайн-работы:
+
+js
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open('family-tree-v1').then(cache =>
+      cache.addAll(['/', '/index.html', '/style.css', '/d3.v7.min.js'])
+    )
+  )
+})
+
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    caches.match(e.request).then(r => r || fetch(e.request))
+  )
+})
+3. Подключить в index.html:
+
+html
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4A90D9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+  }
+</script>
+Плюсы PWA для вашего проекта:
+
+Не нужен App Store / Google Play
+Устанавливается прямо с GitHub Pages
+Данные в LocalStorage сохраняются между сессиями
+Работает офлайн после первого посещения
+Бесплатно
+Альтернативы если нужно именно нативное приложение: React Native или Flutter — но это уже отдельная кодовая база с нуля. Для вашего проекта PWA — идеальный вариант, так как всё уже написано на vanilla JS и работает в браузере.
+
+Добавить это в PROJECT.md?
