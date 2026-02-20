@@ -1,881 +1,465 @@
-# 📘 PROJECT.md — Техническая документация
+# 🌳 Family Tree — Project Summary
 
-Полная техническая документация проекта "Семейное древо" для разработчиков.
-
----
-
-## 📋 Содержание
-
-1. [Архитектура](#архитектура)
-2. [Модули и их функции](#модули-и-их-функции)
-3. [Структура данных](#структура-данных)
-4. [Алгоритмы](#алгоритмы)
-5. [Система авторизации](#система-авторизации)
-6. [API и интеграции](#api-и-интеграции)
-7. [Разработка](#разработка)
+> **Репозиторий:** https://github.com/Andreyhiitola/all_family-tree_finish  
+> **Стек:** Vanilla JS (ES6+), D3.js v7, SheetJS, FileSaver.js, LocalStorage  
+> **Последнее обновление:** Январь 2026
 
 ---
 
-## 🏗️ Архитектура
+## 📁 Структура проекта
 
-### Общая схема
 ```
-┌─────────────────────────────────────────┐
-│           index.html (UI)               │
-├─────────────────────────────────────────┤
-│  ┌───────────┐  ┌──────────────────┐   │
-│  │  Core     │  │  UI Components   │   │
-│  │           │  │                  │   │
-│  │ DataMgr   │  │  app.js          │   │
-│  │ FamilyTree│  │  forms.js        │   │
-│  │ TreeVis   │  │  table.js        │   │
-│  └───────────┘  │  ProfileModal.js │   │
-│                 └──────────────────┘   │
-├─────────────────────────────────────────┤
-│  ┌───────────┐  ┌──────────────────┐   │
-│  │  Utils    │  │  Auth & Sync     │   │
-│  │           │  │                  │   │
-│  │ Excel I/O │  │  auth.js         │   │
-│  │ Storage   │  │  GitHubSync.js   │   │
-│  └───────────┘  └──────────────────┘   │
-├─────────────────────────────────────────┤
-│       LocalStorage     GitHub API       │
-│       data/people.json                  │
-└─────────────────────────────────────────┘
-```
-
-### Принципы
-
-- **Модульность:** Каждый модуль отвечает за свою область
-- **Разделение ответственности:** Core → Logic, UI → View, Utils → Helpers
-- **Event-driven:** Использование событий для связи компонентов
-- **Stateless UI:** UI не хранит состояние, только отображает
-
----
-
-## 🧩 Модули и их функции
-
-### Core
-
-#### `DataManager.js`
-**Назначение:** Централизованное управление данными
-
-**Основные методы:**
-```javascript
-class DataManager {
-  loadFromJSON()           // Загрузка из data/people.json
-  savePeople(people)       // Сохранение в LocalStorage
-  getPeople()              // Получить всех людей
-  getPersonById(id)        // Получить человека по ID
-  addPerson(person)        // Добавить нового человека
-  updatePerson(id, data)   // Обновить данные человека
-  deletePerson(id)         // Удалить человека
-  getPhotoUrl(photo)       // Получить URL фото
-  getGalleryUrls(photos)   // Получить URL галереи
-  clearCache()             // Очистить кэш версий
-}
-```
-
-**Кэширование:**
-- Версионирование файлов: `?v=1.0.5`
-- Автоматическая инвалидация при изменениях
-
-#### `FamilyTree.js`
-**Назначение:** Логика построения семейного дерева
-
-**Основные методы:**
-```javascript
-class FamilyTree {
-  getPersonById(id)                    // Получить человека
-  getChildrenOf(personId)              // Дети человека
-  getChildrenOfCouple(p1, p2)          // Дети конкретной пары
-  getAllSpouses(personId)              // Все супруги (текущие + бывшие)
-  buildDescendantsHierarchy(rootId)    // Построить дерево потомков
-  getSpousePairs()                     // Все пары супругов
-}
-```
-
-**Алгоритм `buildDescendantsHierarchy`:**
-```javascript
-// 1. Проверка: есть ли у человека несколько супругов
-const spouses = this.getAllSpouses(personId)
-
-// 2. Если супругов > 1 → создать узел-разделитель (separator)
-if (spouses.length > 1) {
-  const separatorNode = {
-    type: 'separator',
-    person: {...},
-    children: []
-  }
-  
-  // 3. Для каждого супруга создать узел брака (marriage)
-  spouses.forEach(spouse => {
-    const marriageNode = {
-      type: 'marriage',
-      person1: {...},
-      person2: {...},
-      children: []
-    }
-    
-    // 4. Получить детей ТОЛЬКО от этой пары
-    const children = this.getChildrenOfCouple(personId, spouse.id)
-    
-    // 5. Рекурсивно построить поддерево для каждого ребенка
-    children.forEach(child => {
-      marriageNode.children.push(buildFamilyNode(child, depth + 1))
-    })
-    
-    separatorNode.children.push(marriageNode)
-  })
-  
-  return separatorNode
-}
-
-// 6. Если супруг один → обычный узел семьи (family)
-const familyNode = {
-  type: 'family',
-  person1: {...},
-  person2: {...},
-  children: []
-}
-```
-
-**Метод `getAllSpouses`:**
-```javascript
-getAllSpouses(personId) {
-  const spouses = []
-  const person = this.getPersonById(personId)
-  
-  // 1. Текущий супруг из spouseId
-  if (person?.spouseId) {
-    spouses.push(this.getPersonById(person.spouseId))
-  }
-  
-  // 2. Бывшие супруги через детей
-  const children = this.getChildrenOf(personId)
-  children.forEach(child => {
-    const otherId = person.gender === "M" ? child.motherId : child.fatherId
-    if (otherId && otherId !== person.spouseId) {
-      const other = this.getPersonById(otherId)
-      if (other && !spouses.find(s => s.id === other.id)) {
-        spouses.push(other)
-      }
-    }
-  })
-  
-  return spouses.filter(s => s)
-}
-```
-
-**Метод `getChildrenOfCouple`:**
-```javascript
-getChildrenOfCouple(person1Id, person2Id) {
-  if (!person2Id) {
-    return this.getChildrenOf(person1Id) // Все дети если супруга нет
-  }
-  
-  const person1 = this.getPersonById(person1Id)
-  const children = this.getChildrenOf(person1Id)
-  
-  // Фильтруем: только дети от ЭТОЙ пары
-  return children.filter(child => {
-    if (person1.gender === "M") {
-      return child.fatherId === person1Id && child.motherId === person2Id
-    } else {
-      return child.motherId === person1Id && child.fatherId === person2Id
-    }
-  })
-}
-```
-
-#### `TreeVisualizer.js`
-**Назначение:** Визуализация дерева с помощью D3.js
-
-**Основные методы:**
-```javascript
-class TreeVisualizer {
-  render(rootId)           // Отрисовать дерево от корня
-  drawPerson(container,    // Нарисовать узел человека
-             offsetX, 
-             dataAccessor)
-}
-```
-
-**Типы узлов:**
-```javascript
-// type: 'family' - обычная семья (муж + жена + дети)
-{
-  type: 'family',
-  person1: {...},   // Основной человек
-  person2: {...},   // Супруг
-  children: [...]   // Дети
-}
-
-// type: 'separator' - разделитель множественных браков
-{
-  type: 'separator',
-  person: {...},    // Человек с несколькими браками
-  children: [...]   // Массив marriage узлов
-}
-
-// type: 'marriage' - конкретный брак
-{
-  type: 'marriage',
-  person1: {...},
-  person2: {...},
-  children: [...]   // Дети от ЭТОГО брака
-}
-```
-
-**Отрисовка узлов:**
-```javascript
-// Обработка разных типов узлов
-allNodes.each((d, i, nodes) => {
-  const node = d3.select(nodes[i])
-  
-  if (d.data.type === 'separator') {
-    // Серый кружок-разделитель (r=12px)
-    node.append('circle')
-      .attr('r', 12)
-      .attr('fill', '#999999')
-      .attr('stroke', '#666666')
-  } 
-  else if (d.data.type === 'marriage' || d.data.type === 'family') {
-    // Пара людей (person1 и person2)
-    this.drawPerson(node, -25, n => n.data.person1)
-    
-    if (d.data.person2) {
-      this.drawPerson(node, 25, n => n.data.person2)
-      
-      // Красная линия брака между супругами
-      node.append('line')
-        .attr('class', 'marriage-line')
-        .attr('stroke', '#FF6B6B')
-    }
-  }
-})
-```
-
-### UI Components
-
-#### `app.js`
-**Главный контроллер приложения**
-
-**Основные функции:**
-```javascript
-// Инициализация
-async function init()
-
-// Отображение информации о человеке
-function showPersonInfo(id)
-
-// Открытие формы добавления/редактирования
-function openPersonForm(id)
-
-// Удаление человека
-function askDeletePerson(id)
-function confirmDeletePerson()
-
-// Обновление интерфейса
-function refreshAll()
-function refreshTree()
-function refreshTable()
-```
-
-#### `ProfileModal.js`
-**Модальное окно профиля с галереей**
-
-**Особенности:**
-- Полноэкранный режим
-- Горизонтальная галерея с прокруткой
-- Просмотр фото с навигацией (prev/next)
-- Поддержка клавиатуры (стрелки, ESC)
-- Скрытие даты смерти для живых людей
-
-**Методы:**
-```javascript
-class ProfileModal {
-  open(personId)                // Открыть профиль
-  close()                       // Закрыть профиль
-  fillBasicInfo(person)         // Заполнить основную информацию
-  fillGallery(person)           // Заполнить галерею
-  openPhotoModal(photoUrl)      // Открыть просмотр фото
-  closePhotoModal()             // Закрыть просмотр фото
-  showNextPhoto()               // Следующее фото
-  showPrevPhoto()               // Предыдущее фото
-}
-```
-
-#### `forms.js`
-**Формы добавления и редактирования людей**
-
-**Функции:**
-```javascript
-function populateForm(person)    // Заполнить форму данными
-function fillForm(person)        // Заполнить поля формы
-function getFormData()           // Получить данные из формы
-```
-
-#### `table.js`
-**Таблица всех людей**
-
-**Функции:**
-```javascript
-function renderTable(people)     // Отрисовать таблицу
-```
-
-**Колонки:**
-- ID
-- Имя
-- Фамилия
-- Пол
-- Дата рождения
-- Действия: 👁 Профиль, ✏️ Редактировать, 🗑 Удалить
-
-### Utils
-
-#### `dataStorage.js`
-**Работа с LocalStorage и экспорт/импорт JSON**
-```javascript
-// Экспорт данных в JSON файл
-window.exportJsonFile = function()
-
-// Импорт данных из JSON файла
-window.importJsonFile = function(event)
-```
-
-#### `importExcel.js` / `exportExcel.js`
-**Импорт и экспорт данных в/из Excel**
-
-**Формат Excel:**
-| ID | Имя | Фамилия | Отчество | Пол | Дата рождения | Дата смерти | ... |
-|----|-----|---------|----------|-----|---------------|-------------|-----|
-| 1  | Иван| Иванов  | Петрович | M   | 1980-05-15    |             | ... |
-
-#### `GitHubSync.js`
-**Синхронизация с GitHub через REST API**
-```javascript
-class GitHubSync {
-  constructor(config)              // { token, owner, repo, branch, filePath }
-  
-  async fetchFile()                // Получить файл из GitHub
-  async updateFile(content, msg)   // Обновить файл в GitHub
-  
-  isEnabled()                      // Проверка настроек
-  static getTokenInstructions()    // Инструкция по созданию токена
-}
-```
-
-**API endpoints:**
-```javascript
-// GET файла
-GET https://api.github.com/repos/{owner}/{repo}/contents/{path}
-
-// PUT (обновление файла)
-PUT https://api.github.com/repos/{owner}/{repo}/contents/{path}
-{
-  "message": "Update people.json",
-  "content": "base64_encoded_content",
-  "sha": "current_file_sha",
-  "branch": "main"
-}
+all_family-tree_finish/
+├── index.html
+├── style.css
+├── d3.v7.min.js / xlsx.full.min.js / FileSaver.min.js
+├── example_with_photos_30people.xlsx
+│
+├── data/                             # people.json
+├── photos/
+│   ├── avatars/
+│   └── gallery/
+│
+└── src/
+    ├── core/
+    │   ├── DataManager.js
+    │   ├── FamilyTree.js
+    │   └── TreeVisualizer.js
+    ├── ui/
+    │   ├── app.js
+    │   ├── forms.js
+    │   ├── table.js
+    │   ├── modals.js
+    │   ├── MapView.js                # 🆕 Карта проживания
+    │   └── notifications.js
+    └── utils/
+        ├── importExcel.js
+        ├── exportExcel.js
+        ├── dataStorage.js
+        ├── auth.js
+        └── GitHubSync.js
 ```
 
 ---
 
-## 📊 Структура данных
+## 🗂 Модель данных
 
-### Person Object
 ```typescript
 interface Person {
-  id: number                // Уникальный ID
-  name: string              // Имя
-  surname: string           // Фамилия
-  middlename: string        // Отчество
-  gender: 'M' | 'F'         // Пол
+  id: number
+  name: string
+  surname: string
+  middlename: string
+  gender: 'M' | 'F'
   birthDate: string         // YYYY-MM-DD
-  deathDate: string         // YYYY-MM-DD или пусто
-  birthPlace: string        // Место рождения
-  biography: string         // Текст биографии
-  photo: string             // photos/avatars/имя.jpg
-  photos: string[]          // [photo, gallery1, gallery2, ...]
-  fatherId: number | null   // ID отца
-  motherId: number | null   // ID матери
-  spouseId: number | null   // ID супруга/супруги
+  deathDate: string
+  birthPlace: string
+  biography: string
+  photo: string
+  photos: string[]
+  fatherId: number | null
+  motherId: number | null
+  spouseId: number | null
+  // 🆕 Поля для карты:
+  birthLat: number | null   // Координаты места рождения
+  birthLng: number | null
+  liveLat: number | null    // Координаты места проживания
+  liveLng: number | null
+  livePlace: string         // Текущее место проживания
 }
 ```
 
-### Tree Node Types
-```typescript
-// Обычная семья
-type FamilyNode = {
-  type: 'family'
-  id: string
-  person1: PersonData
-  person2: PersonData | null
-  children: TreeNode[]
-}
-
-// Разделитель множественных браков
-type SeparatorNode = {
-  type: 'separator'
-  id: string
-  person: PersonData
-  children: MarriageNode[]
-}
-
-// Конкретный брак
-type MarriageNode = {
-  type: 'marriage'
-  id: string
-  person1: PersonData
-  person2: PersonData
-  children: TreeNode[]
-}
-
-type TreeNode = FamilyNode | SeparatorNode | MarriageNode
+**LocalStorage ключи:**
 ```
-
-### LocalStorage Keys
-```javascript
-{
-  "family_tree_data": JSON.stringify(people),      // Массив людей
-  "github_token": "ghp_xxxxx",                      // GitHub токен
-  "github_owner": "username",                       // GitHub username
-  "github_repo": "repo-name",                       // Название репо
-  "auth_token": "ghp_xxxxx",                        // Токен авторизации (sessionStorage)
-  "auth_user": "username"                           // Username (sessionStorage)
-}
+family_tree_data   → JSON массив людей
+github_token       → GitHub токен (localStorage)
+auth_token         → токен сессии (sessionStorage)
+auth_user          → username (sessionStorage)
 ```
 
 ---
 
-## 🔐 Система авторизации
+## ✅ Что работает
 
-### Архитектура
-```
-┌─────────────────────────────────────┐
-│  UI: ⚙️ GitHub button               │
-└────────────┬────────────────────────┘
-             │ click
-             ▼
-┌─────────────────────────────────────┐
-│  configureGitHub()                  │
-│  - prompt для токена                │
-│  - сохранение в localStorage        │
-└────────────┬────────────────────────┘
-             │ localStorage.setItem('github_token')
-             ▼
-┌─────────────────────────────────────┐
-│  auth.js: window.isAuthorized()     │
-│  - проверка github_token            │
-│  - проверка auth_token              │
-└────────────┬────────────────────────┘
-             │ authorized?
-             ▼
-┌─────────────────────────────────────┐
-│  window.requireAuth(action)         │
-│  - если авторизован → выполнить     │
-│  - иначе → показать модалку токена  │
-└─────────────────────────────────────┘
+- CRUD людей через форму
+- Визуализация дерева через D3.js с цветами по фамилии
+- Зум и перетаскивание дерева
+- Таблица всех людей
+- Импорт / экспорт Excel и JSON
+- Автосохранение в LocalStorage каждые 30 секунд
+- Профили с аватаром и галереей фото
+- Множественные браки (тип узла `separator` → `marriage`)
+- Авторизация и синхронизация с GitHub (Pull / Push)
+- Dropdown выбора корневой семьи через `findRootFamilies()`
+
+---
+
+## 🗺 Новая фича: Карта проживания
+
+### Идея
+Интерактивная карта (Leaflet.js — бесплатно, без API-ключа) с аватарками людей на их местах рождения или проживания. Клик по аватарке открывает карточку человека.
+
+### Подключение Leaflet (в `index.html`)
+```html
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 ```
 
-### Код авторизации
+### Новый файл `src/ui/MapView.js`
 
-**auth.js:**
 ```javascript
-(function() {
-  let isAuthenticated = false
-  let authToken = null
-  let pendingAction = null
+class MapView {
+  constructor(containerId, dataManager, onPersonClick) {
+    this.dataManager = dataManager
+    this.onPersonClick = onPersonClick
+    this.markers = []
 
-  // Проверка токена через GitHub API
-  window.verifyToken = async function() {
-    const token = document.getElementById('github-token').value.trim()
-    
-    const response = await fetch('https://api.github.com/user', {
-      headers: { 'Authorization': `token ${token}` }
+    // Инициализация карты Leaflet
+    this.map = L.map(containerId).setView([55.75, 37.61], 4) // Центр — Москва
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(this.map)
+  }
+
+  // Отрисовать всех людей на карте
+  render() {
+    // Очистить старые маркеры
+    this.markers.forEach(m => m.remove())
+    this.markers = []
+
+    const people = this.dataManager.getPeople()
+
+    people.forEach(person => {
+      const lat = person.liveLat || person.birthLat
+      const lng = person.liveLng || person.birthLng
+
+      if (!lat || !lng) return // Пропустить тех, у кого нет координат
+
+      const marker = this.createPersonMarker(person, lat, lng)
+      marker.addTo(this.map)
+      this.markers.push(marker)
     })
-    
-    if (response.ok) {
-      const user = await response.json()
-      isAuthenticated = true
-      authToken = token
-      
-      sessionStorage.setItem('auth_token', token)
-      sessionStorage.setItem('auth_user', user.login)
-      
-      // Выполнить отложенное действие
-      if (pendingAction) {
-        pendingAction()
-        pendingAction = null
-      }
-    }
   }
 
-  // Проверка авторизации перед действием
-  window.requireAuth = function(action) {
-    const savedToken = sessionStorage.getItem('auth_token') || 
-                       localStorage.getItem('github_token')
-    
-    if (savedToken && !isAuthenticated) {
-      authToken = savedToken
-      isAuthenticated = true
-    }
-    
-    if (isAuthenticated) {
-      action()
-    } else {
-      pendingAction = action
-      const modal = document.getElementById('auth-modal')
-      if (modal) modal.style.display = 'flex'
-    }
+  // Создать маркер-аватарку
+  createPersonMarker(person, lat, lng) {
+    const photoUrl = person.photo || 'photos/avatars/default.png'
+    const color = person.gender === 'M' ? '#4A90D9' : '#E91E8C'
+
+    // Кастомная иконка с аватаркой
+    const icon = L.divIcon({
+      className: '',
+      html: `
+        <div class="map-marker" style="border-color: ${color}">
+          <img src="${photoUrl}"
+               onerror="this.src='photos/avatars/default.png'"
+               alt="${person.name}"/>
+          <div class="map-marker-name">${person.name}</div>
+        </div>
+      `,
+      iconSize: [52, 64],
+      iconAnchor: [26, 64],
+      popupAnchor: [0, -64]
+    })
+
+    const marker = L.marker([lat, lng], { icon })
+
+    // Клик по маркеру — открыть карточку человека
+    marker.on('click', () => {
+      this.onPersonClick(person.id)
+    })
+
+    // Тултип при наведении
+    marker.bindTooltip(`
+      <b>${person.name} ${person.surname}</b><br>
+      ${person.livePlace || person.birthPlace || ''}
+    `, { direction: 'top', offset: [0, -60] })
+
+    return marker
   }
 
-  // Проверка статуса
-  window.isAuthorized = function() {
-    return isAuthenticated || 
-           sessionStorage.getItem('auth_token') || 
-           localStorage.getItem('github_token')
+  // Сфокусироваться на конкретном человеке
+  focusOn(personId) {
+    const person = this.dataManager.getPeople().find(p => p.id === personId)
+    const lat = person?.liveLat || person?.birthLat
+    const lng = person?.liveLng || person?.birthLng
+    if (lat && lng) {
+      this.map.flyTo([lat, lng], 10, { duration: 1.2 })
+    }
   }
+}
 
-  // Восстановление сессии
-  const savedToken = sessionStorage.getItem('auth_token') || 
-                     localStorage.getItem('github_token')
-  if (savedToken) {
-    authToken = savedToken
-    isAuthenticated = true
-  }
-})()
+window.MapView = MapView
 ```
 
-### Защищённые действия
+### CSS для маркеров (добавить в `style.css`)
 
-**Где применяется `requireAuth()`:**
+```css
+.map-marker {
+  width: 48px;
+  height: 48px;
+  border-radius: 50% 50% 50% 0;
+  border: 3px solid #4A90D9;
+  transform: rotate(-45deg);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.map-marker:hover {
+  transform: rotate(-45deg) scale(1.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.map-marker img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(45deg);  /* компенсируем поворот контейнера */
+}
+
+.map-marker-name {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  font-size: 10px;
+  white-space: nowrap;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+```
+
+### Инициализация в `app.js`
+
 ```javascript
-// 1. Кнопка "Добавить" (modals.js)
-document.getElementById('add-person').addEventListener('click', () => {
-  window.requireAuth(() => app.openPersonForm(null))
+const mapView = new MapView('map-container', dataManager, (personId) => {
+  openProfileModal(personId) // открыть карточку человека
 })
+mapView.render()
 
-// 2. Редактирование в карточке (ui/app.js)
-editBtn.onclick = () => window.requireAuth(() => app.openPersonForm(id))
-
-// 3. Удаление в карточке
-deleteBtn.onclick = () => window.requireAuth(() => app.askDeletePerson(id))
-
-// 4. Редактирование в таблице (ui/table.js)
-btnEdit.onclick = () => {
-  window.requireAuth(() => window.app.openPersonForm(person.id))
-}
-
-// 5. Удаление в таблице
-btnDelete.onclick = () => {
-  window.requireAuth(() => window.app.askDeletePerson(person.id))
-}
-
-// 6. Импорт JSON (index.html)
-<input onchange="window.requireAuth(() => window.importJsonFile(event))">
+// При переключении на вкладку карты — обновить размер
+document.querySelector('[data-tab="map"]').addEventListener('click', () => {
+  setTimeout(() => mapView.map.invalidateSize(), 200)
+})
 ```
 
-### Показ кнопки "Добавить"
+### HTML (добавить вкладку в `index.html`)
 
-**Логика:**
+```html
+<!-- Кнопка вкладки -->
+<button data-tab="map">🗺 Карта</button>
+
+<!-- Контейнер карты -->
+<div id="map-container" style="width:100%; height:600px; display:none;"></div>
+```
+
+### Геокодинг: как получить координаты
+
+**Вариант 1 — вручную** (поле в форме редактирования, ввести lat/lng).
+
+**Вариант 2 — автоматически через Nominatim** (бесплатно, без ключа):
 ```javascript
-// Кнопка скрыта по умолчанию
-<button id="add-person" style="display: none;">➕ Добавить</button>
-
-// После авторизации показывается
-function toggleAddButton() {
-  const addBtn = document.getElementById('add-person')
-  if (!addBtn) return
-  
-  if (window.isAuthorized()) {
-    addBtn.style.display = 'inline-block'
-  } else {
-    addBtn.style.display = 'none'
+async function geocodePlace(placeName) {
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(placeName)}&format=json&limit=1`
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'FamilyTreeApp/1.0' }
+  })
+  const data = await res.json()
+  if (data.length) {
+    return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) }
   }
+  return null
 }
 
-// Вызывается при каждом изменении статуса авторизации
-document.addEventListener('DOMContentLoaded', toggleAddButton)
-```
-
----
-
-## 🔌 API и интеграции
-
-### GitHub REST API
-
-**Endpoints:**
-```
-GET  /repos/{owner}/{repo}/contents/{path}
-PUT  /repos/{owner}/{repo}/contents/{path}
-```
-
-**Authentication:**
-```javascript
-headers: {
-  'Authorization': `token ${github_token}`,
-  'Accept': 'application/vnd.github.v3+json'
-}
-```
-
-**Pull (загрузка):**
-```javascript
-async function pullFromGitHub() {
-  const data = await githubSync.fetchFile()
-  
-  if (data && data.people) {
-    dataManager.savePeople(data.people)
-    location.reload()
-  }
-}
-```
-
-**Push (сохранение):**
-```javascript
-async function pushToGitHub() {
-  const people = dataManager.getPeople()
-  const content = JSON.stringify({ people }, null, 2)
-  const message = `Update people.json (${new Date().toLocaleString()})`
-  
-  await githubSync.updateFile(content, message)
+// Вызывать при сохранении человека, если заполнено поле birthPlace/livePlace
+const coords = await geocodePlace(person.birthPlace)
+if (coords) {
+  person.birthLat = coords.lat
+  person.birthLng = coords.lng
 }
 ```
 
 ---
 
-## 🛠️ Разработка
+## 🐛 Найденные баги
 
-### Требования
+### Bug 1 — Дерево строится только от одного корня
+**Файл:** `app.js`
 
-- Python 3.x (для локального сервера)
-- Современный браузер (Chrome, Firefox, Safari, Edge)
-- GitHub аккаунт (для синхронизации)
+```js
+// ПРОБЛЕМА:
+let currentRootId = dataManager.getPeople()[0]?.id || null
+treeViz.render(currentRootId)
 
-### Запуск локально
+// ИСПРАВЛЕНИЕ:
+const allIds = new Set(people.map(p => p.id))
+const roots = people.filter(p => !allIds.has(p.fatherId) && !allIds.has(p.motherId))
+roots.forEach(root => treeViz.render(root.id))
+```
+
+### Bug 2 — Кнопки "Показать в дереве" нет в таблице
+**Файл:** `table.js`
+
+```js
+// ИСПРАВЛЕНИЕ — добавить в tr.innerHTML:
+<button class="btn-show-tree" data-id="${p.id}" title="Показать в дереве">🌳</button>
+
+tbody.querySelectorAll('.btn-show-tree').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = parseInt(btn.dataset.id)
+    document.querySelector('[data-tab="tree"]')?.click()
+    setTimeout(() => window.focusPersonInTree?.(id), 150)
+  })
+})
+```
+
+### Bug 3 — D3 zoom не сохранён
+**Файл:** `TreeVisualizer.js`
+
+```js
+// БЫЛО:
+this.svg.call(d3.zoom().on('zoom', ...))
+
+// ИСПРАВЛЕНИЕ:
+this.zoom = d3.zoom().scaleExtent([0.1, 3]).on('zoom', e => this.gRoot.attr('transform', e.transform))
+this.svg.call(this.zoom)
+
+focusOn(personId) {
+  const nodeEl = this.gNodes.selectAll('g.tree-node').filter(d =>
+    d.data.id === personId || d.data.person1?.id === personId || d.data.person2?.id === personId
+  )
+  if (nodeEl.empty()) return
+  const { x, y } = nodeEl.datum()
+  const transform = d3.zoomIdentity.translate(this.width / 2 - x, this.height / 2 - y).scale(1)
+  this.svg.transition().duration(750).call(this.zoom.transform, transform)
+  nodeEl.selectAll('rect').classed('node-highlight', true)
+  setTimeout(() => nodeEl.selectAll('rect').classed('node-highlight', false), 2500)
+}
+```
+
+### Bug 4 — Узлы D3 без атрибута `data-id`
+```js
+.attr('data-id', d => d.data.id)
+```
+
+### Bug 5 — Поиск на устаревшем снимке данных
+```js
+// ИСПРАВЛЕНИЕ: читать getPeople() внутри хендлера
+searchInput.addEventListener('input', e => {
+  const p = dataManager.getPeople().find(...)
+})
+```
+
+---
+
+## 🔧 План исправлений
+
+| # | Файл                | Изменение                                         | Приоритет |
+|---|---------------------|---------------------------------------------------|-----------|
+| 1 | `table.js`          | Добавить кнопку 🌳 и обработчик `showInTree`     | 🔴 Высокий |
+| 2 | `TreeVisualizer.js` | Сохранить `this.zoom`, метод `focusOn(id)`        | 🔴 Высокий |
+| 3 | `TreeVisualizer.js` | `.attr('data-id', d => d.data.id)` на узлы       | 🔴 Высокий |
+| 4 | `app.js`            | `window.focusPersonInTree`                        | 🔴 Высокий |
+| 5 | `app.js`            | Поиск читает `getPeople()` внутри хендлера        | 🟡 Средний |
+| 6 | `app.js`            | Рендерить все корневые деревья                    | 🟡 Средний |
+| 7 | `src/ui/MapView.js` | Новый модуль карты (Leaflet)                      | 🟡 Средний |
+| 8 | `forms.js`          | Поля lat/lng и автогеокодинг по Nominatim         | 🟡 Средний |
+| 9 | `style.css`         | `.node-highlight` + `.map-marker`                 | 🟢 Низкий  |
+
+---
+
+## 📣 Как привлечь больше людей на GitHub
+
+### 1. README — первое впечатление решает всё
+
+Добавить в `README.md`:
+- **GIF или скриншот** работающего дерева и карты — без этого проект не замечают
+- Бейджи вверху:
+```markdown
+![GitHub stars](https://img.shields.io/github/stars/Andreyhiitola/all_family-tree_finish)
+![GitHub forks](https://img.shields.io/github/forks/Andreyhiitola/all_family-tree_finish)
+![License](https://img.shields.io/badge/license-MIT-blue)
+```
+- Чёткий заголовок на **английском** (русский сильно сужает аудиторию)
+- Раздел `Live Demo` со ссылкой на GitHub Pages
+
+### 2. GitHub Pages — демо обязательно
+
 ```bash
-# Клонировать репозиторий
+# В настройках репо: Settings → Pages → Branch: main → /root
+# Сайт появится по адресу:
+https://andreyhiitola.github.io/all_family-tree_finish/
+```
+
+### 3. Topics (теги репозитория)
+
+В настройках репо добавить теги — по ним люди находят проекты:
+```
+family-tree, genealogy, d3js, javascript, visualization,
+leaflet, open-source, family-history, pedigree, ancestry
+```
+
+### 4. Где публиковать ссылку
+
+| Площадка | Что написать |
+|----------|--------------|
+| **Reddit** r/webdev, r/javascript, r/genealogy | "Built a family tree visualizer with D3.js and a map view" |
+| **Dev.to** | Статья "How I built an interactive family tree with D3.js" |
+| **Hacker News** (Show HN) | Лаконичный пост с демо-ссылкой |
+| **ProductHunt** | Запустить как продукт с описанием и скриншотами |
+| **Twitter/X** | Пост с GIF + хэштеги #buildinpublic #javascript #opensource |
+| **Telegram** чаты по JS и генеалогии | Прямая ссылка на GitHub Pages |
+
+### 5. Контент внутри репо
+
+- Добавить `CONTRIBUTING.md` — как помочь проекту
+- Добавить `LICENSE` (MIT) — без лицензии люди боятся использовать
+- Создать несколько **Issues** с тегом `good first issue` — привлекает контрибьюторов
+- Добавить `CHANGELOG.md` — показывает что проект живой
+
+### 6. Короткая стратегия на первый месяц
+
+```
+Неделя 1: Записать GIF, обновить README на английском, включить GitHub Pages
+Неделя 2: Опубликовать на Reddit r/genealogy и r/javascript
+Неделя 3: Написать статью на Dev.to со ссылкой на репо
+Неделя 4: ProductHunt или Show HN
+```
+
+---
+
+## 🗺 Roadmap
+
+- [ ] 🔴 Исправить "Показать в дереве" из таблицы и модалок
+- [ ] 🔴 Отображать все несвязанные деревья одновременно
+- [ ] 🟡 Карта проживания с аватарками (Leaflet + Nominatim)
+- [ ] 🟡 Поиск с живым обновлением данных
+- [ ] 🟡 Экспорт дерева в PNG/SVG
+- [ ] 🟢 Загрузка фото с компьютера (Base64)
+- [ ] 🟢 Статистика (средний возраст, количество детей)
+- [ ] 🟢 Многоязычность (RU/EN)
+- [ ] ⚪ Мобильное приложение
+
+---
+
+## 🛠 Запуск локально
+
+```bash
 git clone https://github.com/Andreyhiitola/all_family-tree_finish.git
 cd all_family-tree_finish
-
-# Запустить сервер
 python -m http.server 8760
-
-# Или использовать скрипт
-./start-simple.sh
-
-# Открыть в браузере
-http://localhost:8760
+# → http://localhost:8760
 ```
 
-### Структура разработки
-```
-1. Core (логика) → src/core/
-2. UI (интерфейс) → src/ui/
-3. Utils (помощники) → src/utils/
-4. Styles → style.css, profile-modal-styles.css
-5. Data → data/people.json
-```
-
-### Добавление новых фич
-
-**Пример: Добавить новое поле "email"**
-
-1. **Обновить структуру данных**
-```javascript
-// data/people.json
-{
-  "id": 1,
-  "name": "Иван",
-  // ...
-  "email": "ivan@example.com"  // ← новое поле
-}
-```
-
-2. **Добавить в форму редактирования**
-```html
-<!-- index.html -->
-<div class="form-group">
-  <label>Email:</label>
-  <input type="email" id="email-input">
-</div>
-```
-
-3. **Обновить forms.js**
-```javascript
-// Заполнение формы
-function fillForm(person) {
-  // ...
-  document.getElementById('email-input').value = person.email || ''
-}
-
-// Получение данных
-function getFormData() {
-  return {
-    // ...
-    email: document.getElementById('email-input').value
-  }
-}
-```
-
-4. **Отобразить в профиле**
-```javascript
-// ProfileModal.js
-if (person.email) {
-  basicInfo += `<p><strong>Email:</strong> ${person.email}</p>`
-}
-```
-
-### Дебаггинг
-
-**Консольные команды:**
-```javascript
-// Получить всех людей
+**Дебаггинг в консоли:**
+```js
 window.dataManager.getPeople()
-
-// Найти человека по ID
-window.dataManager.getPersonById(1)
-
-// Получить дерево
-window.familyTree.buildDescendantsHierarchy(1)
-
-// Проверить авторизацию
+window.familyTree.findRootFamilies()
+window.treeViz.render(5)
 window.isAuthorized()
-
-// Очистить кэш
-window.dataManager.clearCache()
 ```
-
-### Тестирование
-
-**Ручное тестирование:**
-1. ✅ Визуализация дерева от разных корней
-2. ✅ Добавление нового человека
-3. ✅ Редактирование существующего
-4. ✅ Удаление человека
-5. ✅ Импорт из Excel
-6. ✅ Экспорт в Excel
-7. ✅ Синхронизация с GitHub (Pull/Push)
-8. ✅ Множественные браки
-9. ✅ Фотогалереи с навигацией
-10. ✅ Авторизация через GitHub токен
-
----
-
-## 📚 Полезные ссылки
-
-- [D3.js Documentation](https://d3js.org/)
-- [SheetJS Documentation](https://docs.sheetjs.com/)
-- [GitHub REST API](https://docs.github.com/en/rest)
-- [LocalStorage Guide](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-
----
-
-## 📞 Контакты
-
-**Вопросы по коду?** Создайте Issue: [GitHub Issues](https://github.com/Andreyhiitola/all_family-tree_finish/issues)
-
-**Автор:** Andreyhiitola  
-**Последнее обновление:** Январь 2026
-
----
-
-## 🌳 Root Family Selector
-
-### Функция выбора корневой семьи
-
-Позволяет переключаться между различными семейными деревьями через dropdown в header.
-
-**Метод findRootFamilies():**
-```javascript
-findRootFamilies() {
-  // Находит всех людей без родителей
-  const rootPeople = this.people.filter(p => !p.fatherId && !p.motherId);
-  
-  // Группирует супружеские пары
-  // Сортирует по дате рождения (старшие первые)
-  
-  return families; // [{id, person1, person2, label}, ...]
-}
-```
-
-**UI компоненты:**
-- Dropdown: `<select id="root-selector">` в header
-- Автоматическое заполнение при загрузке
-- Обработчик изменения перестраивает дерево
-
-**Глобальные переменные:**
-- `window.familyTree` - экземпляр FamilyTreeCore
-- `window.treeViz` - экземпляр TreeVisualizer
-- Доступны для отладки в консоли
-
-**Использование:**
-```javascript
-// В консоли браузера
-window.familyTree.findRootFamilies() // Список всех корней
-window.treeViz.render(5) // Показать дерево от ID 5
-```
-
----
-
-## 🌳 Root Family Selector
-
-### Функция выбора корневой семьи
-
-Позволяет переключаться между различными семейными деревьями через dropdown в header.
-
-**Метод findRootFamilies():**
-```javascript
-findRootFamilies() {
-  // Находит всех людей без родителей
-  const rootPeople = this.people.filter(p => !p.fatherId && !p.motherId);
-  
-  // Группирует супружеские пары
-  // Сортирует по дате рождения (старшие первые)
-  
-  return families; // [{id, person1, person2, label}, ...]
-}
-```
-
-**UI компоненты:**
-- Dropdown: `<select id="root-selector">` в header
-- Автоматическое заполнение при загрузке
-- Обработчик изменения перестраивает дерево
-
-**Глобальные переменные:**
-- `window.familyTree` - экземпляр FamilyTreeCore
-- `window.treeViz` - экземпляр TreeVisualizer
-- Доступны для отладки в консоли
-
----
-
-## 🌳 Root Family Selector
-
-### Функция выбора корневой семьи
-
-Позволяет переключаться между различными семейными деревьями через dropdown в header.
-
-**Метод findRootFamilies():**
-```javascript
-findRootFamilies() {
-  // Находит всех людей без родителей
-  const rootPeople = this.people.filter(p => !p.fatherId && !p.motherId);
-  
-  // Группирует супружеские пары
-  // Сортирует по дате рождения (старшие первые)
-  
-  return families; // [{id, person1, person2, label}, ...]
-}
-```
-
-**UI компоненты:**
-- Dropdown: `<select id="root-selector">` в header
-- Автоматическое заполнение при загрузке
-- Обработчик изменения перестраивает дерево
-
-**Глобальные переменные:**
-- `window.familyTree` - экземпляр FamilyTreeCore
-- `window.treeViz` - экземпляр TreeVisualizer
-- Доступны для отладки в консоли
