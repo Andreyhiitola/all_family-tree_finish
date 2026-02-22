@@ -170,6 +170,173 @@ class TreeVisualizer {
       .style('text-shadow', '0 1px 2px rgba(0,0,0,0.5)') // Тень текста
       .text(d => dataAccessor(d)?.surname || '')
   }
+
+  // =============================================================================
+  // 👈 ОТРИСОВКА МИНИ-ДЕРЕВЬЕВ — для сетки фамилий
+  // =============================================================================
+  renderMiniTree(svgContainer, people, title, options = {}) {
+    // 👈 Защитные проверки
+      console.warn('⚠️ renderMiniTree: пустые данные', { svgContainer: # 2. Добавить проверки в начало метода (после строки с объявлением функции)svgContainer, people: people?.length });
+      return null;
+    }
+    const width = options.width || 200;
+    const height = options.height || 150;
+    const margin = { top: 10, right: 10, bottom: 10, left: 10 };
+    
+    d3.select(svgContainer).html('');
+    
+    const svg = d3.select(svgContainer)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`);
+    
+    const root = d3.stratify()
+      .id(d => d.id)
+      .parentId(d => d.fatherId || d.motherId)(people);
+    
+    const treeLayout = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom]);
+    treeLayout(root);
+    
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+    
+    const link = d3.linkHorizontal().x(d => d.y).y(d => d.x);
+    
+    g.selectAll('.link')
+      .data(root.links())
+      .join('path')
+      .attr('class', 'link')
+      .attr('d', link)
+      .attr('fill', 'none')
+      .attr('stroke', '#999')
+      .attr('stroke-width', 1);
+    
+    g.selectAll('.node')
+      .data(root.descendants())
+      .join('circle')
+      .attr('class', 'node')
+      .attr('cx', d => d.y)
+      .attr('cy', d => d.x)
+      .attr('r', 3)
+      .attr('fill', '#3b82f6')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1);
+    
+    svg.append('text')
+      .attr('x', width/2)
+      .attr('y', height - 2)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '10px')
+      .attr('fill', '#666')
+      .text(`${title} (${people.length})`);
+    
+    console.log(`🎨 Мини-дерево "${title}": ${people.length} чел.`);
+    return svg;
+  }
+
+  // =============================================================================
+  // 👈 ОТРИСОВКА МИНИ-ДЕРЕВЬЕВ — с обработкой multiple roots
+  // =============================================================================
+  renderMiniTree(svgContainer, people, title, options = {}) {
+    const width = options.width || 200;
+    const height = options.height || 150;
+    const margin = { top: 10, right: 10, bottom: 10, left: 10 };
+    
+    d3.select(svgContainer).html('');
+    
+    const svg = d3.select(svgContainer)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`);
+    
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom - 15; // место для подписи
+    
+    // Группа для контента
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+    
+    // Попытка построить дерево через stratify
+    let root = null;
+    try {
+      root = d3.stratify()
+        .id(d => d.id)
+        .parentId(d => d.fatherId || d.motherId)(people);
+    } catch (e) {
+      // Если multiple roots — рисуем упрощённо: просто кружки в ряд
+      console.log(`⚠️ "${title}": упрощённая визуализация (multiple roots)`);
+      
+      const nodeRadius = 4;
+      const maxNodes = Math.min(people.length, 15); // не больше 15 кружков
+      const step = innerWidth / (maxNodes + 1);
+      
+      // Кружки
+      for (let i = 0; i < maxNodes; i++) {
+        g.append('circle')
+          .attr('cx', margin.left + step * (i + 1))
+          .attr('cy', innerHeight / 2 + margin.top)
+          .attr('r', nodeRadius)
+          .attr('fill', '#3b82f6')
+          .attr('stroke', '#fff')
+          .attr('stroke-width', 1);
+      }
+      
+      // Подпись
+      svg.append('text')
+        .attr('x', width/2)
+        .attr('y', height - 3)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '9px')
+        .attr('fill', '#666')
+        .text(`${title} (${people.length})`);
+      
+      return svg;
+    }
+    
+    // Если stratify удался — рисуем полноценное дерево
+    const treeLayout = d3.tree().size([innerWidth, innerHeight]);
+    treeLayout(root);
+    
+    // Линии связей
+    const link = d3.linkHorizontal()
+      .x(d => d.y)
+      .y(d => d.x);
+    
+    g.selectAll('.link')
+      .data(root.links())
+      .join('path')
+      .attr('class', 'link')
+      .attr('d', link)
+      .attr('fill', 'none')
+      .attr('stroke', '#999')
+      .attr('stroke-width', 0.5);
+    
+    // Узлы (кружки)
+    g.selectAll('.node')
+      .data(root.descendants())
+      .join('circle')
+      .attr('class', 'node')
+      .attr('cx', d => d.y)
+      .attr('cy', d => d.x)
+      .attr('r', 2.5)
+      .attr('fill', '#3b82f6')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1);
+    
+    // Подпись
+    svg.append('text')
+      .attr('x', width/2)
+      .attr('y', height - 3)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '9px')
+      .attr('fill', '#666')
+      .text(`${title} (${people.length})`);
+    
+    console.log(`🎨 Мини-дерево "${title}": ${people.length} чел.`);
+    return svg;
+  }
 }
 
 window.TreeVisualizer = TreeVisualizer

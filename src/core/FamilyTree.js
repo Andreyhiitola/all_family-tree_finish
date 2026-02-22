@@ -277,6 +277,36 @@ class FamilyTreeCore {
     console.log('💑 Найдено супружеских пар:', pairs.length)
     return pairs
   }
+
+  // =============================================================================
+  // 👈 ГРУППИРОВКА ПО ФАМИЛИЯМ — для мульти-дерева
+  // =============================================================================
+  getFamilyGroups() {
+    const groups = {};
+    this.people.forEach(person => {
+      let surname = person.surname || person.lastName || person['фамилия'] || 'Без фамилии';
+      surname = surname.split(/\s*[\(\[]/, 1)[0].trim();
+      if (!groups[surname]) groups[surname] = [];
+      groups[surname].push(person);
+    });
+    console.log('📊 Группы по фамилиям:', Object.keys(groups).length, 'фамилий');
+    return groups;
+  }
+
+  // =============================================================================
+  // 👈 ГРУППИРОВКА ПО ФАМИЛИЯМ — для мульти-дерева
+  // =============================================================================
+  getFamilyGroups() {
+    const groups = {};
+    this.people.forEach(person => {
+      let surname = person.surname || person.lastName || person['фамилия'] || 'Без фамилии';
+      surname = surname.split(/\s*[\(\[]/, 1)[0].trim();
+      if (!groups[surname]) groups[surname] = [];
+      groups[surname].push(person);
+    });
+    console.log('📊 Группы по фамилиям:', Object.keys(groups).length, 'фамилий');
+    return groups;
+  }
 }
 
 window.FamilyTreeCore = FamilyTreeCore

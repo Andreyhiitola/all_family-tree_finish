@@ -539,3 +539,97 @@ function populateRootSelector() {
     }
   };
 }
+
+// =============================================================================
+// 👈 ОТРИСОВКА СЕТКИ МИНИ-ДЕРЕВЬЕВ (только родоначальники)
+// =============================================================================
+window.renderMiniTreeGrid = function() {
+  const grid = document.getElementById('mini-tree-grid');
+  const mainTree = document.querySelector('.tree-container');
+  if (!grid || !window.familyTree || !window.treeViz) return;
+  
+  const groups = window.familyTree.getFamilyGroups();
+  
+  // 👈 Фильтр: только семьи с родоначальником
+  const filteredGroups = {};
+  Object.entries(groups).forEach(([surname, people]) => {
+    const hasFounder = people.some(p => 
+      (p.surname || '').includes('Родоначальник') || 
+      (p.fullName || '').includes('Родоначальник')
+    );
+    if (hasFounder) filteredGroups[surname] = people;
+  });
+  console.log('👨‍👩‍👧‍👦 Семей с родоначальником:', Object.keys(filteredGroups).length);
+  
+  // Переключить вид
+  if (mainTree) mainTree.style.display = 'none';
+  grid.style.display = 'grid';
+  grid.innerHTML = '';
+  
+  // Отрисовать карточки
+  Object.entries(filteredGroups).forEach(([surname, people]) => {
+    const card = document.createElement('div');
+    card.className = 'mini-tree-card';
+    card.dataset.surname = surname;
+    card.innerHTML = `<h4>🌳 ${surname}</h4><div class="mini-svg-container"></div><div class="person-count">${people.length} человек</div>`;
+    
+    // 👈 Клик: открыть дерево с заголовком фамилии
+    card.addEventListener('click', () => {
+      const firstPerson = people[0];
+      if (firstPerson?.id) {
+        window._lastRootId = window.currentRootId;
+        window.currentRootId = firstPerson.id;
+        
+        // Показать заголовок фамилии
+        let familyHeader = document.getElementById('family-header');
+        if (!familyHeader) {
+          familyHeader = document.createElement('div');
+          familyHeader.id = 'family-header';
+          familyHeader.style.cssText = 'text-align:center;font-size:24px;font-weight:bold;color:#333;margin:10px 0;padding:10px;background:#f8f9fa;border-radius:8px;';
+          const treeContainer = document.querySelector('.tree-container');
+          if (treeContainer?.parentNode) treeContainer.parentNode.insertBefore(familyHeader, treeContainer);
+        }
+        familyHeader.textContent = `🌳 ${surname}`;
+        familyHeader.style.display = 'block';
+        
+        // Переключить вид
+        if (grid) grid.style.display = 'none';
+        if (mainTree) mainTree.style.display = 'block';
+        
+        // Отрисовать дерево
+        if (window.treeViz?.render) {
+          window.treeViz.render(window.currentRootId);
+          console.log('🌳 Открыто:', surname);
+        }
+        
+        // Кнопка «Назад»
+        let backBtn = document.getElementById('back-to-grid-btn');
+        if (!backBtn) {
+          backBtn = document.createElement('button');
+          backBtn.id = 'back-to-grid-btn';
+          backBtn.textContent = '← Назад к списку фамилий';
+          backBtn.style.cssText = 'position:fixed;top:10px;left:10px;z-index:1000;padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;';
+          backBtn.onclick = () => {
+            const familyHeader = document.getElementById('family-header');
+            if (familyHeader) familyHeader.style.display = 'none';
+            if (grid) grid.style.display = 'grid';
+            if (mainTree) mainTree.style.display = 'none';
+            if (backBtn) backBtn.remove();
+            if (window._lastRootId && window.treeViz?.render) {
+              window.currentRootId = window._lastRootId;
+              window.treeViz.render(window.currentRootId);
+            }
+            console.log('🔙 Возврат к сетке');
+          };
+          document.body.appendChild(backBtn);
+        }
+      }
+    });
+    
+    grid.appendChild(card);
+    const container = card.querySelector('.mini-svg-container');
+    window.treeViz.renderMiniTree(container, people, surname);
+  });
+  
+  console.log('✅ Сетка:', Object.keys(filteredGroups).length, 'семей с родоначальником');
+};
