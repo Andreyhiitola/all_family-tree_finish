@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,8 @@
   <!-- Это ломало пути при локальной разработке! -->
   
   <link rel="stylesheet" href="style.css?v=202602121459">
-  <link rel="stylesheet" href="profile-modal-styles.css?v=202602121459"> 
+  <link rel="stylesheet" href="profile-modal-styles.css?v=202602121459">
+  <link rel="stylesheet" href="src/ui/TreeDock.css?v=1">
 </head>
 <body>
   <header class="app-header">
@@ -33,11 +34,11 @@
       <button id="export-excel">📤 Excel-export</button>
       <button id="show-data-table">📋 Таблица</button>
       
-      
       <button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
       
       <input id="search" placeholder="🔍 Поиск...">
-    </div>
+      <a href="map.html" class="btn" style="text-decoration:none" target="_blank">🗺 Карта</a>   
+      </div>
   </header>
 
   <main class="app-main">
@@ -222,36 +223,30 @@
   <script src="src/ui/modals.js?v=202602121459"></script>
   <script src="src/utils/GitHubSync.js?v=202602121459"></script>
   <script src="src/utils/github-integration.js?v=202602121459"></script>
+  <!-- TreeDock — панель переключения деревьев -->
+  <script src="src/ui/TreeDock.js?v=1"></script>
   <!-- Главное приложение -->
   <script src="src/ui/app.js?v=202602121459"></script>
 
   <!-- ==================== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ==================== -->
   
   <script>
-    /**
-     * ФУНКЦИЯ: Перезагрузка данных из JSON
-     */
     window.reloadFromJSON = async function() {
       if (!window.dataManagerInstance) {
         alert('❌ DataManager не инициализирован')
         return
       }
-      
       if (!confirm('Перезагрузить данные из data/people.json? Несохраненные изменения будут потеряны.')) {
         return
       }
-      
       try {
         console.log('🔄 Перезагрузка из JSON...')
         await window.dataManagerInstance.reload()
-        
-        // Обновляем все компоненты
         if (window.refreshAll) {
           window.refreshAll()
         } else {
           location.reload()
         }
-        
         showNotification('✅ Данные перезагружены из JSON', 'success')
       } catch (error) {
         console.error('❌ Ошибка перезагрузки:', error)
@@ -259,19 +254,13 @@
       }
     }
 
-    /**
-     * ФУНКЦИЯ: Импорт JSON из файла
-     */
     window.importJsonFile = function(event) {
       const file = event.target.files[0]
       if (!file) return
-      
       const reader = new FileReader()
       reader.onload = (e) => {
         try {
           const data = JSON.parse(e.target.result)
-          
-          // Определяем формат
           let people = []
           if (Array.isArray(data)) {
             people = data
@@ -280,13 +269,8 @@
           } else {
             throw new Error('Неверный формат JSON')
           }
-          
-          // Сохраняем
           localStorage.setItem('familyTreeData', JSON.stringify({ people: people }))
-          
-          // Перезагружаем страницу
           location.reload()
-          
         } catch (error) {
           console.error('❌ Ошибка импорта JSON:', error)
           alert('❌ Ошибка импорта: ' + error.message)
@@ -295,9 +279,6 @@
       reader.readAsText(file)
     }
 
-    /**
-     * ФУНКЦИЯ: Экспорт в JSON файл
-     */
     window.exportJsonFile = function() {
       try {
         const stored = localStorage.getItem('familyTreeData')
@@ -305,19 +286,14 @@
           alert('❌ Нет данных для экспорта')
           return
         }
-        
         const data = JSON.parse(stored)
-        const blob = new Blob([JSON.stringify(data, null, 2)], { 
-          type: 'application/json' 
-        })
-        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
         a.download = `family-tree-${new Date().toISOString().split('T')[0]}.json`
         a.click()
         URL.revokeObjectURL(url)
-        
         showNotification('✅ JSON экспортирован', 'success')
       } catch (error) {
         console.error('❌ Ошибка экспорта:', error)
@@ -325,28 +301,22 @@
       }
     }
 
-    /**
-     * ОТЛАДКА: Информация в консоли
-     */
     window.debugFamilyTree = function() {
       if (!window.dataManagerInstance) {
         console.log('❌ DataManager не инициализирован')
         return
       }
-      
       const debug = window.dataManagerInstance.getDebugInfo()
-      
       console.log('%c🌳 ОТЛАДОЧНАЯ ИНФОРМАЦИЯ', 'color: blue; font-size: 16px; font-weight: bold')
       console.table(debug)
       console.log('Статистика:', debug.statistics)
-      
       return debug
     }
 
-    // Логирование при загрузке
     console.log('%c🌳 Семейное древо v1.0.3', 'color: green; font-size: 16px; font-weight: bold')
     console.log('📝 Для отладки используйте: window.debugFamilyTree()')
   </script>
+
   <!-- Модальное окно для ввода GitHub токена -->
   <div id="auth-modal" class="modal" style="display: none;">
     <div class="modal-content" style="max-width: 500px;">
@@ -363,34 +333,24 @@
   </div>
 
   <script>
-    // Функция очистки кэша
     function clearCacheAndReload() {
-      console.log('🗑️ Начинаем очистку кеша...');
-      
-      // Очистить все кеши браузера
+      console.log('🗑️ Начинаем очистку кеша...')
       if ('caches' in window) {
         caches.keys().then(keys => {
-          console.log('Удаляем кеши:', keys);
-          return Promise.all(keys.map(key => caches.delete(key)));
+          console.log('Удаляем кеши:', keys)
+          return Promise.all(keys.map(key => caches.delete(key)))
         }).then(() => {
-          console.log('✅ Кеши удалены');
-        });
+          console.log('✅ Кеши удалены')
+        })
       }
-      
-      // Очистить localStorage
-      console.log('Очищаем localStorage');
-      localStorage.clear();
-      
-      // Очистить sessionStorage
-      console.log('Очищаем sessionStorage');
-      sessionStorage.clear();
-      
-      console.log('🔄 Перезагружаем страницу...');
-      
-      // Жесткая перезагрузка через новый URL с timestamp
+      console.log('Очищаем localStorage')
+      localStorage.clear()
+      console.log('Очищаем sessionStorage')
+      sessionStorage.clear()
+      console.log('🔄 Перезагружаем страницу...')
       setTimeout(() => {
-        window.location.href = window.location.pathname + '?nocache=' + Date.now();
-      }, 500);
+        window.location.href = window.location.pathname + '?nocache=' + Date.now()
+      }, 500)
     }
   </script>
 </body>
