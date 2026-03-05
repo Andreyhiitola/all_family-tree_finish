@@ -123,6 +123,7 @@ class TreeVisualizer {
       .join('g')
       .attr('class', `person-${offsetX}`)
       .attr('transform', `translate(${offsetX}, 0)`)
+      .attr('data-person-id', d => dataAccessor(d)?.id || '')
       .on('click', (event, d) => {
         const person = dataAccessor(d)
         if (person) this.onNodeClick?.(person.id)

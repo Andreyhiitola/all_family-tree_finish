@@ -765,3 +765,15 @@ body {
   .profile-container { flex-direction: column; }
   .profile-left { flex: auto; }
 }
+
+/* Подсветка узла при "Показать в дереве" */
+.highlighted rect, .highlighted circle {
+  stroke: #c9a96e !important;
+  stroke-width: 3px !important;
+  filter: drop-shadow(0 0 8px rgba(201,169,110,0.8));
+  animation: highlight-pulse 2s ease-out;
+}
+@keyframes highlight-pulse {
+  0%   { filter: drop-shadow(0 0 12px rgba(201,169,110,1)); }
+  100% { filter: drop-shadow(0 0 0px rgba(201,169,110,0)); }
+}
