@@ -12,6 +12,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 2
@@ -28,6 +29,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 1
@@ -44,6 +46,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 913,
       "motherId": null,
       "spouseId": null
@@ -60,6 +63,7 @@
       "biography": "",
       "photo": "photos/avatars/id-101.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 103,
       "motherId": 107,
       "spouseId": null
@@ -76,6 +80,7 @@
       "biography": "",
       "photo": "photos/avatars/id-102.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 103,
       "motherId": 107,
       "spouseId": 132
@@ -95,6 +100,7 @@
         "photos/gallery/id-103-2.jpg",
         "photos/gallery/id-103-3.jpg"
       ],
+      "events": [],
       "fatherId": 104,
       "motherId": 109,
       "spouseId": 107
@@ -111,6 +117,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 109
@@ -127,6 +134,7 @@
       "biography": "",
       "photo": "photos/avatars/id-107.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 141,
       "motherId": 122,
       "spouseId": 103
@@ -143,6 +151,7 @@
       "biography": "Отчим Анатолия Быстрова. Второй муж Татьяны Батуниной.",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 109
@@ -159,6 +168,7 @@
       "biography": "Первый муж - Николай Быстров (отец Анатолия). Второй муж - Иван Кузнецов (отчим Анатолия).",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 913,
       "motherId": null,
       "spouseId": 108
@@ -175,6 +185,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 913,
       "motherId": null,
       "spouseId": null
@@ -191,6 +202,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -207,6 +219,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -223,6 +236,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 122
@@ -239,6 +253,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 113,
       "motherId": 122,
       "spouseId": null
@@ -255,6 +270,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 113,
       "motherId": 122,
       "spouseId": null
@@ -271,6 +287,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -287,6 +304,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -303,6 +321,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 113,
       "motherId": 122,
       "spouseId": null
@@ -319,6 +338,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 113,
       "motherId": 122,
       "spouseId": null
@@ -335,6 +355,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 114,
       "motherId": null,
       "spouseId": null
@@ -351,6 +372,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 114,
       "motherId": null,
       "spouseId": null
@@ -367,6 +389,7 @@
       "biography": "Первый муж - Михаил Герасимов (отец Алевтины). Второй муж - Григорий Матвеев.",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 127,
       "motherId": 126,
       "spouseId": 912
@@ -383,6 +406,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": 124,
       "spouseId": null
@@ -399,6 +423,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 913,
       "motherId": null,
       "spouseId": null
@@ -415,6 +440,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 102,
       "motherId": 132,
       "spouseId": null
@@ -431,6 +457,7 @@
       "biography": "бабушка Алевтины Быстровой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 127
@@ -447,6 +474,7 @@
       "biography": "дедушка Алевтины Быстровой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 126
@@ -463,6 +491,7 @@
       "biography": "дочь Леонида Матвеева",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 115,
       "motherId": null,
       "spouseId": null
@@ -479,6 +508,7 @@
       "biography": "сын Леонида Матвеева",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 115,
       "motherId": null,
       "spouseId": null
@@ -495,6 +525,7 @@
       "biography": "отец Валентины Захаровой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 131
@@ -511,6 +542,7 @@
       "biography": "мать Валентины Захаровой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 130
@@ -527,6 +559,7 @@
       "biography": "жена Игоря Быстрова",
       "photo": "photos/avatars/id-132.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 130,
       "motherId": 131,
       "spouseId": 102
@@ -543,6 +576,7 @@
       "biography": "брат Валентины",
       "photo": "photos/avatars/id-133.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 130,
       "motherId": 131,
       "spouseId": 134
@@ -559,6 +593,7 @@
       "biography": "жена Вячеслава Захарова",
       "photo": "photos/avatars/id-134.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 133
@@ -575,6 +610,7 @@
       "biography": "сын Вячеслава Захарова",
       "photo": "photos/avatars/АндрейСаг.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 133,
       "motherId": 134,
       "spouseId": 136
@@ -591,6 +627,7 @@
       "biography": "жена Александра Захарова",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 135
@@ -607,6 +644,7 @@
       "biography": "сын Александра Захарова",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 135,
       "motherId": 136,
       "spouseId": null
@@ -623,6 +661,7 @@
       "biography": "дочь Вячеслава Захарова",
       "photo": "photos/avatars/id-138.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 133,
       "motherId": 134,
       "spouseId": 139
@@ -639,6 +678,7 @@
       "biography": "муж Кристины Воронковой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 138
@@ -655,6 +695,7 @@
       "biography": "дочь Кристины Воронковой",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 139,
       "motherId": 138,
       "spouseId": null
@@ -671,6 +712,7 @@
       "biography": "Первый муж Елизаветы Матвеевой (Ефремовой). Отец Алевтины.",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 122
@@ -687,6 +729,7 @@
       "biography": "",
       "photo": "photos/gallery/ Баба_ВаряГвоздева.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 201
@@ -703,6 +746,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 200
@@ -719,6 +763,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 201,
       "motherId": 200,
       "spouseId": null
@@ -735,6 +780,7 @@
       "biography": "",
       "photo": "photos/avatars/Рылова_ГвоздеваВера.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 201,
       "motherId": 200,
       "spouseId": null
@@ -751,6 +797,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 201,
       "motherId": 200,
       "spouseId": null
@@ -773,6 +820,7 @@
         "photos/gallery/Баба_Оксана.jpg",
         "photos/gallery/Баба_Оксана+2.jpg"
       ],
+      "events": [],
       "fatherId": 1,
       "motherId": 2,
       "spouseId": 301
@@ -789,6 +837,7 @@
       "biography": "",
       "photo": "photos/avatars/Андрей_дед.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 302,
       "motherId": 303,
       "spouseId": 300
@@ -805,6 +854,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 303
@@ -821,6 +871,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 302
@@ -842,6 +893,7 @@
         "photos/gallery/Сагуров_Петр_3.jpg",
         "photos/gallery/Сагуров_Петр_4.jpg"
       ],
+      "events": [],
       "fatherId": 301,
       "motherId": 300,
       "spouseId": 305
@@ -864,6 +916,7 @@
         "photos/gallery/мама_5.jpg",
         "photos/gallery/мама_6.jpg"
       ],
+      "events": [],
       "fatherId": 201,
       "motherId": 200,
       "spouseId": 304
@@ -885,6 +938,7 @@
         "photos/gallery/id-306-1.jpg",
         "photos/gallery/id-306.jpg"
       ],
+      "events": [],
       "fatherId": 304,
       "motherId": 305,
       "spouseId": 308
@@ -907,6 +961,7 @@
         "photos/gallery/Дмитрий_Сагуров.jpg",
         "photos/gallery/Дмитрий_Сагуров_1.jpg"
       ],
+      "events": [],
       "fatherId": 304,
       "motherId": 305,
       "spouseId": 310
@@ -926,6 +981,7 @@
         "photos/gallery/id-308.jpg",
         "photos/gallery/id-308-2.jpg"
       ],
+      "events": [],
       "fatherId": 103,
       "motherId": 107,
       "spouseId": 306
@@ -948,6 +1004,18 @@
         "photos/gallery/id-308.jpg",
         "photos/gallery/id-309.jpg"
       ],
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Санкт-Петербург",
+          "date": "1995-06-08"
+        },
+        {
+          "type": "live",
+          "place": "Монреаль",
+          "date": ""
+        }
+      ],
       "fatherId": 306,
       "motherId": 308,
       "spouseId": null
@@ -966,6 +1034,7 @@
       "photos": [
         "photos/gallery/id-310.jpg"
       ],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 307
@@ -982,6 +1051,7 @@
       "biography": "",
       "photo": "photos/avatars/Антон.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 307,
       "motherId": 313,
       "spouseId": 908
@@ -998,6 +1068,7 @@
       "biography": "",
       "photo": "photos/avatars/Егор.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 307,
       "motherId": 310,
       "spouseId": null
@@ -1014,6 +1085,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 307
@@ -1030,6 +1102,7 @@
       "biography": "",
       "photo": "photos/avatars/Олег.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 307,
       "motherId": 310,
       "spouseId": null
@@ -1046,6 +1119,7 @@
       "biography": "",
       "photo": "photos/avatars/Рада.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 311,
       "motherId": 908,
       "spouseId": null
@@ -1064,6 +1138,7 @@
       "photos": [
         "photos/gallery/id-400.jpg"
       ],
+      "events": [],
       "fatherId": 301,
       "motherId": 300,
       "spouseId": 401
@@ -1082,6 +1157,7 @@
       "photos": [
         "photos/gallery/id-401.jpg"
       ],
+      "events": [],
       "fatherId": 402,
       "motherId": 403,
       "spouseId": 400
@@ -1098,6 +1174,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -1114,6 +1191,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 402
@@ -1130,6 +1208,7 @@
       "biography": "",
       "photo": "photos/avatars/Александр.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 406
@@ -1146,6 +1225,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 404
@@ -1162,6 +1242,7 @@
       "biography": "",
       "photo": "photos/avatars/Оксана.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 404
@@ -1178,6 +1259,7 @@
       "biography": "",
       "photo": "photos/avatars/АндрейВустин.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 404,
       "motherId": 405,
       "spouseId": 410
@@ -1194,6 +1276,7 @@
       "biography": "",
       "photo": "photos/avatars/Софья.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 404,
       "motherId": 406,
       "spouseId": null
@@ -1210,6 +1293,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 407,
       "motherId": null,
       "spouseId": null
@@ -1226,6 +1310,7 @@
       "biography": "",
       "photo": "photos/avatars/АлинаВустина.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 407
@@ -1242,6 +1327,7 @@
       "biography": "",
       "photo": "photos/avatars/АронВустин.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 407,
       "motherId": 410,
       "spouseId": null
@@ -1258,6 +1344,7 @@
       "biography": "",
       "photo": "photos/avatars/id-500.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 900
@@ -1274,6 +1361,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 500,
       "motherId": 900,
       "spouseId": null
@@ -1290,6 +1378,7 @@
       "biography": "",
       "photo": "photos/avatars/Константин.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 500,
       "motherId": 900,
       "spouseId": null
@@ -1306,6 +1395,7 @@
       "biography": "",
       "photo": "photos/avatars/Ева.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 502,
       "motherId": null,
       "spouseId": null
@@ -1322,6 +1412,7 @@
       "biography": "",
       "photo": "photos/avatars/Зоя.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 502,
       "motherId": null,
       "spouseId": null
@@ -1338,6 +1429,7 @@
       "biography": "",
       "photo": "photos/avatars/id-600.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 603,
       "motherId": 602,
       "spouseId": null
@@ -1354,6 +1446,7 @@
       "biography": "",
       "photo": "photos/avatars/id-601.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 603,
       "motherId": 602,
       "spouseId": null
@@ -1370,6 +1463,7 @@
       "biography": "",
       "photo": "photos/avatars/id-602.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 102,
       "motherId": 132,
       "spouseId": 603
@@ -1386,6 +1480,7 @@
       "biography": "муж Валерии Скочимарро",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 605,
       "motherId": 604,
       "spouseId": 602
@@ -1402,6 +1497,7 @@
       "biography": "мать Франка Скочимарро",
       "photo": "photos/avatars/id-604.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 605
@@ -1418,6 +1514,7 @@
       "biography": "отец Франка Скочимарро",
       "photo": "photos/avatars/id-605.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 604
@@ -1434,6 +1531,7 @@
       "biography": "",
       "photo": "photos/avatars/Неля.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 701
@@ -1450,6 +1548,7 @@
       "biography": "",
       "photo": "photos/avatars/Петр.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 700
@@ -1466,6 +1565,7 @@
       "biography": "",
       "photo": "photos/avatars/Максим.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 701,
       "motherId": 700,
       "spouseId": null
@@ -1482,6 +1582,7 @@
       "biography": "",
       "photo": "photos/avatars/Алексей_Олеся.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 902
@@ -1498,6 +1599,7 @@
       "biography": "",
       "photo": "photos/avatars/Артем.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 800,
       "motherId": 902,
       "spouseId": null
@@ -1514,6 +1616,7 @@
       "biography": "",
       "photo": "photos/avatars/Валерия.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 800,
       "motherId": 902,
       "spouseId": null
@@ -1532,6 +1635,7 @@
       "photos": [
         "photos/gallery/it-900.jpg"
       ],
+      "events": [],
       "fatherId": 401,
       "motherId": 400,
       "spouseId": 500
@@ -1554,6 +1658,7 @@
         "photos/gallery/КатяСаг-2.jpg",
         "photos/gallery/id-901.jpg"
       ],
+      "events": [],
       "fatherId": 306,
       "motherId": 308,
       "spouseId": 909
@@ -1570,6 +1675,7 @@
       "biography": "",
       "photo": "photos/avatars/Олеся.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 701,
       "motherId": 700,
       "spouseId": 800
@@ -1586,6 +1692,7 @@
       "biography": "",
       "photo": "photos/avatars/Валерия.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": 902,
       "spouseId": null
@@ -1602,6 +1709,7 @@
       "biography": "",
       "photo": "photos/avatars/ЮляВустина.jpg",
       "photos": [],
+      "events": [],
       "fatherId": 404,
       "motherId": 405,
       "spouseId": null
@@ -1618,6 +1726,7 @@
       "biography": "",
       "photo": "photos/avatars/Сабрина.jpeg",
       "photos": [],
+      "events": [],
       "fatherId": 911,
       "motherId": 904,
       "spouseId": null
@@ -1634,6 +1743,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 910,
       "motherId": 904,
       "spouseId": null
@@ -1650,6 +1760,7 @@
       "biography": "",
       "photo": "photos/avatars/Роман_муж_Юли.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 904
@@ -1666,6 +1777,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 311
@@ -1682,6 +1794,7 @@
       "biography": "",
       "photo": "photos/avatars/СергейВин.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 901
@@ -1698,6 +1811,7 @@
       "biography": "",
       "photo": "photos/avatars/Роман_муж_Юли.jpg",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": 904
@@ -1714,6 +1828,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -1730,6 +1845,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": null,
       "motherId": null,
       "spouseId": null
@@ -1746,6 +1862,7 @@
       "biography": "",
       "photo": "",
       "photos": [],
+      "events": [],
       "fatherId": 913,
       "motherId": null,
       "spouseId": null
