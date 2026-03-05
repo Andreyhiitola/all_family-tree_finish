@@ -257,6 +257,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.app = app
 
+  // Показать персону в дереве из ProfileModal
+  window.focusOnPerson = function(id) {
+    const person = dataManager.getPeople().find(p => p.id === id)
+    if (!person) return
+    // Устанавливаем корень дерева на эту персону
+    currentRootId = id
+    selectedPersonId = id
+    treeViz.render(currentRootId)
+    updatePersonInfo(id)
+    // Синхронизируем dock
+    window.treeDock?.select(id)
+    // Подсвечиваем узел после рендера
+    setTimeout(() => {
+      const group = document.querySelector(`[data-person-id="${id}"]`)
+      if (group) {
+        const rect = group.querySelector('rect')
+        if (rect) {
+          const origStroke = rect.getAttribute('stroke')
+          const origWidth = rect.getAttribute('stroke-width')
+          rect.setAttribute('stroke', '#c9a96e')
+          rect.setAttribute('stroke-width', '4')
+          rect.style.filter = 'drop-shadow(0 0 10px rgba(201,169,110,0.9))'
+          // Центрируем на узле
+          const svgEl = document.getElementById('tree-svg')
+          const gRect = group.getBoundingClientRect()
+          const svgRect = svgEl.getBoundingClientRect()
+          setTimeout(() => {
+            rect.setAttribute('stroke', origStroke || '#fff')
+            rect.setAttribute('stroke-width', origWidth || '3')
+            rect.style.filter = ''
+          }, 2500)
+        }
+      }
+    }, 400)
+  }
+
+
   initModals(app)
 
   // ==================== ОБРАБОТЧИКИ ====================

@@ -15,7 +15,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 2
+      "spouseId": 2,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1870-03-05"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "1946-07-20"
+        }
+      ]
     },
     {
       "id": 2,
@@ -32,7 +44,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 1
+      "spouseId": 1,
+      "events": []
     },
     {
       "id": 100,
@@ -49,7 +62,8 @@
       "events": [],
       "fatherId": 913,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 101,
@@ -66,7 +80,8 @@
       "events": [],
       "fatherId": 103,
       "motherId": 107,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 102,
@@ -83,7 +98,8 @@
       "events": [],
       "fatherId": 103,
       "motherId": 107,
-      "spouseId": 132
+      "spouseId": 132,
+      "events": []
     },
     {
       "id": 103,
@@ -103,7 +119,8 @@
       "events": [],
       "fatherId": 104,
       "motherId": 109,
-      "spouseId": 107
+      "spouseId": 107,
+      "events": []
     },
     {
       "id": 104,
@@ -120,7 +137,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 109
+      "spouseId": 109,
+      "events": []
     },
     {
       "id": 107,
@@ -137,7 +155,8 @@
       "events": [],
       "fatherId": 141,
       "motherId": 122,
-      "spouseId": 103
+      "spouseId": 103,
+      "events": []
     },
     {
       "id": 108,
@@ -154,7 +173,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 109
+      "spouseId": 109,
+      "events": []
     },
     {
       "id": 109,
@@ -171,7 +191,8 @@
       "events": [],
       "fatherId": 913,
       "motherId": null,
-      "spouseId": 108
+      "spouseId": 108,
+      "events": []
     },
     {
       "id": 110,
@@ -188,7 +209,8 @@
       "events": [],
       "fatherId": 913,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 111,
@@ -205,7 +227,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 112,
@@ -222,7 +245,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 113,
@@ -239,7 +263,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 122
+      "spouseId": 122,
+      "events": []
     },
     {
       "id": 114,
@@ -256,7 +281,8 @@
       "events": [],
       "fatherId": 113,
       "motherId": 122,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 115,
@@ -273,7 +299,8 @@
       "events": [],
       "fatherId": 113,
       "motherId": 122,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 116,
@@ -290,7 +317,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 117,
@@ -307,7 +335,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 118,
@@ -324,7 +353,8 @@
       "events": [],
       "fatherId": 113,
       "motherId": 122,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 119,
@@ -341,7 +371,8 @@
       "events": [],
       "fatherId": 113,
       "motherId": 122,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 120,
@@ -358,7 +389,8 @@
       "events": [],
       "fatherId": 114,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 121,
@@ -375,7 +407,8 @@
       "events": [],
       "fatherId": 114,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 122,
@@ -392,7 +425,8 @@
       "events": [],
       "fatherId": 127,
       "motherId": 126,
-      "spouseId": 912
+      "spouseId": 912,
+      "events": []
     },
     {
       "id": 123,
@@ -409,7 +443,8 @@
       "events": [],
       "fatherId": null,
       "motherId": 124,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 124,
@@ -426,7 +461,8 @@
       "events": [],
       "fatherId": 913,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 125,
@@ -443,7 +479,8 @@
       "events": [],
       "fatherId": 102,
       "motherId": 132,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 126,
@@ -460,7 +497,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 127
+      "spouseId": 127,
+      "events": []
     },
     {
       "id": 127,
@@ -477,7 +515,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 126
+      "spouseId": 126,
+      "events": []
     },
     {
       "id": 128,
@@ -494,7 +533,8 @@
       "events": [],
       "fatherId": 115,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 129,
@@ -511,7 +551,8 @@
       "events": [],
       "fatherId": 115,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 130,
@@ -528,7 +569,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 131
+      "spouseId": 131,
+      "events": []
     },
     {
       "id": 131,
@@ -545,7 +587,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 130
+      "spouseId": 130,
+      "events": []
     },
     {
       "id": 132,
@@ -562,7 +605,8 @@
       "events": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 102
+      "spouseId": 102,
+      "events": []
     },
     {
       "id": 133,
@@ -579,7 +623,8 @@
       "events": [],
       "fatherId": 130,
       "motherId": 131,
-      "spouseId": 134
+      "spouseId": 134,
+      "events": []
     },
     {
       "id": 134,
@@ -596,7 +641,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 133
+      "spouseId": 133,
+      "events": []
     },
     {
       "id": 135,
@@ -613,7 +659,8 @@
       "events": [],
       "fatherId": 133,
       "motherId": 134,
-      "spouseId": 136
+      "spouseId": 136,
+      "events": []
     },
     {
       "id": 136,
@@ -630,7 +677,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 135
+      "spouseId": 135,
+      "events": []
     },
     {
       "id": 137,
@@ -647,7 +695,8 @@
       "events": [],
       "fatherId": 135,
       "motherId": 136,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 138,
@@ -664,7 +713,8 @@
       "events": [],
       "fatherId": 133,
       "motherId": 134,
-      "spouseId": 139
+      "spouseId": 139,
+      "events": []
     },
     {
       "id": 139,
@@ -681,7 +731,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 138
+      "spouseId": 138,
+      "events": []
     },
     {
       "id": 140,
@@ -698,7 +749,8 @@
       "events": [],
       "fatherId": 139,
       "motherId": 138,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 141,
@@ -715,7 +767,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 122
+      "spouseId": 122,
+      "events": []
     },
     {
       "id": 200,
@@ -732,7 +785,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 201
+      "spouseId": 201,
+      "events": []
     },
     {
       "id": 201,
@@ -749,7 +803,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 200
+      "spouseId": 200,
+      "events": []
     },
     {
       "id": 202,
@@ -766,7 +821,8 @@
       "events": [],
       "fatherId": 201,
       "motherId": 200,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 203,
@@ -783,7 +839,8 @@
       "events": [],
       "fatherId": 201,
       "motherId": 200,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 204,
@@ -800,7 +857,8 @@
       "events": [],
       "fatherId": 201,
       "motherId": 200,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 300,
@@ -823,7 +881,19 @@
       "events": [],
       "fatherId": 1,
       "motherId": 2,
-      "spouseId": 301
+      "spouseId": 301,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1918-03-20"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "1989-02-25"
+        }
+      ]
     },
     {
       "id": 301,
@@ -840,7 +910,19 @@
       "events": [],
       "fatherId": 302,
       "motherId": 303,
-      "spouseId": 300
+      "spouseId": 300,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1915-08-29"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "1943-09-23"
+        }
+      ]
     },
     {
       "id": 302,
@@ -857,7 +939,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 303
+      "spouseId": 303,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1915-01-01"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "1936-01-01"
+        }
+      ]
     },
     {
       "id": 303,
@@ -874,7 +968,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 302
+      "spouseId": 302,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1870-01-01"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "1938-01-01"
+        }
+      ]
     },
     {
       "id": 304,
@@ -896,7 +1002,19 @@
       "events": [],
       "fatherId": 301,
       "motherId": 300,
-      "spouseId": 305
+      "spouseId": 305,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1940-09-01"
+        },
+        {
+          "type": "death",
+          "place": "Харьковская область",
+          "date": "2004-12-03"
+        }
+      ]
     },
     {
       "id": 305,
@@ -919,7 +1037,8 @@
       "events": [],
       "fatherId": 201,
       "motherId": 200,
-      "spouseId": 304
+      "spouseId": 304,
+      "events": []
     },
     {
       "id": 306,
@@ -941,7 +1060,14 @@
       "events": [],
       "fatherId": 304,
       "motherId": 305,
-      "spouseId": 308
+      "spouseId": 308,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Балхаш, Казахская ССР",
+          "date": "1966-05-25"
+        }
+      ]
     },
     {
       "id": 307,
@@ -964,7 +1090,14 @@
       "events": [],
       "fatherId": 304,
       "motherId": 305,
-      "spouseId": 310
+      "spouseId": 310,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Вышевогорск, Челябинска область",
+          "date": "1969-09-20"
+        }
+      ]
     },
     {
       "id": 308,
@@ -984,7 +1117,8 @@
       "events": [],
       "fatherId": 103,
       "motherId": 107,
-      "spouseId": 306
+      "spouseId": 306,
+      "events": []
     },
     {
       "id": 309,
@@ -1018,7 +1152,14 @@
       ],
       "fatherId": 306,
       "motherId": 308,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Санкт-Петербург",
+          "date": "1995-06-08"
+        }
+      ]
     },
     {
       "id": 310,
@@ -1037,7 +1178,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 307
+      "spouseId": 307,
+      "events": []
     },
     {
       "id": 311,
@@ -1054,7 +1196,14 @@
       "events": [],
       "fatherId": 307,
       "motherId": 313,
-      "spouseId": 908
+      "spouseId": 908,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Текели, Казахстан",
+          "date": "1995-10-29"
+        }
+      ]
     },
     {
       "id": 312,
@@ -1071,7 +1220,14 @@
       "events": [],
       "fatherId": 307,
       "motherId": 310,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Текели, Казахстан",
+          "date": "2000-12-11"
+        }
+      ]
     },
     {
       "id": 313,
@@ -1088,7 +1244,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 307
+      "spouseId": 307,
+      "events": []
     },
     {
       "id": 314,
@@ -1105,7 +1262,14 @@
       "events": [],
       "fatherId": 307,
       "motherId": 310,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор. Текели",
+          "date": "2003-02-07"
+        }
+      ]
     },
     {
       "id": 315,
@@ -1122,7 +1286,8 @@
       "events": [],
       "fatherId": 311,
       "motherId": 908,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 400,
@@ -1141,7 +1306,14 @@
       "events": [],
       "fatherId": 301,
       "motherId": 300,
-      "spouseId": 401
+      "spouseId": 401,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Харьковская область",
+          "date": "1938-09-01"
+        }
+      ]
     },
     {
       "id": 401,
@@ -1160,7 +1332,19 @@
       "events": [],
       "fatherId": 402,
       "motherId": 403,
-      "spouseId": 400
+      "spouseId": 400,
+      "events": [
+        {
+          "type": "birth",
+          "place": "пос. Космос, Алмаатинская область",
+          "date": "1937-01-01"
+        },
+        {
+          "type": "death",
+          "place": "пос. Космос, Алмаатинская область",
+          "date": "2014-01-17"
+        }
+      ]
     },
     {
       "id": 402,
@@ -1177,7 +1361,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Белорусь   УТОЧНИТЬ МЕСто",
+          "date": "1907-01-01"
+        },
+        {
+          "type": "death",
+          "place": "Белорусь   УТОЧНИТЬ МЕСто",
+          "date": "1947-01-01"
+        }
+      ]
     },
     {
       "id": 403,
@@ -1194,7 +1390,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 402
+      "spouseId": 402,
+      "events": [
+        {
+          "type": "birth",
+          "place": "Белорусь",
+          "date": "1910-05-17"
+        },
+        {
+          "type": "death",
+          "place": "Белорусь",
+          "date": "1994-06-01"
+        }
+      ]
     },
     {
       "id": 404,
@@ -1211,7 +1419,14 @@
       "events": [],
       "fatherId": 401,
       "motherId": 400,
-      "spouseId": 406
+      "spouseId": 406,
+      "events": [
+        {
+          "type": "birth",
+          "place": "пос. Космос, Алмаатинская область",
+          "date": "1968-12-22"
+        }
+      ]
     },
     {
       "id": 405,
@@ -1228,7 +1443,14 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 404
+      "spouseId": 404,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "1970-09-18"
+        }
+      ]
     },
     {
       "id": 406,
@@ -1245,7 +1467,14 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 404
+      "spouseId": 404,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "1975-03-31"
+        }
+      ]
     },
     {
       "id": 407,
@@ -1262,7 +1491,14 @@
       "events": [],
       "fatherId": 404,
       "motherId": 405,
-      "spouseId": 410
+      "spouseId": 410,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "1995-05-14"
+        }
+      ]
     },
     {
       "id": 408,
@@ -1279,7 +1515,8 @@
       "events": [],
       "fatherId": 404,
       "motherId": 406,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 409,
@@ -1296,7 +1533,14 @@
       "events": [],
       "fatherId": 407,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "2022-05-31"
+        }
+      ]
     },
     {
       "id": 410,
@@ -1313,7 +1557,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 407
+      "spouseId": 407,
+      "events": []
     },
     {
       "id": 411,
@@ -1330,7 +1575,8 @@
       "events": [],
       "fatherId": 407,
       "motherId": 410,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 500,
@@ -1347,7 +1593,19 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 900
+      "spouseId": 900,
+      "events": [
+        {
+          "type": "birth",
+          "place": "совхоз Космос, Алмаатинска обл., Каз. ССР",
+          "date": "1954-06-07"
+        },
+        {
+          "type": "death",
+          "place": "совхоз Космос, Алмаатинска обл., Каз. ССР",
+          "date": "2007-06-11"
+        }
+      ]
     },
     {
       "id": 501,
@@ -1364,7 +1622,19 @@
       "events": [],
       "fatherId": 500,
       "motherId": 900,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Алма-Ата",
+          "date": "1979-05-21"
+        },
+        {
+          "type": "death",
+          "place": "г.Алма-Ата",
+          "date": "2024-02-06"
+        }
+      ]
     },
     {
       "id": 502,
@@ -1381,7 +1651,14 @@
       "events": [],
       "fatherId": 500,
       "motherId": 900,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Алма-Ата",
+          "date": "1983-02-08"
+        }
+      ]
     },
     {
       "id": 503,
@@ -1398,7 +1675,8 @@
       "events": [],
       "fatherId": 502,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 504,
@@ -1415,7 +1693,8 @@
       "events": [],
       "fatherId": 502,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 600,
@@ -1432,7 +1711,8 @@
       "events": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 601,
@@ -1449,7 +1729,8 @@
       "events": [],
       "fatherId": 603,
       "motherId": 602,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 602,
@@ -1466,7 +1747,8 @@
       "events": [],
       "fatherId": 102,
       "motherId": 132,
-      "spouseId": 603
+      "spouseId": 603,
+      "events": []
     },
     {
       "id": 603,
@@ -1483,7 +1765,8 @@
       "events": [],
       "fatherId": 605,
       "motherId": 604,
-      "spouseId": 602
+      "spouseId": 602,
+      "events": []
     },
     {
       "id": 604,
@@ -1500,7 +1783,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 605
+      "spouseId": 605,
+      "events": []
     },
     {
       "id": 605,
@@ -1517,7 +1801,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 604
+      "spouseId": 604,
+      "events": []
     },
     {
       "id": 700,
@@ -1534,7 +1819,14 @@
       "events": [],
       "fatherId": 401,
       "motherId": 400,
-      "spouseId": 701
+      "spouseId": 701,
+      "events": [
+        {
+          "type": "birth",
+          "place": "пос. Космос, Алмаатинская область",
+          "date": "1962-09-04"
+        }
+      ]
     },
     {
       "id": 701,
@@ -1551,7 +1843,14 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 700
+      "spouseId": 700,
+      "events": [
+        {
+          "type": "birth",
+          "place": "совхоз Джанашар, Алмаатинская область, Каз ССЗ",
+          "date": "1959-10-29"
+        }
+      ]
     },
     {
       "id": 702,
@@ -1568,7 +1867,14 @@
       "events": [],
       "fatherId": 701,
       "motherId": 700,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Алма-Ата",
+          "date": "1987-11-17"
+        }
+      ]
     },
     {
       "id": 800,
@@ -1585,7 +1891,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 902
+      "spouseId": 902,
+      "events": []
     },
     {
       "id": 801,
@@ -1602,7 +1909,8 @@
       "events": [],
       "fatherId": 800,
       "motherId": 902,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 802,
@@ -1619,7 +1927,8 @@
       "events": [],
       "fatherId": 800,
       "motherId": 902,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 900,
@@ -1638,7 +1947,8 @@
       "events": [],
       "fatherId": 401,
       "motherId": 400,
-      "spouseId": 500
+      "spouseId": 500,
+      "events": []
     },
     {
       "id": 901,
@@ -1661,7 +1971,14 @@
       "events": [],
       "fatherId": 306,
       "motherId": 308,
-      "spouseId": 909
+      "spouseId": 909,
+      "events": [
+        {
+          "type": "birth",
+          "place": "город Санкт-Петербург",
+          "date": "1993-07-12"
+        }
+      ]
     },
     {
       "id": 902,
@@ -1678,7 +1995,14 @@
       "events": [],
       "fatherId": 701,
       "motherId": 700,
-      "spouseId": 800
+      "spouseId": 800,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Алма-Ата",
+          "date": "1982-05-23"
+        }
+      ]
     },
     {
       "id": 903,
@@ -1695,7 +2019,14 @@
       "events": [],
       "fatherId": null,
       "motherId": 902,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "г.Алма-Ата",
+          "date": "2010-08-26"
+        }
+      ]
     },
     {
       "id": 904,
@@ -1712,7 +2043,14 @@
       "events": [],
       "fatherId": 404,
       "motherId": 405,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алм-Ата",
+          "date": "1991-05-07"
+        }
+      ]
     },
     {
       "id": 905,
@@ -1729,7 +2067,14 @@
       "events": [],
       "fatherId": 911,
       "motherId": 904,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "2013-01-03"
+        }
+      ]
     },
     {
       "id": 906,
@@ -1746,7 +2091,14 @@
       "events": [],
       "fatherId": 910,
       "motherId": 904,
-      "spouseId": null
+      "spouseId": null,
+      "events": [
+        {
+          "type": "birth",
+          "place": "гор.Алма-Ата",
+          "date": "2024-03-22"
+        }
+      ]
     },
     {
       "id": 907,
@@ -1763,7 +2115,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 904
+      "spouseId": 904,
+      "events": []
     },
     {
       "id": 908,
@@ -1780,7 +2133,14 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 311
+      "spouseId": 311,
+      "events": [
+        {
+          "type": "birth",
+          "place": "город Талды Корган",
+          "date": "1993-07-07"
+        }
+      ]
     },
     {
       "id": 909,
@@ -1797,7 +2157,14 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 901
+      "spouseId": 901,
+      "events": [
+        {
+          "type": "birth",
+          "place": "город Санк-Петербург",
+          "date": "1995-02-01"
+        }
+      ]
     },
     {
       "id": 910,
@@ -1814,7 +2181,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": 904
+      "spouseId": 904,
+      "events": []
     },
     {
       "id": 911,
@@ -1831,7 +2199,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 913,
@@ -1848,7 +2217,8 @@
       "events": [],
       "fatherId": null,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     },
     {
       "id": 914,
@@ -1865,7 +2235,8 @@
       "events": [],
       "fatherId": 913,
       "motherId": null,
-      "spouseId": null
+      "spouseId": null,
+      "events": []
     }
   ]
 }

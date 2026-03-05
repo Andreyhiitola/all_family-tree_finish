@@ -144,6 +144,7 @@ class DataManager {
         biography: p.biography || '',
         photo: p.photo || '',
         photos: Array.isArray(p.photos) ? p.photos : [],
+        events: Array.isArray(p.events) ? p.events : [],
         fatherId: toId(p.fatherId),
         motherId: toId(p.motherId),
         spouseId: toId(p.spouseId)

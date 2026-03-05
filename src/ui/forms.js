@@ -7,6 +7,14 @@ function fillPersonFormFromData(person) {
   document.getElementById('form-birthDate').value = person?.birthDate || ''
   document.getElementById('form-deathDate').value = person?.deathDate || ''
   document.getElementById('form-birthPlace').value = person?.birthPlace || ''
+  // Events
+  const birthEv = person?.events?.find(e => e.type === 'birth')
+  const liveEv  = person?.events?.find(e => e.type === 'live')
+  const deathEv = person?.events?.find(e => e.type === 'death')
+  if (document.getElementById('form-livePlace'))
+    document.getElementById('form-livePlace').value = liveEv?.place || ''
+  if (document.getElementById('form-deathPlace'))
+    document.getElementById('form-deathPlace').value = deathEv?.place || ''
   document.getElementById('form-biography').value = person?.biography || ''
   document.getElementById('form-photo').value = person?.photo || ''
   
@@ -41,6 +49,16 @@ function readPersonFromForm() {
     birthDate: document.getElementById('form-birthDate').value,
     deathDate: document.getElementById('form-deathDate').value,
     birthPlace: document.getElementById('form-birthPlace').value.trim(),
+    events: (() => {
+      const evs = []
+      const bp = document.getElementById('form-birthPlace')?.value.trim()
+      const lp = document.getElementById('form-livePlace')?.value.trim()
+      const dp = document.getElementById('form-deathPlace')?.value.trim()
+      if (bp) evs.push({ type: 'birth', place: bp, date: document.getElementById('form-birthDate')?.value || '' })
+      if (lp) evs.push({ type: 'live',  place: lp, date: '' })
+      if (dp) evs.push({ type: 'death', place: dp, date: document.getElementById('form-deathDate')?.value || '' })
+      return evs
+    })(),
     biography: document.getElementById('form-biography').value.trim(),
     photo: document.getElementById('form-photo').value.trim(),
     photos: photosArray,  // Массив URLs

@@ -150,9 +150,10 @@ class ProfileModal {
         if (viewTreeBtn) {
             viewTreeBtn.addEventListener('click', () => {
                 if (this.currentPerson) {
+                    const personId = this.currentPerson.id;
                     this.close();
                     if (window.focusOnPerson) {
-                        window.focusOnPerson(this.currentPerson.id);
+                        window.focusOnPerson(personId);
                     }
                 }
             });
