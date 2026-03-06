@@ -14,9 +14,11 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Crimson Pro', Georgia, serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* ── HEADER ── */
     .map-header { height: 52px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: linear-gradient(135deg, #1a1209, #3d2b1a); border-bottom: 1px solid var(--border); flex-shrink: 0; z-index: 10; }
     .map-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 0.05em; white-space: nowrap; }
-    .back-btn { background: rgba(201,169,110,0.12); border: 1px solid var(--border); color: var(--gold); border-radius: 20px; padding: 4px 14px; font-family: 'Crimson Pro', Georgia, serif; font-size: 0.82rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .back-btn { background: rgba(201,169,110,0.12); border: 1px solid var(--border); color: var(--gold); border-radius: 20px; padding: 4px 14px; font-family: 'Crimson Pro', Georgia, serif; font-size: 0.82rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
     .back-btn:hover { background: rgba(201,169,110,0.22); }
     .layer-filters { display: flex; gap: 8px; margin-left: auto; align-items: center; }
     .layer-btn { display: flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 16px; border: 1px solid; font-family: 'Crimson Pro', Georgia, serif; font-size: 0.8rem; cursor: pointer; transition: opacity 0.2s, transform 0.15s; white-space: nowrap; background: none; }
@@ -27,7 +29,9 @@
     .layer-btn[data-layer="live"]  { border-color: var(--live);  color: var(--live); }
     .layer-btn[data-layer="death"] { border-color: var(--death); color: var(--death); }
     .people-count { font-size: 0.78rem; color: var(--text-muted); font-style: italic; white-space: nowrap; }
-    .map-body { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── BODY ── */
+    .map-body { flex: 1; display: flex; overflow: hidden; position: relative; }
     #map-wrap { flex: 1; position: relative; overflow: hidden; cursor: grab; }
     #map-wrap:active { cursor: grabbing; }
     #world-svg { width: 100%; height: 100%; display: block; }
@@ -38,10 +42,23 @@
     .map-marker:hover { filter: brightness(1.2); }
     .cluster-circle { cursor: pointer; }
     .cluster-circle:hover { filter: brightness(1.15); }
-    .map-sidebar { width: 280px; flex-shrink: 0; background: var(--panel); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
-    .sidebar-header { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-    .sidebar-header h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; color: var(--gold-light); margin-bottom: 8px; }
-    #place-search { width: 100%; padding: 6px 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 16px; color: var(--text); font-family: 'Crimson Pro', Georgia, serif; font-size: 0.85rem; outline: none; }
+
+    /* ── SIDEBAR — desktop ── */
+    .map-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--panel);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .sidebar-header { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+    .sidebar-header h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; color: var(--gold-light); flex: 1; }
+    /* Close button — hidden on desktop */
+    .sidebar-close { display: none; background: none; border: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; padding: 2px 6px; line-height: 1; }
+    #place-search { width: 100%; padding: 6px 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 16px; color: var(--text); font-family: 'Crimson Pro', Georgia, serif; font-size: 0.85rem; outline: none; margin-top: 8px; display: block; }
     #place-search:focus { border-color: var(--gold); }
     #place-search::placeholder { color: var(--text-muted); }
     .sidebar-list { flex: 1; overflow-y: auto; padding: 8px; scrollbar-width: thin; scrollbar-color: #5a3e28 transparent; }
@@ -52,6 +69,28 @@
     .place-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .place-name { font-size: 0.85rem; flex: 1; }
     .place-cnt { font-size: 0.72rem; color: var(--text-muted); font-style: italic; }
+
+    /* ── SIDEBAR TOGGLE BUTTON — mobile only ── */
+    #sidebar-toggle {
+      display: none;
+      position: absolute;
+      bottom: 72px;
+      right: 12px;
+      z-index: 30;
+      background: linear-gradient(135deg, #3d2b1a, #2a1f14);
+      border: 1px solid var(--gold);
+      border-radius: 24px;
+      color: var(--gold-light);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* ── POPUP ── */
     #person-popup { position: fixed; z-index: 200; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); width: 230px; overflow: hidden; pointer-events: none; opacity: 0; transform: translateY(6px) scale(0.97); transition: opacity 0.18s, transform 0.18s; }
     #person-popup.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .popup-avatar { width: 100%; height: 100px; object-fit: cover; display: block; }
@@ -63,6 +102,8 @@
     .popup-events { margin-top: 7px; display: flex; flex-direction: column; gap: 3px; }
     .popup-event { font-size: 0.76rem; display: flex; align-items: center; gap: 5px; }
     .ev-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── ZOOM ── */
     .zoom-controls { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 4px; z-index: 10; }
     .zoom-btn { width: 32px; height: 32px; background: rgba(45,30,15,0.9); border: 1px solid var(--border); border-radius: 6px; color: var(--gold); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .zoom-btn:hover { background: rgba(60,42,20,0.95); }
@@ -70,10 +111,65 @@
     .legend-title { font-family: 'Playfair Display', Georgia, serif; color: var(--gold); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
     .legend-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; color: var(--text-muted); }
     .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── LOADING ── */
     #loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--bg); z-index: 50; flex-direction: column; gap: 12px; }
     .loading-text { font-family: 'Playfair Display', Georgia, serif; color: var(--gold); font-size: 1rem; }
     .loading-spinner { width: 32px; height: 32px; border: 3px solid rgba(201,169,110,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      /* Скрываем фильтры в хедере — переносим на карту */
+      .layer-filters { display: none; }
+      .people-count { display: none; }
+      .map-header { gap: 10px; padding: 0 12px; }
+      .map-header h1 { font-size: 0.95rem; }
+
+      /* Sidebar становится slide-up панелью снизу */
+      .map-sidebar {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        width: 100% !important;
+        height: 60vh;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        border-radius: 16px 16px 0 0;
+        z-index: 20;
+        transform: translateY(100%); /* скрыта по умолчанию */
+        box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+      }
+      .map-sidebar.open { transform: translateY(0); }
+
+      /* Кнопка открытия sidebar */
+      #sidebar-toggle { display: flex; }
+
+      /* Кнопка закрытия внутри sidebar */
+      .sidebar-close { display: block; }
+
+      /* Sidebar header адаптирован */
+      .sidebar-header { padding: 12px 14px 8px; }
+      .sidebar-header h3 { font-size: 0.9rem; }
+
+      /* Мобильные фильтры слои — показываем на карте */
+      .mobile-layer-filters {
+        display: flex;
+        position: absolute;
+        top: 10px; left: 50%; transform: translateX(-50%);
+        gap: 6px; z-index: 10;
+      }
+      .mobile-layer-filters .layer-btn { font-size: 0.72rem; padding: 3px 9px; }
+
+      /* Zoom controls — сдвигаем чуть выше кнопки sidebar */
+      .zoom-controls { bottom: 130px; right: 12px; }
+
+      /* Legend — меньше и левее */
+      .map-legend { bottom: 10px; left: 10px; padding: 7px 10px; font-size: 0.68rem; }
+
+      /* Popup на мобиле — снизу */
+      #person-popup { width: calc(100vw - 24px); left: 12px !important; right: 12px; bottom: 12px; top: auto !important; transform: translateY(10px) scale(0.97); }
+      #person-popup.visible { transform: translateY(0) scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -87,10 +183,19 @@
   </div>
   <span class="people-count" id="people-count"></span>
 </div>
+
 <div class="map-body">
   <div id="map-wrap">
     <div id="loading"><div class="loading-spinner"></div><div class="loading-text">Загрузка карты...</div></div>
     <svg id="world-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+    <!-- Мобильные фильтры слоёв поверх карты -->
+    <div class="mobile-layer-filters" style="display:none">
+      <button class="layer-btn" data-layer="birth" data-mobile="1" onclick="toggleLayer('birth')"><span class="dot" style="background:var(--birth)"></span> Рожд.</button>
+      <button class="layer-btn" data-layer="live"  data-mobile="1" onclick="toggleLayer('live')"><span class="dot" style="background:var(--live)"></span> Жил</button>
+      <button class="layer-btn" data-layer="death" data-mobile="1" onclick="toggleLayer('death')"><span class="dot" style="background:var(--death)"></span> Смерть</button>
+    </div>
+
     <div class="zoom-controls">
       <button class="zoom-btn" onclick="zoomIn()">+</button>
       <button class="zoom-btn" onclick="zoomOut()">−</button>
@@ -98,22 +203,55 @@
     </div>
     <div class="map-legend">
       <div class="legend-title">Легенда</div>
-      <div class="legend-row"><span class="legend-dot" style="background:var(--birth)"></span> Место рождения</div>
-      <div class="legend-row"><span class="legend-dot" style="background:var(--live)"></span> Место проживания</div>
-      <div class="legend-row"><span class="legend-dot" style="background:var(--death)"></span> Место смерти</div>
+      <div class="legend-row"><span class="legend-dot" style="background:var(--birth)"></span> Рождение</div>
+      <div class="legend-row"><span class="legend-dot" style="background:var(--live)"></span> Проживание</div>
+      <div class="legend-row"><span class="legend-dot" style="background:var(--death)"></span> Смерть</div>
     </div>
   </div>
-  <aside class="map-sidebar">
+
+  <!-- Кнопка открытия sidebar на мобиле -->
+  <button id="sidebar-toggle" onclick="toggleSidebar()">📍 Места</button>
+
+  <aside class="map-sidebar" id="map-sidebar">
     <div class="sidebar-header">
       <h3>Места на карте</h3>
-      <input id="place-search" type="text" placeholder="🔍 Поиск города...">
+      <button class="sidebar-close" onclick="toggleSidebar()">×</button>
     </div>
+    <input id="place-search" type="text" placeholder="🔍 Поиск города...">
     <div class="sidebar-list" id="sidebar-list"></div>
   </aside>
 </div>
+
 <div id="person-popup"></div>
+
 <script src="d3.v7.min.js"></script>
 <script>
+// ── Показать мобильные фильтры если нужно ──────────────────────────────────
+function checkMobile() {
+  const isMobile = window.innerWidth <= 768
+  const mobileFilters = document.querySelector('.mobile-layer-filters')
+  if (mobileFilters) mobileFilters.style.display = isMobile ? 'flex' : 'none'
+}
+checkMobile()
+window.addEventListener('resize', checkMobile)
+
+// ── Sidebar toggle ─────────────────────────────────────────────────────────
+function toggleSidebar() {
+  const sidebar = document.getElementById('map-sidebar')
+  sidebar.classList.toggle('open')
+  const btn = document.getElementById('sidebar-toggle')
+  btn.textContent = sidebar.classList.contains('open') ? '✕ Закрыть' : '📍 Места'
+}
+
+// ── Закрыть sidebar при клике на карту (мобиль) ────────────────────────────
+document.getElementById('map-wrap').addEventListener('click', () => {
+  const sidebar = document.getElementById('map-sidebar')
+  if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open')
+    document.getElementById('sidebar-toggle').textContent = '📍 Места'
+  }
+})
+
 const CITY_COORDS = {
   'харьков':[49.988,36.232],'харьковская область':[49.8,36.3],'харьковская':[49.8,36.3],
   'алма-ата':[43.238,76.945],'алматы':[43.238,76.945],'г.алма-ата':[43.238,76.945],
@@ -133,67 +271,20 @@ const CITY_COORDS = {
   'нью-йорк':[40.713,-74.006],'лос-анджелес':[34.052,-118.244],
   'россия':[61.52,105.319],'украина':[48.379,31.165],'казахстан':[48.0,66.92],
   'южно-сахалинск':[46.959,142.738],'калининград':[54.710,20.510],'г.южно-сахалинск':[46.959,142.738],'г.калининград':[54.710,20.510],
-  // Россия — крупные города
   'новосибирск':[55.030,82.920],'екатеринбург':[56.838,60.597],'нижний новгород':[56.326,44.006],
   'казань':[55.796,49.106],'самара':[53.195,50.150],'омск':[54.989,73.368],
   'ростов-на-дону':[47.222,39.718],'уфа':[54.735,55.958],'красноярск':[56.010,92.852],
   'пермь':[58.010,56.250],'волгоград':[48.708,44.513],'воронеж':[51.672,39.184],
   'краснодар':[45.041,38.976],'саратов':[51.533,46.034],'тюмень':[57.153,68.968],
-  'тольятти':[53.511,49.418],'ижевск':[56.853,53.206],'барнаул':[53.346,83.776],
-  'ульяновск':[54.317,48.402],'иркутск':[52.286,104.280],'хабаровск':[48.480,135.071],
-  'ярославль':[57.626,39.893],'владивосток':[43.116,131.882],'махачкала':[42.970,47.502],
-  'томск':[56.498,84.972],'оренбург':[51.768,55.097],'кемерово':[55.354,86.086],
-  'новокузнецк':[53.757,87.136],'рязань':[54.629,39.737],'астрахань':[46.347,48.033],
-  'пенза':[53.195,45.018],'набережные челны':[55.726,52.394],'липецк':[52.608,39.599],
-  'киров':[58.603,49.668],'чебоксары':[56.145,47.248],'калуга':[54.507,36.252],
-  'тула':[54.193,37.617],'курск':[51.730,36.193],'улан-удэ':[51.834,107.584],
-  'ставрополь':[45.044,41.969],'сочи':[43.585,39.723],'архангельск':[64.539,40.516],
-  'смоленск':[54.782,32.045],'владимир':[56.129,40.406],'белгород':[50.597,36.588],
-  'иваново':[57.000,40.974],'брянск':[53.243,34.363],'сургут':[61.254,73.396],
-  'тверь':[56.859,35.912],'магнитогорск':[53.407,59.062],'нижний тагил':[57.910,59.980],
-  'мурманск':[68.970,33.075],'чита':[52.034,113.499],'якутск':[62.028,129.733],
-  'нижневартовск':[60.938,76.560],'сыктывкар':[61.668,50.836],'петрозаводск':[61.785,34.346],
-  'нальчик':[43.499,43.618],'грозный':[43.317,45.698],'майкоп':[44.608,40.107],
-  'элиста':[46.308,44.268],'саранск':[54.187,45.183],'йошкар-ола':[56.638,47.898],
-  'псков':[57.819,28.332],'великий новгород':[58.522,31.269],'кострома':[57.767,40.927],
-  'орёл':[52.970,36.063],'тамбов':[52.721,41.452],'владикавказ':[43.024,44.682],
-  'благовещенск':[50.290,127.527],'биробиджан':[48.794,132.921],
-  'петропавловск-камчатский':[53.045,158.651],'магадан':[59.568,150.808],
-  'анадырь':[64.734,177.510],'норильск':[69.350,88.189],'воркута':[67.498,64.053],
-  // Казахстан — крупные города  
   'нур-султан':[51.180,71.446],'астана':[51.180,71.446],'шымкент':[42.317,69.586],
   'актобе':[50.300,57.154],'тараз':[42.900,71.360],'павлодар':[52.285,76.940],
   'усть-каменогорск':[49.948,82.628],'семей':[50.411,80.227],'семипалатинск':[50.411,80.227],
   'костанай':[53.214,63.628],'кызылорда':[44.852,65.509],'атырау':[47.117,51.883],
-  'актау':[43.636,51.198],'уральск':[51.233,51.367],'петропавловск':[54.866,69.153],
-  'кокшетау':[53.284,69.392],'талдыкорган':[45.017,78.369],'экибастуз':[51.723,75.324],
-  'рудный':[52.958,63.129],'жезказган':[47.803,67.714],'сатпаев':[47.903,67.532],
-  'темиртау':[50.060,72.960],'туркестан':[43.298,68.272],'кентау':[43.516,68.507],
-  'степногорск':[52.350,71.883],'лисаковск':[52.550,62.500],'риддер':[50.348,83.514],
-  'щучинск':[52.931,70.196],'капшагай':[43.859,77.065],'конаев':[43.859,77.065],
-
-  // Канада
   'монреаль':[45.508,-73.587],'торонто':[43.651,-79.347],'ванкувер':[49.283,-123.121],
-  'оттава':[45.424,-75.695],'калгари':[51.045,-114.058],'канада':[56.130,-106.347],
-  // США
-  'чикаго':[41.878,-87.630],'хьюстон':[29.760,-95.370],'финикс':[33.448,-112.074],
-  'филадельфия':[39.952,-75.165],'сан-франциско':[37.774,-122.419],
-  'сиэтл':[47.606,-122.332],'майами':[25.774,-80.194],'бостон':[42.360,-71.058],
-  'вашингтон':[38.907,-77.037],'даллас':[32.776,-96.797],
-  // Европа
+  'канада':[56.130,-106.347],'чикаго':[41.878,-87.630],'вашингтон':[38.907,-77.037],
   'лондон':[51.507,-0.128],'париж':[48.856,2.352],'берлин':[52.520,13.405],
-  'мадрид':[40.416,-3.703],'барселона':[41.385,2.173],'вена':[48.208,16.373],
-  'варшава':[52.229,21.012],'прага':[50.075,14.437],'будапешт':[47.498,19.039],
-  'бухарест':[44.426,26.103],'амстердам':[52.370,4.895],'брюссель':[50.850,4.351],
-  'стокгольм':[59.333,18.065],'осло':[59.913,10.752],'копенгаген':[55.676,12.568],
-  'хельсинки':[60.169,24.938],'афины':[37.983,23.727],'лиссабон':[38.716,-9.139],
-  'цюрих':[47.376,8.548],'женева':[46.204,6.143],
-  // Азия
-  'токио':[35.689,139.692],'пекин':[39.905,116.391],'шанхай':[31.228,121.474],
-  'сеул':[37.566,126.978],'бангкок':[13.754,100.502],'дубай':[25.204,55.270],
-  'стамбул':[41.008,28.978],'тель-авив':[32.085,34.781],'тегеран':[35.694,51.422],
-  // Австралия
-  'сидней':[-33.868,151.209],'мельбурн':[-37.814,144.963],'австралия':[-25.274,133.775],
+  'токио':[35.689,139.692],'пекин':[39.905,116.391],'дубай':[25.204,55.270],
+  'стамбул':[41.008,28.978],'сидней':[-33.868,151.209],'австралия':[-25.274,133.775],
 }
 
 function resolveCoords(place) {
@@ -273,7 +364,6 @@ function buildMarkers() {
   const places = {}
   people.forEach(person => {
     const events = []
-    // Новый формат: массив events
     if (person.events && person.events.length) {
       person.events.forEach(ev => {
         if (ev.place && (ev.type === 'birth' || ev.type === 'live' || ev.type === 'death')) {
@@ -281,7 +371,6 @@ function buildMarkers() {
         }
       })
     } else {
-      // Обратная совместимость со старым форматом
       if (person.birthPlace) events.push({place: person.birthPlace, layer: 'birth'})
       if (person.deathDate && person.birthPlace) events.push({place: person.birthPlace, layer: 'death'})
     }
@@ -312,14 +401,12 @@ function drawMarker(g, x, y, person, layer, color, place) {
   const el = document.createElementNS('http://www.w3.org/2000/svg','g')
   el.setAttribute('class','map-marker')
   el.setAttribute('transform',`translate(${x},${y})`)
-  el.dataset.ox = x
-  el.dataset.oy = y
-  el.setAttribute('style','transform-origin: center')
+  el.dataset.ox = x; el.dataset.oy = y
 
-  
   const bg = document.createElementNS('http://www.w3.org/2000/svg','circle')
   bg.setAttribute('r',10); bg.setAttribute('fill',color); bg.setAttribute('opacity','0.85')
   bg.setAttribute('stroke','rgba(255,255,255,0.3)'); bg.setAttribute('stroke-width','1.5')
+  el.appendChild(bg)
 
   if (person.photo) {
     const clipId = `clip-${person.id}-${layer}`
@@ -353,8 +440,7 @@ function drawCluster(g, x, y, persons, layer, color, place) {
   const el = document.createElementNS('http://www.w3.org/2000/svg','g')
   el.setAttribute('class','cluster-circle')
   el.setAttribute('transform',`translate(${x},${y})`)
-  el.dataset.ox = x
-  el.dataset.oy = y
+  el.dataset.ox = x; el.dataset.oy = y
   const r = Math.min(8 + persons.length * 1.5, 18)
   const bg = document.createElementNS('http://www.w3.org/2000/svg','circle')
   bg.setAttribute('r',r); bg.setAttribute('fill',color); bg.setAttribute('opacity','0.82')
@@ -403,6 +489,7 @@ function showCluster(persons, layer, color, place, e) {
 }
 
 function positionPopup(popup, e) {
+  if (window.innerWidth <= 768) return // на мобиле позиционируется через CSS
   const pw=230,ph=260
   let left=e.clientX+14, top=e.clientY-60
   if(left+pw>window.innerWidth-10) left=e.clientX-pw-14
@@ -450,15 +537,23 @@ function focusPlace(lat, lon) {
   transform.x = wrap.clientWidth/2 - x*transform.k
   transform.y = wrap.clientHeight/2 - y*transform.k
   applyTransform()
+  // На мобиле закрываем sidebar после выбора места
+  if (window.innerWidth <= 768) {
+    document.getElementById('map-sidebar').classList.remove('open')
+    document.getElementById('sidebar-toggle').textContent = '📍 Места'
+  }
 }
 
 function toggleLayer(layer) {
   activeLayers[layer] = !activeLayers[layer]
-  document.querySelector(`[data-layer="${layer}"]`).classList.toggle('off', !activeLayers[layer])
-  const g = document.getElementById(`layer-${layer}`)
-  if (g) g.style.display = activeLayers[layer] ? '' : 'none'
+  document.querySelectorAll(`[data-layer="${layer}"]`).forEach(btn => {
+    btn.classList.toggle('off', !activeLayers[layer])
+  })
+  // Перерисовываем HTML overlay — он фильтрует по activeLayers
+  syncMarkerOverlay()
 }
 
+// ── Touch / mouse events ───────────────────────────────────────────────────
 const mapWrap = document.getElementById('map-wrap')
 mapWrap.addEventListener('mousedown', e => { isDragging=true; dragStart={x:e.clientX-transform.x,y:e.clientY-transform.y}; e.preventDefault() })
 mapWrap.addEventListener('mousemove', e => { if(!isDragging) return; transform.x=e.clientX-dragStart.x; transform.y=e.clientY-dragStart.y; applyTransform() })
@@ -473,7 +568,40 @@ mapWrap.addEventListener('wheel', e => {
   transform.y=my-(my-transform.y)*(nk/transform.k)
   transform.k=nk; applyTransform()
 }, {passive:false})
-mapWrap.addEventListener('click', ()=>document.getElementById('person-popup').classList.remove('visible'))
+
+// Touch support
+let lastTouchDist = null
+mapWrap.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isDragging = true
+    dragStart = {x: e.touches[0].clientX - transform.x, y: e.touches[0].clientY - transform.y}
+  } else if (e.touches.length === 2) {
+    isDragging = false
+    lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY)
+  }
+}, {passive:true})
+mapWrap.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && isDragging) {
+    transform.x = e.touches[0].clientX - dragStart.x
+    transform.y = e.touches[0].clientY - dragStart.y
+    applyTransform()
+  } else if (e.touches.length === 2 && lastTouchDist) {
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY)
+    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2
+    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2
+    const rect = mapWrap.getBoundingClientRect()
+    const mx = cx - rect.left, my = cy - rect.top
+    const delta = dist / lastTouchDist
+    const nk = Math.max(0.5, Math.min(12, transform.k * delta))
+    transform.x = mx - (mx - transform.x) * (nk / transform.k)
+    transform.y = my - (my - transform.y) * (nk / transform.k)
+    transform.k = nk
+    lastTouchDist = dist
+    applyTransform()
+  }
+  e.preventDefault()
+}, {passive:false})
+mapWrap.addEventListener('touchend', () => { isDragging = false; lastTouchDist = null })
 
 function applyTransform() {
   document.getElementById('map-g').setAttribute('transform', `translate(${transform.x},${transform.y}) scale(${transform.k})`)
@@ -482,7 +610,6 @@ function applyTransform() {
 
 function syncMarkerOverlay() {
   const wrap = document.getElementById('map-wrap')
-  const wRect = wrap.getBoundingClientRect()
   let overlay = document.getElementById('marker-overlay')
   if (!overlay) {
     overlay = document.createElement('div')
@@ -491,28 +618,25 @@ function syncMarkerOverlay() {
     wrap.appendChild(overlay)
   }
 
-  // Собираем маркеры из SVG с их SVG-координатами
   const markerData = []
   document.querySelectorAll('#map-g .map-marker, #map-g .cluster-circle').forEach(el => {
-    const ox = parseFloat(el.dataset.ox)
-    const oy = parseFloat(el.dataset.oy)
+    // Определяем слой по id родительской группы: layer-birth, layer-live, layer-death
+    const parentId = el.parentElement?.id || ''
+    const layer = parentId.replace('layer-', '')
+    // Пропускаем маркеры скрытых слоёв
+    if (layer && activeLayers[layer] === false) return
+
+    const ox = parseFloat(el.dataset.ox), oy = parseFloat(el.dataset.oy)
     if (isNaN(ox) || isNaN(oy)) return
-    // SVG координаты → экранные
     const svg = document.getElementById('world-svg')
     const svgRect = svg.getBoundingClientRect()
-    const wrap = document.getElementById('map-wrap')
-    const wrapRect = wrap.getBoundingClientRect()
-    const svgEl2 = document.getElementById('world-svg')
-    const svgRect2 = svgEl2.getBoundingClientRect()
-    const scaleX = svgRect2.width / 960
-    const scaleY = svgRect2.height / 500
+    const scaleX = svgRect.width / 960, scaleY = svgRect.height / 500
     const sx = ox * transform.k * scaleX + transform.x * scaleX
     const sy = oy * transform.k * scaleY + transform.y * scaleY
     markerData.push({ el, ox, oy, sx, sy })
   })
 
-  // Разводим перекрывающиеся (в пикселях экрана)
-  const R = 14 // радиус маркера px
+  const R = 14
   for (let iter = 0; iter < 40; iter++) {
     let moved = false
     for (let i = 0; i < markerData.length; i++) {
@@ -533,15 +657,10 @@ function syncMarkerOverlay() {
     if (!moved) break
   }
 
-  // Скрываем оригинальные SVG маркеры
-  document.querySelectorAll('#map-g .map-marker, #map-g .cluster-circle').forEach(el => {
-    el.style.display = 'none'
-  })
+  document.querySelectorAll('#map-g .map-marker, #map-g .cluster-circle').forEach(el => { el.style.display = 'none' })
 
-  // Рендерим HTML маркеры поверх карты
   overlay.innerHTML = ''
   markerData.forEach(({ el, sx, sy }) => {
-    const isCluster = el.classList.contains('cluster-circle')
     const circle = el.querySelector('circle')
     const fill = circle ? circle.getAttribute('fill') : '#999'
     const img = el.querySelector('image')
@@ -564,11 +683,6 @@ function syncMarkerOverlay() {
       div.textContent = count || '?'
     }
 
-    // Копируем обработчики через data
-    div.dataset.elIdx = Array.from(document.querySelectorAll('#map-g .map-marker, #map-g .cluster-circle')).indexOf(el)
-
-    // Клонируем события — проще через mouseenter на оригинальный el
-    // Подпись города
     const label = document.createElement('div')
     label.textContent = el.dataset.place || ''
     label.style.cssText = `position:absolute;top:32px;left:50%;transform:translateX(-50%);
@@ -578,19 +692,16 @@ function syncMarkerOverlay() {
       pointer-events:none;opacity:0;transition:opacity 0.15s;`
     div.appendChild(label)
 
-    div.addEventListener('mouseenter', e => {
-      label.style.opacity = '1'
-      el.dispatchEvent(new MouseEvent('mouseenter', {clientX: e.clientX, clientY: e.clientY}))
-    })
-    div.addEventListener('mouseleave', e => {
-      label.style.opacity = '0'
-      el.dispatchEvent(new MouseEvent('mouseleave', {}))
-    })
-    div.addEventListener('click', e => { e.stopPropagation(); el.dispatchEvent(new MouseEvent('click', {clientX: e.clientX, clientY: e.clientY, bubbles: false})) })
+    div.addEventListener('mouseenter', e => { label.style.opacity='1'; el.dispatchEvent(new MouseEvent('mouseenter',{clientX:e.clientX,clientY:e.clientY})) })
+    div.addEventListener('mouseleave', e => { label.style.opacity='0'; el.dispatchEvent(new MouseEvent('mouseleave',{})) })
+    div.addEventListener('click', e => { e.stopPropagation(); el.dispatchEvent(new MouseEvent('click',{clientX:e.clientX,clientY:e.clientY,bubbles:false})) })
+    // Touch tap
+    div.addEventListener('touchend', e => { e.preventDefault(); e.stopPropagation(); el.dispatchEvent(new MouseEvent('click',{clientX:e.changedTouches[0].clientX,clientY:e.changedTouches[0].clientY,bubbles:false})) })
 
     overlay.appendChild(div)
   })
 }
+
 function zoomIn()  { const cx=mapWrap.clientWidth/2,cy=mapWrap.clientHeight/2,nk=Math.min(12,transform.k*1.3); transform.x=cx-(cx-transform.x)*(nk/transform.k); transform.y=cy-(cy-transform.y)*(nk/transform.k); transform.k=nk; applyTransform() }
 function zoomOut() { const cx=mapWrap.clientWidth/2,cy=mapWrap.clientHeight/2,nk=Math.max(0.5,transform.k/1.3); transform.x=cx-(cx-transform.x)*(nk/transform.k); transform.y=cy-(cy-transform.y)*(nk/transform.k); transform.k=nk; applyTransform() }
 function zoomReset() { transform={x:0,y:0,k:1}; applyTransform() }

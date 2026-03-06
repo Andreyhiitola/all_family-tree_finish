@@ -13,6 +13,14 @@
   
   <!-- ❌ УДАЛЕНА ПРОБЛЕМНАЯ СТРОКА: <base href="/all_family-tree_finish/"> -->
   <!-- Это ломало пути при локальной разработке! -->
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8B4513">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Древо">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   
   <link rel="stylesheet" href="style.css?v=202602121459">
   <link rel="stylesheet" href="profile-modal-styles.css?v=202602121459">
@@ -37,8 +45,9 @@
       <button class="btn" onclick="window.exportJsonFile()">💾 Экспорт JSON</button>
       
       <input id="search" placeholder="🔍 Поиск...">
-      <a href="map.html" class="btn" style="text-decoration:none" target="_blank">🗺 Карта</a>   
-      </div>
+      <a href="map.html" class="btn" style="text-decoration:none" target="_blank">🗺 Карта</a>
+      <button class="btn" onclick="document.getElementById('qr-modal').style.display='flex'" title="QR-код для установки на телефон">📱 QR</button>
+    </div>
   </header>
 
   <main class="app-main">
@@ -208,7 +217,26 @@
   </div>
 
   <!-- Модальное окно Профиля -->
-  
+
+  <!-- QR-код модалка -->
+  <div id="qr-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.78);
+       z-index:2000; align-items:center; justify-content:center;"
+       onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:linear-gradient(160deg,#2e2116,#3d2b1a); border:1px solid #c9a96e;
+                border-radius:16px; padding:24px 24px 18px; max-width:320px; width:88%;
+                text-align:center; position:relative; box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+      <button onclick="document.getElementById('qr-modal').style.display='none'"
+              style="position:absolute;top:10px;right:14px;background:none;border:none;
+                     color:#c9a96e;font-size:1.5rem;cursor:pointer;line-height:1;">×</button>
+      <h3 style="color:#c9a96e;font-family:Georgia,serif;margin:0 0 4px;font-size:1rem;">📱 Установить приложение</h3>
+      <p style="color:#a08060;font-size:0.75rem;margin:0 0 14px;">Наведи камеру телефона на QR-код</p>
+      <img src="qr_styled.png" alt="QR код" style="width:100%;border-radius:10px;display:block;border:1px solid rgba(201,169,110,0.3);">
+      <p style="color:#6a5040;font-size:0.65rem;margin:10px 0 0;font-style:italic;">
+        andreyhiitola.github.io/all_family-tree_finish
+      </p>
+    </div>
+  </div>
+
   <!-- Библиотеки -->
   <script src="d3.v7.min.js"></script>
   <script src="xlsx.full.min.js"></script>
@@ -360,8 +388,8 @@
         window.location.href = window.location.pathname + '?nocache=' + Date.now()
       }, 500)
     }
-     </script> 
-     <script>
+  </script>
+  <script>
     // Регистрация Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
