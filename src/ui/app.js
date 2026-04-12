@@ -298,6 +298,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ==================== ОБРАБОТЧИКИ ====================
 
+  // Кнопка "Все деревья"
+  document.getElementById('btn-all-trees')?.addEventListener('click', () => {
+    const btn = document.getElementById('btn-all-trees')
+    const isAllMode = btn.classList.toggle('active')
+    if (isAllMode) {
+      treeViz.renderAll()
+    } else {
+      treeViz.render(currentRootId)
+    }
+  })
+
+  // Кнопка "Связи по фамилии"
+  document.getElementById('btn-surname-links')?.addEventListener('click', () => {
+    const btn = document.getElementById('btn-surname-links')
+    const visible = treeViz.toggleSurnameLinks()
+    btn.classList.toggle('active', visible)
+  })
+
   document.getElementById('export-excel').addEventListener('click', () => {
     exportPeopleToExcel(dataManager.getPeople())
   })

@@ -271,11 +271,14 @@ class ProfileModal {
         // Фото - ИСПРАВЛЕНО: убрано дублирование пути
         const photoImg = document.getElementById('profile-photo');
         if (photoImg && window.dataManager) {
-            if (person.photo) {
-                photoImg.src = window.dataManager.getPhotoUrl(person.photo);
-            } else {
+            const url = person.photo
+                ? window.dataManager.getPhotoUrl(person.photo)
+                : window.dataManager.getPhotoUrl('default-avatar.png');
+            photoImg.src = url;
+            photoImg.onerror = () => {
                 photoImg.src = window.dataManager.getPhotoUrl('default-avatar.png');
-            }
+                photoImg.onerror = null;
+            };
             photoImg.style.display = 'block';
         }
 
@@ -323,7 +326,7 @@ class ProfileModal {
 
         const bioEl = document.getElementById('profile-bio');
         if (bioEl) {
-            bioEl.textContent = person.bio || 'Биография не указана';
+            bioEl.textContent = person.biography || 'Биография не указана';
         }
 
         // Заполняем семейную информацию
@@ -414,12 +417,14 @@ class ProfileModal {
 
         let galleryHTML = '';
 
+        const defaultAvatar = window.dataManager ? window.dataManager.getPhotoUrl('default-avatar.png') : '';
+
         // Основное фото
         if (person.photo && window.dataManager) {
             const photoPath = window.dataManager.getPhotoUrl(person.photo);
             galleryHTML += `
                 <div class="gallery-item">
-                    <img src="${photoPath}" alt="${person.name}">
+                    <img src="${photoPath}" alt="${person.name}" onerror="this.src='${defaultAvatar}';this.onerror=null;">
                 </div>
             `;
         }
@@ -431,7 +436,7 @@ class ProfileModal {
                 if (photoPath) {
                     galleryHTML += `
                         <div class="gallery-item">
-                            <img src="${photoPath}" alt="${person.name} - фото ${index + 1}">
+                            <img src="${photoPath}" alt="${person.name} - фото ${index + 1}" onerror="this.src='${defaultAvatar}';this.onerror=null;">
                         </div>
                     `;
                 }

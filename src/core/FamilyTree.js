@@ -158,7 +158,9 @@ class FamilyTreeCore {
             id: person.id,
             name: person.name,
             surname: person.surname,
-            gender: person.gender
+            gender: person.gender,
+            photo: person.photo || '',
+            birthDate: person.birthDate || ''
           },
           children: []
         }
@@ -175,13 +177,17 @@ class FamilyTreeCore {
                 id: person.id,
                 name: person.name,
                 surname: person.surname,
-                gender: person.gender
+                gender: person.gender,
+                photo: person.photo || '',
+                birthDate: person.birthDate || ''
               },
               person2: {
                 id: spouse.id,
                 name: spouse.name,
                 surname: spouse.surname,
-                gender: spouse.gender
+                gender: spouse.gender,
+                photo: spouse.photo || '',
+                birthDate: spouse.birthDate || ''
               },
               children: []
             }
@@ -222,13 +228,17 @@ class FamilyTreeCore {
           id: person.id,
           name: person.name,
           surname: person.surname,
-          gender: person.gender
+          gender: person.gender,
+          photo: person.photo || '',
+          birthDate: person.birthDate || ''
         },
         person2: spouse ? {
           id: spouse.id,
           name: spouse.name,
           surname: spouse.surname,
-          gender: spouse.gender
+          gender: spouse.gender,
+          photo: spouse.photo || '',
+          birthDate: spouse.birthDate || ''
         } : null,
         children: []
       }
